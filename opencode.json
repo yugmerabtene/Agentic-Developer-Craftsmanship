@@ -18,7 +18,7 @@
     "fullstack-developer": {
       "mode": "subagent",
       "description": "Sous-agent spécialisé dans le développement frontend, backend, API, base de données et logique métier.",
-      "skills": ["common", "fullstack_developer"]
+      "skills": ["common", "fullstack_developer", "webdesigner"]
     },
     "devops": {
       "mode": "subagent",
