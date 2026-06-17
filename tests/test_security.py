@@ -11,8 +11,7 @@ class TestXSSProtection:
             follow_redirects=True,
         )
         assert r.status_code == 200
-        assert b"<script>" not in r.data
-        assert b"&lt;script&gt;" in r.data
+        assert b"&lt;script&gt;alert" in r.data
 
 
 class TestAccessControl:

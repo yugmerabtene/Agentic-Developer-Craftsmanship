@@ -56,7 +56,7 @@ def _admin(app, db):
     a = User(
         last_name="Admin",
         first_name="Admin",
-        email="admin@example.com",
+        email="test-admin@example.com",
         is_admin=True,
     )
     a.set_password("Admin123!")
@@ -90,7 +90,7 @@ def admin_client(client, _admin):
     client.post(
         "/auth/login",
         data={
-            "email": "admin@example.com",
+            "email": "test-admin@example.com",
             "password": "Admin123!",
         },
     )
