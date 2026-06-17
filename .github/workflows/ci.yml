@@ -108,10 +108,14 @@ jobs:
             -e SECRET_KEY=test-secret \
             -e DATABASE_URL=sqlite:///data/test.db \
             -p 5000:5000 nexa-social-test
-          sleep 3
       - name: Vérifier l'accessibilité
         run: |
-          curl -f http://localhost:5000/wall || exit 1
+          for i in $(seq 1 10); do
+            sleep 2
+            curl -sf http://localhost:5000/wall && exit 0
+            echo "Tentative $i/10 - serveur pas encore pret"
+          done
+          exit 1
       - name: Nettoyage
         run: docker stop nexa-test && docker rm nexa-test
 
