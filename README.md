@@ -234,7 +234,7 @@ graph LR
 
 ---
 
-### Projet fil rouge
+### Projet reseau social
 
 Ce cours s'appuie sur un projet concret : une **application web sociale simplifiee** (mur public, authentification, gestion d'utilisateurs). Le Cahier des Charges est defini dans [`projet/gestion_de_projet/cdc.md`](projet/gestion_de_projet/cdc.md).
 
