@@ -1,8 +1,12 @@
 # Agentic-Developer-Craftsmanship
 
-Cours 100% open-source sur le developpement de **systemes agentiques** — de l'histoire de l'IA (Intelligence Artificielle) a la mise en production d'agents autonomes avec opencode + `opencode/big-pickle` (zero API payante).
+**Construisez des systemes agentiques professionnels — de l'histoire de l'IA au deploiement en production.**
 
-Projet fil rouge : application web sociale simplifiee definie dans [`projet/gestion_de_projet/cdc.md`](projet/gestion_de_projet/cdc.md).
+Ce cours 100% open-source vous guide a travers les concepts fondamentaux et les techniques avancees du developpement d'agents autonomes. De la tokenisation a l'orchestration multi-agent, des memoire vectorielle aux protocoles d'interoperabilite, chaque notion est illustree par des exemples concrets et des travaux pratiques.
+
+**Particularite :** aucun abonnement API requis. L'ensemble du cours fonctionne avec `opencode` et le modele libre `big-pickle`.
+
+**Fil rouge :** un projet de reseau social dont le cahier des charges est defini dans [`projet/gestion_de_projet/cdc.md`](projet/gestion_de_projet/cdc.md). Chaque partie propose des TP qui construisent ce projet pas a pas via des agents opencode.
 
 ---
 
