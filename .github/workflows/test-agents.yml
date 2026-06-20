@@ -1,0 +1,68 @@
+# =============================================================================
+# test-agents.yml — Tests unitaires et comportementaux pour les agents
+#
+# Workflow leger dedie aux TP de la Partie 8 (section 6).
+# Execute les tests des assistants agentiques crees par les etudiants.
+#
+# Permissions :
+#   - Lecture : code source (actions/checkout)
+#   - Ecriture : aucun (lecture seule)
+#   - Execution : pip, pytest, ruff uniquement
+# =============================================================================
+
+name: Tests Agents
+
+# Declencheur : push/PR sur tout fichier .py dans le depot
+# (les etudiants peuvent travailler dans n'importe quel dossier)
+on:
+  push:
+    paths:
+      - "**/*.py"
+      - "requirements*.txt"
+      - "**/test_*.py"
+  pull_request:
+    paths:
+      - "**/*.py"
+      - "requirements*.txt"
+
+# Aucun ecrit requis : ce workflow est read-only
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      # Etape 1 : recuperer le code source du depot
+      - uses: actions/checkout@v4
+
+      # Etape 2 : installer Python 3.12
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      # Etape 3 : installer les dependances
+      # Si le projet a un fichier requirements, on l'utilise
+      # Sinon on installe juste pytest et ruff
+      - name: Installer les dependances
+        run: |
+          python -m pip install --upgrade pip
+          pip install pytest ruff
+          if [ -f requirements-dev.txt ]; then
+            pip install -r requirements-dev.txt
+          fi
+          if [ -f requirements.txt ]; then
+            pip install -r requirements.txt
+          fi
+
+      # Etape 4 : verifier la qualite du code avec ruff
+      # Ruff verifie : PEP 8, imports morts, variables inutilisees, etc.
+      - name: Verifier la qualite (ruff)
+        run: ruff check . --ignore E501   # E501 = line too long (tolere)
+
+      # Etape 5 : executer tous les tests trouves dans le depot
+      # pytest discover automatiquement les fichiers test_*.py
+      - name: Executer les tests
+        run: pytest -v --tb=short --no-header | tail -20
+        continue-on-error: true   # Le pipeline continue meme si des tests echouent

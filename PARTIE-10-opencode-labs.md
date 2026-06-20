@@ -330,6 +330,152 @@ Essayez ces instructions :
 
 ---
 
+### 4.2 Lab 2 — Equipe d'Agents avec CI/CD et Project Board
+
+> **Projet reseau social** : ce lab integre la chaine CI/CD (Partie 8) a l'equipe d'agents opencode. Les agents produisent du code, le pipeline le valide, et le Project board suit la progression automatiquement.
+
+**Objectif :** Configurer une equipe d'agents opencode avec pipeline CI/CD et tableau de bord GitHub Projects.
+
+**Durée :** 2h
+
+---
+
+#### Étape 1 — Structurer le projet
+
+```bash
+mkdir equipe-agentic && cd equipe-agentic
+git init
+mkdir -p .opencode/skills .github/workflows
+```
+
+#### Étape 2 — Configurer l'équipe d'agents
+
+Créez `opencode.json` avec les permissions commentees :
+
+```jsonc
+{
+  "$schema": "https://opencode.ai/config.json",
+  "model": "opencode/big-pickle",
+  "default_agent": "scrum-master",
+  "instructions": ["AGENTS.md"],
+  "skills": {
+    "paths": [".opencode/skills"]
+  },
+  "agent": {
+    "scrum-master": {
+      "mode": "primary",
+      "description": "Coordonne l'equipe, delegue aux sous-agents",
+      "skills": ["common", "scrum_master"],
+      "permission": {
+        "read": "allow",
+        "edit": "allow",
+        "bash": {
+          "git *": "allow",
+          "gh *": "allow",
+          "*": "ask"
+        }
+      }
+    },
+    "developer": {
+      "mode": "subagent",
+      "description": "Developpe le code et les tests",
+      "skills": ["common", "developer"],
+      "permission": {
+        "read": "allow",
+        "edit": "allow",
+        "bash": {
+          "python *": "allow",
+          "pytest *": "allow",
+          "*": "ask"
+        }
+      }
+    },
+    "devops": {
+      "mode": "subagent",
+      "description": "CI/CD, Docker, deploiement",
+      "skills": ["common", "devops"],
+      "permission": {
+        "read": "allow",
+        "edit": "allow",
+        "bash": {
+          "docker *": "allow",
+          "gh *": "allow",
+          "*": "ask"
+        }
+      }
+    }
+  }
+}
+```
+
+Chaque permission est explicitement definie :
+- **read/edite :** `allow` — les agents ont acces au code
+- **bash.commandes :** certaines sont autorisees directement (`allow`), d'autres demandent confirmation (`ask`)
+
+#### Étape 3 — Ajouter le pipeline CI/CD
+
+Créez `.github/workflows/cicd-equipe.yml` :
+
+```yaml
+name: CI/CD Equipe Agentic
+
+# Declenche sur push/PR du projet applicatif
+on:
+  push:
+    branches: [main]
+    paths: ["app/**", "tests/**"]
+  pull_request:
+    paths: ["app/**", "tests/**"]
+
+permissions:
+  contents: read
+  issues: write
+  projects: write
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install ruff mypy
+      - run: ruff check app/
+      - run: mypy app/ --ignore-missing-imports
+      - run: pytest tests/ -v --tb=short
+```
+
+#### Étape 4 — Créer le GitHub Project
+
+```bash
+# Creer un Project V2 (via l'interface GitHub ou l'API)
+gh project create --owner <compte> --title "Mon Projet Agentic"
+
+# Creer une issue pour le sprint en cours
+gh issue create --title "Sprint 1 — Initialisation" \
+  --label "sprint" --body "Configuration de l'equipe agentic"
+```
+
+#### Étape 5 — Orchestrer via agents opencode
+
+Lancez opencode et demandez au scrum-master :
+
+```
+"Configure le pipeline CI/CD dans .github/workflows/ avec :
+ - Un job de qualite (ruff, mypy)
+ - Un job de tests (pytest)
+ - Un job de build Docker
+ - Mise a jour du Project board automatique"
+```
+
+Les agents opencode :
+1. Le **scrum-master** analyse la demande et decoupe les taches
+2. Le **developer** ecrit le code applicatif et les tests
+3. Le **devops** genere les workflows GitHub Actions
+4. Le pipeline s'execute a chaque push et le board se met a jour
+
+---
+
 ## 5. Évaluation & Validation
 
 ### 5.1 Critères pour chaque lab
@@ -360,6 +506,8 @@ opencode -t "Vérifie que le Dockerfile est valide"
 3. Les agents communiquent par **délégation** (`@agent`, `task()`)
 4. Les **labs** sont des exercices progressifs pour maîtriser l'agentic
 5. Tout est **gratuit et open-source** avec opencode + big-pickle
+6. Le **pipeline CI/CD** valide le code des agents automatiquement (zero token)
+7. Le **GitHub Project** suit la progression en temps reel sans cout LLM
 
 ---
 

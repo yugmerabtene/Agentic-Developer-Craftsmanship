@@ -164,6 +164,100 @@ jobs:
       - run: echo "Déploiement..."
 ```
 
+### 3.5 Integration avec GitHub Projects
+
+Un pipeline CI/CD ne se limite pas a builder et deployer. Il peut aussi **mettre a jour automatiquement un tableau de bord** pour suivre la progression du projet en temps reel, sans cout de token LLM supplementaire.
+
+#### Principe
+
+```mermaid
+%%{init: {'theme': 'base', 'themeVariables': {
+  'primaryColor': '#7c3aed',
+  'primaryTextColor': '#fff',
+  'lineColor': '#a78bfa'
+}}}%%
+graph LR
+    C[Commit push] --> W[Workflow GH Actions]
+    W --> D["Diff detecte (PARTIE-*.md)"]
+    D --> P["gh project item-edit"]
+    P --> B["Board mis a jour<br/>A faire -> En cours"]
+    
+    style C fill:#7c3aed,color:#fff,stroke:#5b21b6
+    style W fill:#0891b2,color:#fff,stroke:#155e75
+    style D fill:#059669,color:#fff,stroke:#047857
+    style P fill:#d97706,color:#fff,stroke:#b45309
+    style B fill:#1e293b,color:#f1f5f9,stroke:#334155
+```
+
+#### Workflow de suivi (zero token LLM)
+
+Le fichier `.github/workflows/track-progress.yml` utilise uniquement la CLI `gh` (pas de LLM) pour detecter les fichiers PARTIE-*.md modifies et deplacer automatiquement les cartes dans le Project board.
+
+Caracteristiques :
+- **Cout : zero token** — bash + gh CLI, pas d'appel LLM
+- **Temps reel** — execute a chaque push sur main
+- **Automatique** — plus besoin de deplacer les cartes a la main
+- **Filtre par fichier** — seule la PARTIE modifiee est mise a jour
+
+```yaml
+name: Suivi de progression du cours
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "PARTIE-*.md"
+
+permissions:
+  contents: read        # Lecture seule pour le diff
+  issues: write         # Mise a jour des issues
+  projects: write       # Mise a jour du Project board
+
+jobs:
+  track-parties:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Analyser les fichiers modifies
+        run: |
+          CHANGED=$(git diff --name-only HEAD~1 HEAD -- 'PARTIE-*.md' || true)
+          echo "Fichiers modifies : $CHANGED"
+```
+
+#### Architecture du board
+
+```mermaid
+%%{init: {'theme': 'base', 'themeVariables': {
+  'primaryColor': '#059669',
+  'primaryTextColor': '#fff',
+  'lineColor': '#34d399'
+}}}%%
+graph TB
+    subgraph "GitHub Project V2"
+        AF["A faire"] --> EC["En cours"]
+        EC --> AT["A tester"]
+        AT --> T["Termine"]
+    end
+    
+    subgraph "Issues liees"
+        I1["Issue P1"] -.-> AF
+        I2["Issue P2"] -.-> AF
+        I3["Issue P3"] -.-> AF
+    end
+    
+    W["track-progress.yml"] -->|"commit sur PARTIE-02.md"| EC
+    
+    style AF fill:#6b7280,color:#fff
+    style EC fill:#3b82f6,color:#fff
+    style AT fill:#f59e0b,color:#fff
+    style T fill:#10b981,color:#fff
+```
+
+Ce pattern est reutilisable pour n'importe quel projet : il suffit de creer un Project V2, des issues liees, et un workflow qui les synchronise.
+
 ---
 
 ## 4. Monitoring & Observabilité
@@ -408,6 +502,29 @@ Demandez à l'agent opencode :
 "Ajoute un job 'benchmark' qui mesure le temps de réponse des outils"
 "Ajoute un seuil d'échec : si un outil met plus de 2 secondes, le test échoue"
 "Ajoute un rapport de couverture de code"
+```
+
+### Étape 7 — Créer le GitHub Project
+
+Mettez en place un tableau de bord visuel pour suivre la progression des PARTIES et du pipeline CI/CD :
+
+1. **Créez un GitHub Project V2** (onglet Projects > New project)
+2. **Ajoutez les colonnes** : A faire | En cours | A tester | Termine
+3. **Créez une Issue pour chaque Partie** (P1 a P10) et associez-les au Project
+4. **Ajoutez un workflow de suivi** : creez `.github/workflows/track-progress.yml`
+
+Le workflow `track-progress.yml` detecte automatiquement les pushes sur les fichiers PARTIE-*.md et deplace la carte correspondante de "A faire" vers "En cours". Zero token LLM necessaire.
+
+```bash
+# Exemple : creer une issue depuis le terminal
+gh issue create --title "Partie 8 — CI/CD & DevOps" \
+  --label "course" --body "Suivi de progression"
+
+# Ajouter l'issue au project (numero 13 dans cet exemple)
+gh project item-list 13 --owner <votre-compte> \
+  --format json --jq '.items[] | select(.content.number == <NUM>) | .id' \
+  | xargs -I {} gh project item-edit --project-id 13 \
+    --id {} --field "Statut" --single-select "<option-id>"
 ```
 
 ### Validation

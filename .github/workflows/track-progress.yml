@@ -1,0 +1,113 @@
+# =============================================================================
+# track-progress.yml — Suivi automatique de progression du cours
+# 
+# Ce workflow deterministe (zero token LLM) detecte les modifications
+# dans les fichiers PARTIE-*.md et met a jour le GitHub Project V2
+# "Agentic Developer Course - Progression" en consequence.
+#
+# Permissions :
+#   - Lecture : code source du depot (actions/checkout)
+#   - Ecriture : issues, projet (issues: write, projects: write)
+#   - Execution : commandes gh CLI uniquement (pas de code externe)
+#
+# Principe du moindre privilege :
+#   On utilise GITHUB_TOKEN avec des permissions limitees au strict
+#   necessaire pour lire les fichiers et mettre a jour le project board.
+# =============================================================================
+
+name: Suivi de progression du cours
+
+# Declencheur : a chaque push vers main, quand un fichier PARTIE-*.md change
+on:
+  push:
+    branches: [main]
+    paths:
+      - "PARTIE-*.md"
+
+# Permissions accordees au GITHUB_TOKEN embarque par GitHub Actions
+permissions:
+  contents: read        # Lire le code source pour detecter les fichiers modifies
+  issues: write         # Creer/mettre a jour des issues si necessaire
+  projects: write       # Mettre a jour le Project board (deplacer les cartes)
+
+jobs:
+  # Job unique : analyser les fichiers modifies et synchroniser le board
+  track-parties:
+    runs-on: ubuntu-latest
+    steps:
+      # Etape 1 : recuperer le code source du depot
+      # Obligatoire pour que git detecte les fichiers modifies via diff
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2   # 2 commits suffisent pour le diff
+          ref: main
+
+      # Etape 2 : verifier que le diff contient bien des PARTIES modifies
+      - name: Analyser les fichiers modifies
+        id: diff
+        run: |
+          # Extrait la liste des fichiers PARTIE-*.md modifies dans ce push
+          CHANGED=$(git diff --name-only HEAD~1 HEAD -- 'PARTIE-*.md' || true)
+          
+          if [ -z "$CHANGED" ]; then
+            echo "Aucune partie modifiee dans ce commit."
+            echo "changed=false" >> $GITHUB_OUTPUT
+          else
+            echo "Fichiers modifies : $CHANGED"
+            echo "changed=true" >> $GITHUB_OUTPUT
+            # Convertit les noms de fichiers en numeros de partie
+            # Exemple : PARTIE-01-histoire-ia.md -> 01
+            for file in $CHANGED; do
+              NUM=$(echo "$file" | grep -oP 'PARTIE-\K\d{2}')
+              if [ -n "$NUM" ]; then
+                echo "partie_${NUM}=true" >> $GITHUB_OUTPUT
+              fi
+            done
+          fi
+
+      # Etape 3 : mettre a jour le Project board
+      # Utilise gh CLI (authentifie via GITHUB_TOKEN) pour deplacer
+      # les cartes des PARTIES modifiees de "A faire" vers "En cours"
+      - name: Synchroniser le Project board
+        if: steps.diff.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Identifiants du Project V2 (obtenus via gh project list ou API)
+          # Project : "Agentic Developer Course - Progression" (numero 13)
+          PROJECT_NUMBER: 13
+          OWNER: yugmerabtene
+        run: |
+          # Les champs et options du Project V2 sont reutilises depuis le board
+          # Nom du champ : "Statut"
+          # Option "En cours" : a0248149
+          STATUS_FIELD="Statut"
+          EN_COURS_ID="a0248149"
+          
+          # Pour chaque Partie 01 a 10, verifier si elle a ete modifiee
+          for num in 01 02 03 04 05 06 07 08 09 10; do
+            # Variable dynamique : partie_01, partie_02, etc.
+            VAR_NAME="partie_$num"
+            if [ "${!VAR_NAME}" = "true" ]; then
+              echo "Mise a jour : Partie $num -> En cours"
+              
+              # Convertir le numero en numero d'issue
+              # Les issues sont numerotees 2..11 (1 = test supprime)
+              ISSUE_NUM=$(( num + 1 ))
+              ISSUE_NUM=$(( 10#$num + 1 ))
+              
+              # Recuperer l'ID d'item dans le project via l'issue correspondante
+              # On utilise l'API GraphQL pour trouver et mettre a jour l'item
+              gh project item-list $PROJECT_NUMBER --owner $OWNER \
+                --format json --jq '.items[] | select(.content.number == '$ISSUE_NUM') | .id' \
+                | while read ITEM_ID; do
+                  if [ -n "$ITEM_ID" ]; then
+                    gh project item-edit \
+                      --project-id $PROJECT_NUMBER --owner $OWNER \
+                      --id "$ITEM_ID" \
+                      --field "$STATUS_FIELD" \
+                      --single-select "$EN_COURS_ID"
+                    echo "  -> Partie $num deplacee vers 'En cours'"
+                  fi
+                done
+            fi
+          done

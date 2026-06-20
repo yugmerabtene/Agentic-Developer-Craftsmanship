@@ -8,6 +8,8 @@ Ce cours 100% open-source vous guide a travers les concepts fondamentaux et les 
 
 **Fil rouge :** un projet de reseau social dont le cahier des charges est defini dans [`projet/gestion_de_projet/cdc.md`](projet/gestion_de_projet/cdc.md). Chaque partie propose des TP qui construisent ce projet pas a pas via des agents opencode.
 
+[![Progression du cours](https://img.shields.io/badge/Suivi-Project%20Board-7c3aed?logo=github)](https://github.com/users/yugmerabtene/projects/13)
+
 ---
 
 ## Sommaire
@@ -80,9 +82,10 @@ Mettre en production des agents.
 - 1 : Pourquoi la CI/CD est cruciale
 - 2 : Tester des agents (unitaires, integration, benchmarks)
 - 3 : Pipeline CI/CD pour agents
-- 4 : Monitoring & observabilite
-- 5 : Gestion des couts tokens
-- 6 : TP — CI/CD pour projet agentique
+- 4 : Integration GitHub Projects (board temps reel, zero token)
+- 5 : Monitoring & observabilite
+- 6 : Gestion des couts tokens
+- 7 : TP — CI/CD + Project Board pour projet agentique
 
 ### [Partie 9 — Securite & Safety des Agents](PARTIE-09-securite.md)
 Proteger les systemes agentiques.
@@ -98,7 +101,7 @@ Configurer et executer une equipe d'agents.
 - 1 : Qu'est-ce qu'opencode ?
 - 2 : Configuration d'un projet opencode
 - 3 : Utiliser opencode en ligne de commande
-- 4 : Labs pratiques (decouverte, equipe Scrum)
+- 4 : Labs pratiques (decouverte, equipe Scrum, CI/CD)
 - 5 : Evaluation & validation
 
 ---
