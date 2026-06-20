@@ -76,23 +76,25 @@ mon-projet-agentic/
 
 ### 2.2 `opencode.json`
 
-```json
+Créez un fichier `opencode.json` :
+
+```jsonc
 {
-  "$schema": "https://opencode.ai/config.json",
-  "model": "opencode/big-pickle",
-  "default_agent": "scrum-master",
-  "instructions": ["AGENTS.md"],
+  "$schema": "https://opencode.ai/config.json",  // Schéma de validation du fichier
+  "model": "opencode/big-pickle",  // Modèle gratuit — aucun coût
+  "default_agent": "scrum-master",  // Agent principal par défaut
+  "instructions": ["AGENTS.md"],  // Documentation de l'équipe
   "skills": {
-    "paths": [".opencode/skills"]
+    "paths": [".opencode/skills"]  // Dossier des compétences spécialisées
   },
   "agent": {
     "scrum-master": {
-      "mode": "primary",
+      "mode": "primary",  // Agent principal, coordinateur
       "description": "Coordonne l'équipe, découpe le travail en tâches",
       "skills": ["common", "scrum_master"]
     },
     "developer": {
-      "mode": "subagent",
+      "mode": "subagent",  // Sous-agent délégué
       "description": "Écrit le code, les tests, la documentation",
       "skills": ["common", "developer"]
     },
@@ -112,15 +114,17 @@ mon-projet-agentic/
 
 ### 2.3 `AGENTS.md`
 
+Créez un fichier `AGENTS.md` :
+
 ```markdown
 # Équipe de développement
 
-| Agent | Rôle | Mode |
-|---|---|---|
-| scrum-master | Chef de projet — planifie, coordonne | primary |
-| developer | Développe le code | subagent |
-| devops | Infrastructure, CI/CD | subagent |
-| tester | Tests et qualité | subagent |
+| Agent                  | Rôle                               | Mode      |
+|------------------------|------------------------------------|-----------|
+| scrum-master           | Chef de projet — planifie, coordonne| primary   |
+| developer              | Développe le code                  | subagent  |
+| devops                 | Infrastructure, CI/CD              | subagent  |
+| tester                 | Tests et qualité                   | subagent  |
 
 ## Workflow
 1. L'utilisateur donne une instruction
@@ -221,6 +225,8 @@ Dans le fichier de configuration, les agents peuvent déléguer des tâches :
 
 ### 4.1 Lab 1 — Premier Projet Opencode
 
+> **Projet fil rouge** : ce lab final configure opencode pour developper l'ensemble du reseau social defini dans [`gestion_de_projet/cdc.md`](gestion_de_projet/cdc.md) avec une equipe d'agents Scrum.
+
 **Objectif :** Configurer votre premier projet opencode avec une équipe d'agents et interagir avec eux.
 
 **Durée :** 1h
@@ -238,23 +244,23 @@ git init
 
 Créez `opencode.json` :
 
-```json
+```jsonc
 {
-  "$schema": "https://opencode.ai/config.json",
-  "model": "opencode/big-pickle",
-  "default_agent": "scrum-master",
-  "instructions": [],
+  "$schema": "https://opencode.ai/config.json",  // Schéma de validation
+  "model": "opencode/big-pickle",  // Modèle gratuit
+  "default_agent": "scrum-master",  // Agent principal par défaut
+  "instructions": [],  // Instructions complémentaires (optionnel)
   "skills": {
-    "paths": [".opencode/skills"]
+    "paths": [".opencode/skills"]  // Dossier des compétences
   },
   "agent": {
     "scrum-master": {
-      "mode": "primary",
+      "mode": "primary",  // Agent coordinateur principal
       "description": "Chef de projet qui coordonne les travaux",
       "skills": ["common"]
     },
     "developer": {
-      "mode": "subagent",
+      "mode": "subagent",  // Sous-agent d'exécution
       "description": "Développe le code Python",
       "skills": ["common"]
     }

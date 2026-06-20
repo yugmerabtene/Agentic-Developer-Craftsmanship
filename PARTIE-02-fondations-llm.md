@@ -260,6 +260,10 @@ graph TD
 
 ---
 
+> **Projet fil rouge** : le projet social defini dans [`gestion_de_projet/cdc.md`](gestion_de_projet/cdc.md) utilisera les LLMs via opencode pour automatiser le developpement de ses fonctionnalites (authentification, mur public, gestion utilisateurs).
+
+---
+
 ## Points clés à retenir
 
 1. Un LLM est un **prédicteur de tokens** entraîné sur des masses de texte
@@ -276,3 +280,6 @@ graph TD
 - [Partie 1 — Histoire de l'IA](./PARTIE-01-histoire-ia.md)
 - [Partie 3 — Prompt & Tool Use](./PARTIE-03-prompt-tool-use.md)
 - [Documentation technique — Architecture Transformer (Vaswani et al., 2017)](https://arxiv.org/abs/1706.03762)
+
+---
+**Projet fil rouge** : [`gestion_de_projet/cdc.md`](gestion_de_projet/cdc.md)

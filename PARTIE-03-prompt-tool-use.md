@@ -25,10 +25,10 @@ graph LR
     subgraph Prompt
         SP[System Prompt<br/>Rôle, règles, contexte]
         UP[User Prompt<br/>Question, tâche]
-        EX[Exemples<br/>(Few-shot)]
+        EX["Exemples (Few-shot)<br/>"]
     end
     
-    SP --> LLM[LLM (Large Language Model)]
+    SP --> LLM["LLM (Large Language Model)"]
     UP --> LLM
     EX --> LLM
     LLM --> R[Réponse]
@@ -160,22 +160,27 @@ graph TD
 
 ### 3.2 Définir un outil
 
+Créez un fichier `tools.py` :
+
 ```python
+# Liste des outils disponibles pour le LLM
+# Chaque outil est défini comme un dictionnaire conforme au schema OpenAI
 tools = [
     {
-        "type": "function",
+        "type": "function",  # Type d'outil : appel de fonction
         "function": {
-            "name": "get_weather",
+            "name": "get_weather",  # Nom unique de l'outil
+            # Description qui aide le LLM à décider quand utiliser cet outil
             "description": "Obtenir la météo d'une ville",
             "parameters": {
-                "type": "object",
+                "type": "object",  # Le paramètre est un objet JSON
                 "properties": {
                     "city": {
-                        "type": "string",
-                        "description": "Nom de la ville"
+                        "type": "string",  # Type string pour le nom de ville
+                        "description": "Nom de la ville"  # Description du champ
                     }
                 },
-                "required": ["city"]
+                "required": ["city"]  # Le champ city est obligatoire
             }
         }
     }
@@ -252,26 +257,39 @@ Réponse: L'écart de température entre Paris (15°C) et Tokyo (22°C) est de 7
 
 ### 4.3 Implémentation simple
 
+Créez un fichier `agent_loop.py` :
+
 ```python
+# Boucle principale du pattern ReAct
+# question : entrée utilisateur, max_steps : limite d'itérations
 def agent_loop(question: str, max_steps: int = 5):
+    # Initialise l'historique avec la question de l'utilisateur
     messages = [{"role": "user", "content": question}]
     
+    # Boucle ReAct : Thought -> Action -> Observation
     for step in range(max_steps):
+        # Envoie les messages au LLM avec les outils disponibles
         response = llm.chat(messages, tools=tools)
         
+        # Si le LLM répond directement, c'est la réponse finale
         if response.content:  # Réponse finale
             return response.content
         
+        # Si le LLM demande un appel d'outil
         if response.tool_calls:
+            # Parcourt tous les appels d'outils demandés
             for tool_call in response.tool_calls:
-                result = execute_tool(tool_call)
+                result = execute_tool(tool_call)  # Exécute l'outil
+                # Ajoute la demande d'appel à l'historique
                 messages.append(tool_call.to_message())
+                # Ajoute le résultat (observation) à l'historique
                 messages.append({
-                    "role": "tool",
-                    "content": str(result),
-                    "tool_call_id": tool_call.id
+                    "role": "tool",  # Rôle tool pour l'observation
+                    "content": str(result),  # Résultat formaté en chaîne
+                    "tool_call_id": tool_call.id  # Lie l'observation à l'appel
                 })
     
+    # Si on dépasse le nombre max d'étapes sans réponse finale
     return "Max steps atteint"
 ```
 
@@ -302,6 +320,8 @@ Si un outil échoue, explique pourquoi à l'utilisateur.
 
 ## 6. Travaux Pratiques — Assistant CLI avec Outils
 
+> **Projet fil rouge** : ce TP s'appuie sur le reseau social defini dans [`gestion_de_projet/cdc.md`](gestion_de_projet/cdc.md). L'assistant CLI que vous allez construire permettra de manipuler les utilisateurs et publications de cette application.
+
 **Objectif :** Créer un assistant en ligne de commande qui utilise des outils (tool use) avec le pattern ReAct.
 
 **Durée :** 2h
@@ -317,47 +337,58 @@ mkdir assistant-cli && cd assistant-cli
 Créez `assistant.py` :
 
 ```python
-import json
-import sys
+import json  # Pour la manipulation de données JSON
+import sys   # Pour les interactions système (entrée/sortie)
 
 class Assistant:
     def __init__(self):
+        # Dictionnaire associant les noms d'outils à leurs implémentations
         self.tools = {
-            "calculer": self.calculer,
-            "meteo": self.meteo,
+            "calculer": self.calculer,  # Outil de calcul mathématique
+            "meteo": self.meteo,        # Outil de requête météo simulée
         }
     
     def calculer(self, expression: str) -> str:
         """Calcule une expression mathématique."""
         try:
+            # eval évalue l'expression (attention : sécurité à vérifier)
             return str(eval(expression))
         except Exception as e:
+            # Retourne un message d'erreur explicite
             return f"Erreur: {e}"
     
     def meteo(self, ville: str) -> str:
         """Simule une requête météo."""
+        # Retourne une valeur fixe pour la simulation
         return f"15°C à {ville}, ciel nuageux"
     
     def run(self, question: str) -> str:
         # Version simplifiée du pattern ReAct
+        # Analyse la question pour détecter une demande météo
         if "météo" in question.lower():
+            # Parcourt une liste de villes prédéfinies
             for ville in ["Paris", "Lyon", "Marseille", "Tokyo", "Londres"]:
                 if ville.lower() in question.lower():
+                    # Appelle l'outil météo avec la ville trouvée
                     return self.meteo(ville)
         
+        # Détecte les expressions mathématiques
         if "calcul" in question.lower() or "+" in question or "-" in question:
+            # Extrait l'expression après le séparateur ":" si présent
             parts = question.split(":")[-1].strip() if ":" in question else question
             return self.calculer(parts)
         
+        # Retourne un message par défaut si aucune correspondance
         return f"Je ne sais pas répondre à: {question}"
 
+# Point d'entrée principal du programme
 if __name__ == "__main__":
-    agent = Assistant()
-    while True:
-        q = input("\n> ")
-        if q == "quit":
+    agent = Assistant()  # Crée une instance de l'Assistant
+    while True:          # Boucle interactive infinie
+        q = input("\n> ")  # Attend la saisie de l'utilisateur
+        if q == "quit":    # Commande pour quitter l'application
             break
-        print(agent.run(q))
+        print(agent.run(q))  # Affiche la réponse de l'assistant
 ```
 
 ### 6.2 Tester sans agent

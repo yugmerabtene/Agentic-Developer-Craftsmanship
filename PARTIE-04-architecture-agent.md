@@ -118,30 +118,36 @@ Un agent peut être dans plusieurs états :
 
 ### 2.3 Implémentation minimale
 
+> **Projet fil rouge** : l'architecture agentique developpee ici sera utilisee pour coordonner le developpement du reseau social defini dans [`gestion_de_projet/cdc.md`](gestion_de_projet/cdc.md).
+
+Créez `agent_simple.py` :
+
 ```python
 class Agent:
     def __init__(self, llm, tools, system_prompt):
-        self.llm = llm
-        self.tools = tools
-        self.memory = [{"role": "system", "content": system_prompt}]
+        # Initialise l'agent avec le modèle de langage, les outils et le prompt système
+        self.llm = llm  # Modèle de langage pour les réponses
+        self.tools = tools  # Outils disponibles pour l'agent
+        self.memory = [{"role": "system", "content": system_prompt}]  # Mémoire initiale avec le prompt système
     
     def run(self, user_input: str, max_steps: int = 10):
-        self.memory.append({"role": "user", "content": user_input})
+        # Boucle principale de l'agent : perçoit, raisonne et agit
+        self.memory.append({"role": "user", "content": user_input})  # Ajoute l'entrée utilisateur à la mémoire
         
-        for step in range(max_steps):
-            response = self.llm.chat(self.memory, tools=self.tools)
+        for step in range(max_steps):  # Limite le nombre d'itérations pour éviter les boucles infinies
+            response = self.llm.chat(self.memory, tools=self.tools)  # Appelle le LLM avec la mémoire et les outils
             
-            if response.content:  # Réponse finale
-                self.memory.append({"role": "assistant", "content": response.content})
-                return response.content
+            if response.content:  # Si le LLM produit une réponse textuelle (pas d'appel d'outil)
+                self.memory.append({"role": "assistant", "content": response.content})  # Stocke la réponse
+                return response.content  # Retourne la réponse finale à l'utilisateur
             
-            if response.tool_calls:
-                for tc in response.tool_calls:
-                    result = self.execute_tool(tc)
-                    self.memory.append(tc.to_message())
-                    self.memory.append({"role": "tool", "content": result})
+            if response.tool_calls:  # Si le LLM demande l'exécution d'un ou plusieurs outils
+                for tc in response.tool_calls:  # Parcourt chaque appel d'outil
+                    result = self.execute_tool(tc)  # Exécute l'outil et récupère le résultat
+                    self.memory.append(tc.to_message())  # Ajoute l'appel d'outil à l'historique
+                    self.memory.append({"role": "tool", "content": result})  # Ajoute le résultat de l'outil
         
-        return "Max steps atteint"
+        return "Max steps atteint"  # Sécurité : évite les boucles infinies
 ```
 
 ---
@@ -163,17 +169,19 @@ La fenêtre de contexte d'un LLM est limitée. Plus la conversation est longue, 
 
 ### 3.3 Sliding Window
 
+Créez `gestion_contexte.py` :
+
 ```python
 def manage_context(self, max_tokens: int = 4000):
-    """Garde le system prompt + les messages les plus récents."""
-    system = [m for m in self.memory if m["role"] == "system"]
-    others = [m for m in self.memory if m["role"] != "system"]
+    # Gère la fenêtre de contexte pour ne pas dépasser la limite de tokens
+    system = [m for m in self.memory if m["role"] == "system"]  # Conserve les messages système (toujours prioritaires)
+    others = [m for m in self.memory if m["role"] != "system"]  # Isole les messages non-système
     
-    # Réduire si nécessaire
+    # Supprime les plus vieux messages quand la limite de tokens est dépassée
     while count_tokens(self.memory) > max_tokens and len(others) > 2:
-        others.pop(1)  # Supprime le plus vieux (après le premier)
+        others.pop(1)  # Supprime le plus vieux message (après le premier)
     
-    self.memory = system + others
+    self.memory = system + others  # Reconstruit la mémoire complète
 ```
 
 ---

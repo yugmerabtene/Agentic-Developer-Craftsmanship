@@ -89,33 +89,37 @@ graph TD
 
 ### 3.1 Exemple minimal
 
+Créez un fichier `server.py` :
+
 ```python
 # server.py — Serveur MCP météo
-from mcp.server import Server
-from mcp.types import Tool, TextContent
+from mcp.server import Server          # Classe principale du serveur MCP
+from mcp.types import Tool, TextContent  # Types MCP : outil et contenu texte
 
-app = Server("weather-server")
+app = Server("weather-server")          # Initialise le serveur nommé "weather-server"
 
+# Déclare la liste des outils exposés par ce serveur MCP
 @app.list_tools()
 async def list_tools() -> list[Tool]:
     return [
         Tool(
-            name="get_weather",
-            description="Obtenir la météo d'une ville",
+            name="get_weather",                    # Nom de l'outil appelable par le LLM
+            description="Obtenir la météo d'une ville",  # Description pour le LLM
             parameters={
-                "type": "object",
+                "type": "object",                  # Schéma JSON des paramètres
                 "properties": {
-                    "city": {"type": "string"}
+                    "city": {"type": "string"}     # Paramètre obligatoire : nom de la ville
                 },
                 "required": ["city"]
             }
         )
     ]
 
+# Implémente la logique appelée quand un outil est invoqué
 @app.call_tool()
 async def call_tool(name: str, args: dict) -> list[TextContent]:
     if name == "get_weather":
-        # Implémentation météo
+        # Implémentation météo : retourne une température simulée
         return [TextContent(f"15°C à {args['city']}")]
 ```
 
@@ -218,10 +222,10 @@ Documente l'équipe, les rôles, le workflow :
 ```markdown
 # Équipe de développement
 
-| Agent | Rôle | Mode |
-|---|---|---|
-| scrum-master | Planifie, coordonne | primary |
-| fullstack-developer | Code, tests | subagent |
+| Agent                  | Rôle                 | Mode      |
+|------------------------|----------------------|-----------|
+| scrum-master           | Planifie, coordonne  | primary   |
+| fullstack-developer    | Code, tests          | subagent  |
 
 ## Workflow
 1. L'utilisateur donne une instruction
@@ -270,6 +274,8 @@ Inversement, vous pouvez exposer les capacités de votre projet opencode via MCP
 
 ## 7. Travaux Pratiques — Serveur MCP (Model Context Protocol)
 
+> **Projet fil rouge** : les serveurs MCP (Model Context Protocol) exposes ici permettent aux agents d'interagir avec la base de donnees et les services du projet social defini dans [`gestion_de_projet/cdc.md`](gestion_de_projet/cdc.md).
+
 **Objectif :** Créer un serveur MCP et le connecter à opencode.
 
 **Durée :** 2h
@@ -285,22 +291,23 @@ pip install mcp
 
 ### Étape 2 — Serveur MCP minimal
 
-Créez `serveur_meteo.py` :
+Créez un fichier `serveur_meteo.py` :
 
 ```python
-from mcp.server import Server
-from mcp.types import Tool, TextContent
+from mcp.server import Server          # Classe principale du serveur MCP
+from mcp.types import Tool, TextContent  # Types MCP : outil et contenu texte
 
-app = Server("meteo-server")
+app = Server("meteo-server")            # Initialise le serveur MCP météo
 
+# Déclare l'outil "get_weather" accessible par les agents
 @app.list_tools()
 async def list_tools() -> list[Tool]:
     return [
         Tool(
-            name="get_weather",
-            description="Obtenir la météo d'une ville",
+            name="get_weather",                    # Nom de l'outil
+            description="Obtenir la météo d'une ville",  # Description pour le LLM
             parameters={
-                "type": "object",
+                "type": "object",                  # Schéma JSON des paramètres
                 "properties": {
                     "city": {
                         "type": "string",
@@ -312,21 +319,25 @@ async def list_tools() -> list[Tool]:
         )
     ]
 
+# Logique appelée quand un agent invoque l'outil "get_weather"
 @app.call_tool()
 async def call_tool(name: str, args: dict) -> list[TextContent]:
     if name == "get_weather":
+        # Dictionnaire de données météo simulées pour différentes villes
         temperatures = {
             "paris": "15°C, ciel nuageux",
             "tokyo": "22°C, ensoleillé",
             "londres": "12°C, pluie légère",
             "new york": "18°C, vent modéré",
         }
-        city = args["city"].lower()
+        city = args["city"].lower()                # Normalise le nom en minuscules
+        # Retourne la météo connue ou une valeur par défaut
         result = temperatures.get(city, f"20°C à {args['city']}, données approximatives")
         return [TextContent(result)]
 
     raise ValueError(f"Outil inconnu: {name}")
 
+# Point d'entrée : démarre le serveur MCP sur l'entrée-sortie standard (stdio)
 if __name__ == "__main__":
     app.run(transport="stdio")
 ```
@@ -341,21 +352,23 @@ Le serveur écoute sur stdio (utilisable par un client MCP).
 
 ### Étape 4 — Client MCP
 
-Créez `client_test.py` :
+Créez un fichier `client_test.py` :
 
 ```python
-import asyncio
-from mcp.client import Client
+import asyncio                          # Bibliothèque pour la programmation asynchrone
+from mcp.client import Client           # Client MCP pour se connecter à un serveur
 
 async def test():
+    # Connexion au serveur MCP lancé via la commande Python
     async with Client.connect("python serveur_meteo.py") as client:
-        tools = await client.list_tools()
-        print("Outils disponibles:", [t.name for t in tools])
+        tools = await client.list_tools()                     # Récupère la liste des outils disponibles
+        print("Outils disponibles:", [t.name for t in tools]) # Affiche les noms des outils
 
+        # Appelle l'outil "get_weather" avec la ville "Paris"
         result = await client.call_tool("get_weather", {"city": "Paris"})
-        print("Résultat:", result)
+        print("Résultat:", result)                            # Affiche le résultat météo
 
-asyncio.run(test())
+asyncio.run(test())  # Lance le test asynchrone
 ```
 
 ### Étape 5 — Connecter à opencode

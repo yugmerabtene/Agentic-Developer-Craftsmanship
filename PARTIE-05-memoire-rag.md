@@ -179,23 +179,28 @@ graph TD
 
 ### 4.3 Implémentation
 
+Créez `rag_agent.py` :
+
 ```python
 class RAGAgent:
     def __init__(self, llm, vector_store):
-        self.llm = llm
-        self.vs = vector_store
+        # Initialise l'agent RAG avec un modèle de langage et un stockage vectoriel
+        self.llm = llm  # Modèle de langage pour la génération de réponses
+        self.vs = vector_store  # Base vectorielle pour la recherche sémantique
     
     def index_documents(self, documents: list[str]):
-        chunks = []
-        for doc in documents:
-            chunks.extend(self._chunk_text(doc, size=512))
-        embeddings = self.llm.embed(chunks)
-        self.vs.add(embeddings, chunks)
+        # Indexe les documents : découpage, embedding et stockage dans la base vectorielle
+        chunks = []  # Liste des morceaux de texte à indexer
+        for doc in documents:  # Parcourt chaque document fourni
+            chunks.extend(self._chunk_text(doc, size=512))  # Découpe en morceaux de 512 tokens
+        embeddings = self.llm.embed(chunks)  # Génère les vecteurs d'embedding pour chaque morceau
+        self.vs.add(embeddings, chunks)  # Stocke les vecteurs et le texte associé dans la base
     
     def query(self, question: str) -> str:
-        q_emb = self.llm.embed([question])[0]
-        chunks = self.vs.search(q_emb, k=5)
-        context = "\n\n".join(chunks)
+        # Interroge la base vectorielle et génère une réponse à partir du contexte pertinent
+        q_emb = self.llm.embed([question])[0]  # Calcule l'embedding de la question posée
+        chunks = self.vs.search(q_emb, k=5)  # Cherche les 5 morceaux les plus pertinents
+        context = "\n\n".join(chunks)  # Concatène les morceaux pour former le contexte enrichi
         
         prompt = f"""Contexte :
 {context}
@@ -205,7 +210,7 @@ Question : {question}
 Réponds en utilisant uniquement le contexte ci-dessus.
 Si le contexte ne contient pas l'information, dis-le."""
         
-        return self.llm.chat(prompt)
+        return self.llm.chat(prompt)  # Envoie le prompt au LLM et retourne la réponse générée
 ```
 
 ---
@@ -255,25 +260,30 @@ graph TD
 
 ### 6.2 Exemple : Agent qui retient
 
+Créez `agent_memoire_vectorielle.py` :
+
 ```python
 class AgentAvecMemoire:
     def __init__(self):
-        self.llm = LLM()
-        self.vs = VectorStore()  # Mémoire long-terme
-        self.history = []        # Mémoire court-terme
+        # Initialise l'agent avec mémoire vectorielle et court-terme
+        self.llm = LLM()  # Modèle de langage pour les interactions
+        self.vs = VectorStore()  # Mémoire long-terme : stockage vectoriel des faits
+        self.history = []        # Mémoire court-terme : historique de la conversation
     
     def remember(self, key: str, value: str):
         """Stocke un fait en mémoire long-terme."""
-        text = f"{key}: {value}"
-        self.vs.add(self.llm.embed([text])[0], text)
+        text = f"{key}: {value}"  # Formate le fait en texte structuré clé-valeur
+        self.vs.add(self.llm.embed([text])[0], text)  # Embedding du texte puis stockage vectoriel
     
     def recall(self, question: str) -> list[str]:
         """Recherche dans la mémoire long-terme."""
-        emb = self.llm.embed([question])[0]
-        return self.vs.search(emb, k=3)
+        emb = self.llm.embed([question])[0]  # Calcule l'embedding de la question
+        return self.vs.search(emb, k=3)  # Retourne les 3 souvenirs les plus pertinents
 ```
 
 ---
+
+> **Projet fil rouge** : la memoire agentique permet de suivre l'avancement du developpement du reseau social (cf. [`gestion_de_projet/cdc.md`](gestion_de_projet/cdc.md)) en conservant le contexte entre les sessions.
 
 ## 7. Travaux Pratiques — Agent avec Mémoire Persistante
 
@@ -291,93 +301,100 @@ mkdir agent-memoire && cd agent-memoire
 
 ### 7.2 Étape 2 — Agent avec mémoire
 
-Créez `agent_memoire.py` :
+Créez le fichier `agent_memoire.py` :
 
 ```python
-import sqlite3
-import json
-from datetime import datetime
+import sqlite3  # Module pour la base de données SQLite (persistance des données)
+import json  # Module pour la manipulation de données JSON
+from datetime import datetime  # Horodatage des entrées en mémoire
 
 class AgentMemoire:
     def __init__(self, db_path="memoire.db"):
-        self.conn = sqlite3.connect(db_path)
-        self._init_db()
+        # Initialise la connexion à la base de données SQLite persistante
+        self.conn = sqlite3.connect(db_path)  # Connexion à la base de données
+        self._init_db()  # Crée les tables si elles n'existent pas encore
     
     def _init_db(self):
+        # Crée les tables de mémoire et d'historique dans la base SQLite
         self.conn.execute("""
             CREATE TABLE IF NOT EXISTS memoire (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
-                cle TEXT UNIQUE,
-                valeur TEXT,
-                date_maj TIMESTAMP
+                cle TEXT UNIQUE,  # Clé unique pour chaque souvenir (ex: "Paris")
+                valeur TEXT,       # Valeur associée à la clé (ex: "capitale de la France")
+                date_maj TIMESTAMP  # Date de dernière mise à jour du souvenir
             )
-        """)
+        """)  # Table des faits retenus par l'agent de façon persistante
         self.conn.execute("""
             CREATE TABLE IF NOT EXISTS historique (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
-                question TEXT,
-                reponse TEXT,
-                date TIMESTAMP
+                question TEXT,    # Question posée par l'utilisateur
+                reponse TEXT,     # Réponse donnée par l'agent
+                date TIMESTAMP    # Date de l'interaction
             )
-        """)
-        self.conn.commit()
+        """)  # Table de l'historique des conversations
+        self.conn.commit()  # Valide les créations de tables
     
     def retenir(self, cle: str, valeur: str):
+        # Stocke ou met à jour un fait en mémoire persistante
         self.conn.execute(
             "INSERT OR REPLACE INTO memoire (cle, valeur, date_maj) VALUES (?, ?, ?)",
-            (cle, valeur, datetime.now())
+            (cle, valeur, datetime.now())  # Paramètres : clé, valeur, horodatage actuel
         )
-        self.conn.commit()
+        self.conn.commit()  # Sauvegarde immédiate dans la base
     
     def rappeler(self, cle: str) -> str | None:
+        # Récupère un fait par sa clé depuis la mémoire persistante
         cursor = self.conn.execute(
             "SELECT valeur FROM memoire WHERE cle = ?", (cle,)
-        )
-        row = cursor.fetchone()
-        return row[0] if row else None
+        )  # Requête paramétrée pour éviter les injections SQL
+        row = cursor.fetchone()  # Récupère la première ligne du résultat
+        return row[0] if row else None  # Retourne la valeur ou None si inexistante
     
     def toutes_cles(self) -> list[str]:
-        cursor = self.conn.execute("SELECT cle FROM memoire")
-        return [row[0] for row in cursor.fetchall()]
+        # Liste toutes les clés connues par l'agent
+        cursor = self.conn.execute("SELECT cle FROM memoire")  # Récupère toutes les clés
+        return [row[0] for row in cursor.fetchall()]  # Convertit le curseur en liste de chaînes
     
     def run(self, question: str) -> str:
-        # Stocke la question
+        # Point d'entrée principal : traite une question utilisateur et interagit avec la mémoire
         self.conn.execute(
             "INSERT INTO historique (question, date) VALUES (?, ?)",
-            (question, datetime.now())
+            (question, datetime.now())  # Enregistre la question dans l'historique
         )
         self.conn.commit()
         
-        # Commandes de mémoire
+        # Commande : "souviens-toi que X est Y" → stocke un fait en mémoire
         if question.startswith("souviens-toi que "):
-            contenu = question.replace("souviens-toi que ", "")
-            if " est " in contenu:
-                cle, valeur = contenu.split(" est ", 1)
-                self.retenir(cle.strip(), valeur.strip())
+            contenu = question.replace("souviens-toi que ", "")  # Extrait le contenu après le préfixe
+            if " est " in contenu:  # Vérifie la présence du séparateur " est "
+                cle, valeur = contenu.split(" est ", 1)  # Sépare la clé et la valeur
+                self.retenir(cle.strip(), valeur.strip())  # Stocke le fait en mémoire persistante
                 return f"J'ai retenu que {cle} est {valeur}"
         
+        # Commande : "que sais-tu sur X" → interroge la mémoire persistante
         if question.startswith("que sais-tu sur "):
-            sujet = question.replace("que sais-tu sur ", "")
-            valeur = self.rappeler(sujet.strip())
+            sujet = question.replace("que sais-tu sur ", "")  # Extrait le sujet de la question
+            valeur = self.rappeler(sujet.strip())  # Cherche dans la mémoire persistante
             if valeur:
-                return f"Je sais que {sujet} est {valeur}"
-            return f"Je ne sais rien sur {sujet}"
+                return f"Je sais que {sujet} est {valeur}"  # Retourne la connaissance stockée
+            return f"Je ne sais rien sur {sujet}"  # Aucune connaissance trouvée
         
+        # Commande : "liste ce que tu sais" → affiche toutes les connaissances
         if question == "liste ce que tu sais":
-            cles = self.toutes_cles()
+            cles = self.toutes_cles()  # Récupère toutes les clés depuis la base
             if cles:
-                return "Je connais: " + ", ".join(cles)
-            return "Je ne connais rien pour l'instant"
+                return "Je connais: " + ", ".join(cles)  # Liste les connaissances
+            return "Je ne connais rien pour l'instant"  # Aucune connaissance stockée
         
-        return f"Question reçue: {question}"
+        return f"Question reçue: {question}"  # Réponse par défaut pour les autres questions
 
 if __name__ == "__main__":
-    agent = AgentMemoire()
-    while True:
-        q = input("\n> ")
-        if q == "quit":
-            break
-        print(agent.run(q))
+    agent = AgentMemoire()  # Crée une instance de l'agent avec mémoire persistante
+    while True:  # Boucle interactive infinie
+        q = input("\n> ")  # Attend l'entrée de l'utilisateur
+        if q == "quit":  # Commande de sortie
+            break  # Quitte la boucle
+        print(agent.run(q))  # Affiche la réponse de l'agent
 ```
 
 ### 7.3 Étape 3 — Tester

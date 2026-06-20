@@ -193,6 +193,8 @@ Anthropic introduit **MCP**, un standard ouvert pour connecter LLMs à des sourc
 - **Opencode** : plateforme agentic open-source orchestrant des équipes d'agents spécialisés via des fichiers de configuration (`opencode.json`, `AGENTS.md`)
 - Les agents deviennent des membres à part entière de l'équipe de développement
 
+> **Projet fil rouge** : tout au long de ce cours, nous utiliserons comme fil rouge le developpement d'une application web sociale simplifiee (inspiree de Twitter/Facebook). Le Cahier des Charges complet est disponible dans [`gestion_de_projet/cdc.md`](gestion_de_projet/cdc.md). Chaque TP montrera comment l'agentic permet de construire ce projet concret.
+
 ---
 
 ## 5. Panorama 2026
@@ -239,3 +241,6 @@ Ce cours vous donne les clés pour concevoir, construire et déployer ces systè
 - Yao et al., *"ReAct: Synergizing Reasoning and Acting in Language Models"* (2023)
 - Anthropic, *"Model Context Protocol"* (2025)
 - GitHub, *"Copilot Coding Agent"* (2026)
+
+---
+**Projet fil rouge** : [`gestion_de_projet/cdc.md`](gestion_de_projet/cdc.md)

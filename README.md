@@ -234,6 +234,16 @@ graph LR
 
 ---
 
+### Projet fil rouge
+
+Ce cours s'appuie sur un projet concret : une **application web sociale simplifiee** (mur public, authentification, gestion d'utilisateurs). Le Cahier des Charges est defini dans [`gestion_de_projet/cdc.md`](gestion_de_projet/cdc.md).
+
+Les TPs de chaque PARTIE montrent comment utiliser l'agentic (opencode + `opencode/big-pickle`) pour construire ce projet etape par etape : de l'assistant CLI au deploiement CI/CD en passant par l'equipe multi-agent et les serveurs MCP.
+
+A noter : le code source de l'application n'est **pas** fourni dans ce depot. Il est genere par les agents opencode a partir du CDC. Le repo contient uniquement le cours et la specification.
+
+---
+
 ## Stack technique (100% open-source & gratuit)
 
 | Outil | Rôle | Coût |

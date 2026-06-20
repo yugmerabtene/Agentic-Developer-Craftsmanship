@@ -172,35 +172,41 @@ Règles :
 
 ### 3.3 Implémentation
 
+Créez un fichier `supervisor_agent.py` :
+
 ```python
 class SupervisorAgent:
+    # Constructeur : initialise le LLM, les sous-agents et l'historique
     def __init__(self, llm):
-        self.llm = llm
+        self.llm = llm                              # Modèle de langage principal
         self.agents = {
-            "moderator": ModeratorAgent(llm),
-            "summarizer": SummarizerAgent(llm),
-            "searcher": SearcherAgent(llm),
+            "moderator": ModeratorAgent(llm),       # Agent de modération
+            "summarizer": SummarizerAgent(llm),     # Agent de résumé
+            "searcher": SearcherAgent(llm),         # Agent de recherche
         }
-        self.history = []
+        self.history = []                           # Historique des échanges
     
+    # Point d'entrée : exécute la boucle superviseur
     def run(self, user_input: str) -> str:
-        self.history.append({"role": "user", "content": user_input})
+        self.history.append({"role": "user", "content": user_input})  # Enregistre la requête
         
         while True:
+            # Interroge le LLM avec le prompt superviseur et les outils
             response = self.llm.chat(
                 self.history,
                 system=self._supervisor_prompt(),
                 tools=self._agent_tools()
             )
             
-            if response.content:  # Réponse finale
+            if response.content:  # Réponse finale : fin de la boucle
                 return response.content
             
+            # Traite chaque appel d'outil délégué par le LLM
             for tc in response.tool_calls:
-                agent_name = tc.function.name
-                args = json.loads(tc.function.arguments)
-                result = self.agents[agent_name].run(**args)
-                self.history.append({
+                agent_name = tc.function.name       # Nom du sous-agent cible
+                args = json.loads(tc.function.arguments)  # Arguments de l'appel
+                result = self.agents[agent_name].run(**args)  # Exécute le sous-agent
+                self.history.append({                # Stocke le résultat dans l'historique
                     "role": "tool",
                     "content": str(result),
                     "tool_call_id": tc.id
@@ -243,36 +249,42 @@ graph LR
 
 ### 4.3 Approche asynchrone simple
 
+Créez un fichier `async_orchestrator.py` :
+
 ```python
-import asyncio
-import uuid
+import asyncio   # Bibliothèque pour la programmation asynchrone
+import uuid      # Génération d'identifiants uniques
 
 class AsyncAgentOrchestrator:
+    # Initialise le dictionnaire des tâches
     def __init__(self):
-        self.tasks = {}
+        self.tasks = {}  # stocke l'état de chaque tâche par son ID
     
+    # Soumet une tâche et retourne immédiatement un ID
     async def submit(self, agent_name: str, input_data: str) -> str:
-        task_id = str(uuid.uuid4())
-        self.tasks[task_id] = {"status": "pending", "result": None}
+        task_id = str(uuid.uuid4())                                      # Génère un ID unique
+        self.tasks[task_id] = {"status": "pending", "result": None}      # État initial
         
-        # Lancer en arrière-plan
+        # Lance le traitement en arrière-plan sans bloquer
         asyncio.create_task(self._process(agent_name, input_data, task_id))
-        return task_id
+        return task_id  # L'utilisateur récupérera le résultat plus tard
     
+    # Attend le résultat d'une tâche (polling)
     async def get_result(self, task_id: str):
-        while self.tasks[task_id]["status"] == "pending":
-            await asyncio.sleep(0.5)
-        return self.tasks[task_id]["result"]
+        while self.tasks[task_id]["status"] == "pending":  # Boucle tant que la tâche est en cours
+            await asyncio.sleep(0.5)                       # Pause pour éviter de surcharger le CPU
+        return self.tasks[task_id]["result"]               # Retourne le résultat final
     
+    # Traitement interne d'une tâche en arrière-plan
     async def _process(self, agent_name, input_data, task_id):
         try:
-            self.tasks[task_id]["status"] = "running"
-            result = await self.agents[agent_name].arun(input_data)
-            self.tasks[task_id]["result"] = result
-            self.tasks[task_id]["status"] = "done"
+            self.tasks[task_id]["status"] = "running"      # Passe en cours d'exécution
+            result = await self.agents[agent_name].arun(input_data)  # Appel asynchrone du sous-agent
+            self.tasks[task_id]["result"] = result         # Stocke le résultat
+            self.tasks[task_id]["status"] = "done"         # Marque comme terminé
         except Exception as e:
-            self.tasks[task_id]["result"] = f"Error: {e}"
-            self.tasks[task_id]["status"] = "failed"
+            self.tasks[task_id]["result"] = f"Error: {e}"  # Enregistre l'erreur
+            self.tasks[task_id]["status"] = "failed"       # Marque comme échoué
 ```
 
 ---
@@ -290,6 +302,8 @@ class AsyncAgentOrchestrator:
 ---
 
 ## 6. Travaux Pratiques — Supervisor Multi-Agent avec Opencode
+
+> **Projet fil rouge** : l'equipe multi-agent que vous allez configurer a pour objectif d'implementer les fonctionnalites du reseau social defini dans [`gestion_de_projet/cdc.md`](gestion_de_projet/cdc.md).
 
 **Objectif :** Configurer une équipe d'agents opencode avec un Supervisor qui délègue à des spécialistes.
 
@@ -394,15 +408,17 @@ les index vectoriels pour le RAG.
 
 ### Étape 4 — AGENTS.md
 
+Créez un fichier `AGENTS.md` :
+
 ```markdown
 # Équipe multi-agent
 
-| Agent | Rôle |
-|---|---|
-| scrum-master | Supervisor — coordonne l'équipe |
-| backend-dev | APIs et logique métier |
-| frontend-dev | Interfaces utilisateur |
-| data-dev | Base de données et RAG |
+| Agent                  | Rôle                               |
+|------------------------|------------------------------------|
+| scrum-master           | Supervisor — coordonne l'équipe     |
+| backend-dev            | APIs et logique métier             |
+| frontend-dev           | Interfaces utilisateur             |
+| data-dev               | Base de données et RAG             |
 
 ## Utilisation
 

@@ -27,9 +27,10 @@ Les agents sont **non-déterministes** : deux exécutions du même prompt peuven
 
 ### 2.1 Tests unitaires
 
-Tester des fonctions spécifiques :
+Créez `tests/test_tools.py` :
 
 ```python
+# Test unitaire : vérifie que l'outil météo retourne une température
 def test_get_weather_tool():
     result = weather_tool("Paris")
     assert "température" in result.lower()
@@ -38,9 +39,10 @@ def test_get_weather_tool():
 
 ### 2.2 Tests d'intégration
 
-Tester des parcours agent complets :
+Créez `tests/test_integration.py` :
 
 ```python
+# Test d'intégration : parcours complet d'un agent météo
 def test_agent_meteo_complet():
     agent = WeatherAgent()
     result = agent.run("Quel temps fait-il à Paris ?")
@@ -50,9 +52,10 @@ def test_agent_meteo_complet():
 
 ### 2.3 Tests comportementaux (Évaluation)
 
-Les plus importants pour les agents :
+Créez `tests/test_benchmarks.py` :
 
 ```python
+# Benchmark : liste des scénarios de test comportementaux
 BENCHMARKS = [
     {
         "input": "Météo à Paris",
@@ -70,6 +73,7 @@ BENCHMARKS = [
     }
 ]
 
+# Test de validation des comportements
 def test_agent_behavior():
     agent = create_agent()
     for bench in BENCHMARKS:
@@ -111,10 +115,12 @@ graph TD
 
 ### 3.2 Pipeline YAML (GitHub Actions)
 
+Créez `.github/workflows/cicd-agent.yml` :
+
 ```yaml
 name: CI/CD Agent
 
-on: [push, pull_request]
+on: [push, pull_request]  # Déclencheur : push ou pull request
 
 jobs:
   quality:
@@ -124,11 +130,11 @@ jobs:
       - uses: actions/setup-python@v5
         with: { python-version: "3.12" }
       - run: pip install -r requirements-dev.txt
-      - run: ruff check .
-      - run: mypy .
+      - run: ruff check .  # Vérification du linting
+      - run: mypy .  # Vérification des types
 
   test-agents:
-    needs: quality
+    needs: quality  # Dépend du job quality
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -140,19 +146,19 @@ jobs:
         run: python scripts/check_token_cost.py --max 1000
 
   build:
-    needs: test-agents
+    needs: test-agents  # Dépend du job test-agents
     runs-on: ubuntu-latest
     steps:
-      - run: docker build -t agent-app .
+      - run: docker build -t agent-app .  # Construction de l'image
       - run: docker run -d --name agent-test agent-app
       - run: |
           sleep 5
-          curl -sf http://localhost:8000/health
+          curl -sf http://localhost:8000/health  # Vérification santé
       - run: docker rm -f agent-test
 
   deploy:
-    needs: build
-    if: github.ref == 'refs/heads/main'
+    needs: build  # Dépend du job build
+    if: github.ref == 'refs/heads/main'  # Déploiement uniquement sur main
     runs-on: ubuntu-latest
     steps:
       - run: echo "Déploiement..."
@@ -175,26 +181,29 @@ jobs:
 
 ### 4.2 Logging structuré
 
+Créez `monitoring.py` :
+
 ```python
 import structlog
 logger = structlog.get_logger()
 
 class MonitoredAgent:
+    """Agent avec logging structuré pour le monitoring."""
     def run(self, user_input: str) -> str:
         start = time.time()
-        logger.info("agent.start", input=user_input)
+        logger.info("agent.start", input=user_input)  # Début de l'exécution
         
         try:
             result = self._run_loop(user_input)
             duration = time.time() - start
-            logger.info("agent.success",
+            logger.info("agent.success",  # Succès de l'exécution
                        input=user_input,
                        duration=duration,
                        tokens=self.total_tokens,
                        steps=self.steps)
             return result
         except Exception as e:
-            logger.error("agent.error",
+            logger.error("agent.error",  # Erreur lors de l'exécution
                         input=user_input,
                         error=str(e))
             raise
@@ -206,13 +215,17 @@ class MonitoredAgent:
 
 ### 5.1 Calcul des coûts
 
+Créez `token_counter.py` :
+
 ```python
 class TokenCounter:
+    """Compteur de tokens avec budget maximum."""
     def __init__(self, max_total: int = 10000):
-        self.total = 0
-        self.max_total = max_total
+        self.total = 0  # Total des tokens consommés
+        self.max_total = max_total  # Budget maximum autorisé
     
     def track(self, prompt_tokens: int, completion_tokens: int):
+        """Enregistre la consommation de tokens."""
         self.total += prompt_tokens + completion_tokens
         if self.total > self.max_total:
             raise BudgetExceeded(f"Budget token dépassé: {self.total}")
@@ -234,6 +247,8 @@ Avec opencode + big-pickle (modèle gratuit), le coût est **zéro**. Cette sect
 
 ## 6. Travaux Pratiques — CI/CD (Continuous Integration / Continuous Deployment) pour Agents
 
+> **Projet fil rouge** : la chaine CI/CD mise en place ici build, teste et deploie automatiquement le reseau social defini dans [`gestion_de_projet/cdc.md`](gestion_de_projet/cdc.md).
+
 **Objectif :** Mettre en place un pipeline CI/CD complet qui teste et valide des agents automatiquement.
 
 **Durée :** 2h
@@ -254,22 +269,24 @@ Créez `assistant.py` :
 import re
 
 class Assistant:
+    """Assistant simple avec capacités météo et calcul."""
     def __init__(self):
-        self.weather_db = {
+        self.weather_db = {  # Base de données météo intégrée
             "Paris": "15°C",
             "Tokyo": "22°C",
             "Londres": "10°C",
         }
 
     def run(self, user_input: str) -> str:
+        """Traite une entrée utilisateur et retourne une réponse."""
         text = user_input.lower()
-        if "météo" in text or "weather" in text:
+        if "météo" in text or "weather" in text:  # Demande météo
             cities = re.findall(r"\b[A-Z][a-zA-ZéèêëàâäùûüôöîïçÉÈÊËÀÂÄÙÛÜÔÖÎÏÇ-]+\b", user_input)
             city = cities[0] if cities else "Paris"
             if city in self.weather_db:
                 return f"À {city}, il fait {self.weather_db[city]}."
             return f"Je n'ai pas d'information météo pour {city}."
-        if "calcul" in text or "calc" in text:
+        if "calcul" in text or "calc" in text:  # Demande de calcul
             expr = user_input.split(":", 1)[-1].strip()
             try:
                 return str(eval(expr))
@@ -284,34 +301,40 @@ Créez `tests/test_agent_behavior.py` :
 
 ```python
 import sys
-sys.path.append("..")
+sys.path.append("..")  # Ajoute le dossier parent au chemin Python
 from assistant import Assistant
 
+# Test météo pour Paris
 def test_meteo_paris():
     agent = Assistant()
     result = agent.run("météo à Paris")
     assert "°C" in result or "degrés" in result
 
+# Test météo pour Tokyo
 def test_meteo_tokyo():
     agent = Assistant()
     result = agent.run("météo à Tokyo")
     assert "°C" in result or "degrés" in result
 
+# Test de calcul simple
 def test_calcul_simple():
     agent = Assistant()
     result = agent.run("calcul: 2 + 2")
     assert "4" in result
 
+# Test de calcul complexe avec parenthèses
 def test_calcul_complexe():
     agent = Assistant()
     result = agent.run("calcul: (10 + 5) * 2")
     assert "30" in result
 
+# Test de question inconnue (ne doit pas planter)
 def test_question_inconnue():
     agent = Assistant()
     result = agent.run("quelle est la couleur du ciel ?")
     assert result  # Ne doit pas planter
 
+# Test de ville inconnue (ne doit pas planter)
 def test_ville_inconnue():
     agent = Assistant()
     result = agent.run("météo à Inconnueville")
@@ -326,10 +349,12 @@ Créez `tests/test_quality.py` :
 import subprocess
 
 def test_lint():
+    """Vérifie que le code passe le linting ruff."""
     result = subprocess.run(["ruff", "check", "."], capture_output=True, text=True)
     assert result.returncode == 0, f"Lint erreurs:\n{result.stdout}"
 
 def test_imports():
+    """Vérifie que les imports fonctionnent sans erreur."""
     result = subprocess.run(["python", "-c", "from assistant import Assistant"], 
                           capture_output=True, text=True)
     assert result.returncode == 0, f"Import échoué:\n{result.stderr}"
@@ -342,16 +367,16 @@ Créez `.github/workflows/test-agents.yml` :
 ```yaml
 name: Test Agents
 
-on: [push, pull_request]
+on: [push, pull_request]  # Déclenché à chaque push ou pull request
 
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4  # Récupère le code source
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.12"
+          python-version: "3.12"  # Version de Python ciblée
       
       - name: Installer les dépendances
         run: |
@@ -359,10 +384,10 @@ jobs:
           pip install pytest ruff
       
       - name: Qualité (ruff)
-        run: ruff check .
+        run: ruff check .  # Vérification du linting
       
       - name: Tests agents
-        run: pytest tests/ -v
+        run: pytest tests/ -v  # Exécution des tests unitaires
 ```
 
 Ce pipeline vient compléter l'exemple de la section 3.2 : il se concentre sur la qualité et les tests agents, tandis que le précédent couvrait la construction et le déploiement.
