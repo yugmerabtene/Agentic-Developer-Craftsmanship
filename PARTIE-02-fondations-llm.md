@@ -46,9 +46,9 @@ Un LLM ne lit pas du texte, il lit des **tokens** (unités de texte, mots ou sou
 Dans une phrase, les mots n'ont pas tous la même importance et leurs relations ne sont pas linéaires :
 
 ```
-"Le chat, qui avait très faim, a mangé la souris."
-                     ↑
-               "a mangé" se réfère à "chat", pas à "souris"
+"Le modérateur a approuvé la publication du nouvel utilisateur."
+                      ↑
+           "a approuvé" se réfère à "modérateur", pas à "publication"
 ```
 
 ### 2.2 Solution : Self-Attention
@@ -57,23 +57,24 @@ Chaque token calcule un **score d'attention** (mécanisme de pondération contex
 
 ```mermaid
 %%{init: {'theme': 'base', 'themeVariables': {
+  'background': '#0f172a',
   'primaryColor': '#0891b2',
   'primaryTextColor': '#fff',
   'lineColor': '#22d3ee'
 }}}%%
 graph LR
-    A["Le"] --> B["chat"]
-    B --> C["a"]
-    C --> D["mangé"]
-    D --> E["la"]
-    E --> F["souris"]
+    A["Le"]:::token --> B["modérateur"]:::token
+    B --> C["a"]:::token
+    C --> D["approuvé"]:::token
+    D --> E["la"]:::token
+    E --> F["publication"]:::token
     
-    B -. "attention forte" .-> D
-    D -. "attention forte" .-> B
-    D -. "attention faible" .-> F
-```
+    B -. "attention forte (sujet) → 0.72" .-> D
+    D -. "attention forte (sujet) ← 0.68" .-> B
+    D -. "attention faible (objet) → 0.15" .-> F
 
-L'attention permet au modèle de **pondérer** l'influence de chaque mot sur la représentation des autres.
+    classDef token fill:#1e293b,color:#f8fafc,stroke:#7c3aed,stroke-width:1
+```
 
 ### 2.3 Multi-Head Attention
 
