@@ -8,7 +8,7 @@ Ce cours 100% open-source vous guide a travers les concepts fondamentaux et les 
 
 **Fil rouge :** un projet de reseau social dont le cahier des charges est defini dans [`projet/gestion_de_projet/cdc.md`](projet/gestion_de_projet/cdc.md). Chaque partie propose des TP qui construisent ce projet pas a pas via des agents opencode.
 
-[![Progression du cours](https://img.shields.io/badge/Suivi-Project%20Board-7c3aed?logo=github)](https://github.com/users/yugmerabtene/projects/13)
+[![Scrum Board](https://img.shields.io/badge/Scrum%20Board-Voir%20la%20progression-7c3aed?logo=github)](https://github.com/users/yugmerabtene/projects/13)
 
 ---
 

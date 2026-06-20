@@ -226,19 +226,19 @@ jobs:
           ISSUE_NUM=9
           PROJECT_NUMBER=13
           OWNER="yugmerabtene"
-          TERMINE_ID="24f44127"
-          ECHEC_ID="718c4f6c"
+          DONE_ID="4b18dcd2"
+          REVIEW_ID="5ceda0ab"
           
-          # Determiner le statut selon le resultat du pipeline
+          # Determiner le statut Scrum selon le resultat du pipeline
           if [ "${{ needs.deploy.result }}" = "success" ]; then
-            STATUS_ID="$TERMINE_ID"
-            echo "Pipeline reussi -> Partie 8 marquee Terminee"
+            STATUS_ID="$DONE_ID"
+            echo "Pipeline reussi -> Partie 8 marquee Done"
           else
-            STATUS_ID="$ECHEC_ID"
-            echo "Pipeline en echec -> Partie 8 marquee A tester"
+            STATUS_ID="$REVIEW_ID"
+            echo "Pipeline en echec -> Partie 8 marquee Review"
           fi
           
-          # Mettre a jour l'item dans le project
+          # Mettre a jour l'item dans le Project (champ "Sprint Status")
           gh project item-list $PROJECT_NUMBER --owner $OWNER \
             --format json --jq '.items[] | select(.content.number == '$ISSUE_NUM') | .id' \
             | while read ITEM_ID; do
@@ -246,7 +246,7 @@ jobs:
                 gh project item-edit \
                   --project-id $PROJECT_NUMBER --owner $OWNER \
                   --id "$ITEM_ID" \
-                  --field "Statut" \
+                  --field "Sprint Status" \
                   --single-select "$STATUS_ID"
               fi
             done

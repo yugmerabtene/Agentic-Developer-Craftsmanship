@@ -77,11 +77,12 @@ jobs:
           PROJECT_NUMBER: 13
           OWNER: yugmerabtene
         run: |
-          # Les champs et options du Project V2 sont reutilises depuis le board
-          # Nom du champ : "Statut"
-          # Option "En cours" : a0248149
-          STATUS_FIELD="Statut"
-          EN_COURS_ID="a0248149"
+          # Colonnes Scrum reutilisees depuis le Project V2
+          # Champ : "Sprint Status"
+          # Options : Backlog (2a78b7f1), To Do (79d6fa50), In Progress (01c2105f),
+          #           Review (5ceda0ab), Done (4b18dcd2)
+          STATUS_FIELD="Sprint Status"
+          EN_COURS_ID="01c2105f"
           
           # Pour chaque Partie 01 a 10, verifier si elle a ete modifiee
           for num in 01 02 03 04 05 06 07 08 09 10; do

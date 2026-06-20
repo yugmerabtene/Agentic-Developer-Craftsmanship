@@ -445,7 +445,7 @@ jobs:
       - run: pytest tests/ -v --tb=short
 ```
 
-#### Étape 4 — Créer le GitHub Project
+#### Étape 4 — Créer le Scrum Board
 
 ```bash
 # Creer un Project V2 (via l'interface GitHub ou l'API)
@@ -454,6 +454,9 @@ gh project create --owner <compte> --title "Mon Projet Agentic"
 # Creer une issue pour le sprint en cours
 gh issue create --title "Sprint 1 — Initialisation" \
   --label "sprint" --body "Configuration de l'equipe agentic"
+
+# Definir les colonnes Scrum : Backlog, To Do, In Progress, Review, Done
+# (via l'interface GitHub > champ "Sprint Status")
 ```
 
 #### Étape 5 — Orchestrer via agents opencode

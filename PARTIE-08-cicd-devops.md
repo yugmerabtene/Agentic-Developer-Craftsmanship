@@ -166,7 +166,7 @@ jobs:
 
 ### 3.5 Integration avec GitHub Projects
 
-Un pipeline CI/CD ne se limite pas a builder et deployer. Il peut aussi **mettre a jour automatiquement un tableau de bord** pour suivre la progression du projet en temps reel, sans cout de token LLM supplementaire.
+Un pipeline CI/CD ne se limite pas a builder et deployer. Il peut aussi **mettre a jour automatiquement un Scrum board** pour suivre la progression du projet en temps reel, sans cout de token LLM supplementaire.
 
 #### Principe
 
@@ -180,7 +180,7 @@ graph LR
     C[Commit push] --> W[Workflow GH Actions]
     W --> D["Diff detecte (PARTIE-*.md)"]
     D --> P["gh project item-edit"]
-    P --> B["Board mis a jour<br/>A faire -> En cours"]
+    P --> B["Board mis a jour<br/>Backlog -> In Progress"]
     
     style C fill:#7c3aed,color:#fff,stroke:#5b21b6
     style W fill:#0891b2,color:#fff,stroke:#155e75
@@ -191,7 +191,7 @@ graph LR
 
 #### Workflow de suivi (zero token LLM)
 
-Le fichier `.github/workflows/track-progress.yml` utilise uniquement la CLI `gh` (pas de LLM) pour detecter les fichiers PARTIE-*.md modifies et deplacer automatiquement les cartes dans le Project board.
+Le fichier `.github/workflows/track-progress.yml` utilise uniquement la CLI `gh` (pas de LLM) pour detecter les fichiers PARTIE-*.md modifies et deplacer automatiquement les cartes dans le Scrum board.
 
 Caracteristiques :
 - **Cout : zero token** — bash + gh CLI, pas d'appel LLM
@@ -227,7 +227,7 @@ jobs:
           echo "Fichiers modifies : $CHANGED"
 ```
 
-#### Architecture du board
+#### Architecture du Scrum board
 
 ```mermaid
 %%{init: {'theme': 'base', 'themeVariables': {
@@ -236,24 +236,26 @@ jobs:
   'lineColor': '#34d399'
 }}}%%
 graph TB
-    subgraph "GitHub Project V2"
-        AF["A faire"] --> EC["En cours"]
-        EC --> AT["A tester"]
-        AT --> T["Termine"]
+    subgraph "GitHub Project V2 — Scrum Board"
+        BL[Backlog] --> TD[To Do]
+        TD --> IP[In Progress]
+        IP --> RV[Review]
+        RV --> DN[Done]
     end
     
-    subgraph "Issues liees"
-        I1["Issue P1"] -.-> AF
-        I2["Issue P2"] -.-> AF
-        I3["Issue P3"] -.-> AF
+    subgraph "Issues liees (user stories)"
+        I1["Issue P1"] -.-> BL
+        I2["Issue P2"] -.-> BL
+        I3["Issue P3"] -.-> BL
     end
     
-    W["track-progress.yml"] -->|"commit sur PARTIE-02.md"| EC
+    W["track-progress.yml"] -->|"commit sur PARTIE-02.md"| IP
     
-    style AF fill:#6b7280,color:#fff
-    style EC fill:#3b82f6,color:#fff
-    style AT fill:#f59e0b,color:#fff
-    style T fill:#10b981,color:#fff
+    style BL fill:#6b7280,color:#fff
+    style TD fill:#3b82f6,color:#fff
+    style IP fill:#f59e0b,color:#fff
+    style RV fill:#f97316,color:#fff
+    style DN fill:#10b981,color:#fff
 ```
 
 Ce pattern est reutilisable pour n'importe quel projet : il suffit de creer un Project V2, des issues liees, et un workflow qui les synchronise.
@@ -504,27 +506,25 @@ Demandez à l'agent opencode :
 "Ajoute un rapport de couverture de code"
 ```
 
-### Étape 7 — Créer le GitHub Project
+### Étape 7 — Créer le Scrum Board
 
-Mettez en place un tableau de bord visuel pour suivre la progression des PARTIES et du pipeline CI/CD :
+Mettez en place un tableau Scrum pour suivre la progression des PARTIES et du pipeline CI/CD :
 
 1. **Créez un GitHub Project V2** (onglet Projects > New project)
-2. **Ajoutez les colonnes** : A faire | En cours | A tester | Termine
+2. **Ajoutez les colonnes Scrum** : Backlog | To Do | In Progress | Review | Done
 3. **Créez une Issue pour chaque Partie** (P1 a P10) et associez-les au Project
 4. **Ajoutez un workflow de suivi** : creez `.github/workflows/track-progress.yml`
 
-Le workflow `track-progress.yml` detecte automatiquement les pushes sur les fichiers PARTIE-*.md et deplace la carte correspondante de "A faire" vers "En cours". Zero token LLM necessaire.
+Le workflow `track-progress.yml` detecte automatiquement les pushes sur les fichiers PARTIE-*.md et deplace la carte correspondante de "Backlog" vers "In Progress". Zero token LLM necessaire.
 
 ```bash
 # Exemple : creer une issue depuis le terminal
 gh issue create --title "Partie 8 — CI/CD & DevOps" \
   --label "course" --body "Suivi de progression"
 
-# Ajouter l'issue au project (numero 13 dans cet exemple)
-gh project item-list 13 --owner <votre-compte> \
-  --format json --jq '.items[] | select(.content.number == <NUM>) | .id' \
-  | xargs -I {} gh project item-edit --project-id 13 \
-    --id {} --field "Statut" --single-select "<option-id>"
+# Ajouter l'issue au project (colonne "Backlog")
+gh project item-edit --project-id <NUM_PROJECT> --id <ITEM_ID> \
+  --field "Sprint Status" --single-select "Backlog"
 ```
 
 ### Validation
