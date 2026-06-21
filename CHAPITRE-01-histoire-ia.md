@@ -72,6 +72,9 @@ Le Transformer introduit **l'auto-attention** (*self-attention*, mécanisme d'at
 
 ```mermaid
 %%{init: {'theme': 'base', 'themeVariables': {'background': '#0f172a', 'primaryColor': '#7c3aed', 'secondaryColor': '#0ea5e9', 'tertiaryColor': '#f59e0b', 'primaryTextColor': '#f8fafc', 'lineColor': '#64748b'}}}%%
+%% Diagramme : visualisation du mécanisme d'auto-attention du Transformer
+%% Le token "publie" (Token 2) interroge chaque token de la phrase
+%% Les poids d'attention indiquent l'importance relative de chaque token
 graph LR
     subgraph Entree["Phrase d'entree (4 tokens)"]
         T1["'utilisateur'<br/>Token 1"]:::token
@@ -402,14 +405,18 @@ Avant de commencer un TP, placez-vous dans le dossier où vous rangez vos exerci
 Linux/macOS :
 
 ```bash
+# Créer le dossier racine de tous les TPs du cours
 mkdir -p ~/agentic-labs
+# Se positionner dans ce dossier avant de commencer un TP
 cd ~/agentic-labs
 ```
 
 Windows PowerShell :
 
 ```powershell
+# Créer le dossier racine de tous les TPs du cours
 mkdir $HOME\agentic-labs
+# Se positionner dans ce dossier avant de commencer un TP
 cd $HOME\agentic-labs
 ```
 
@@ -418,6 +425,7 @@ Ensuite, quand le cours dit `mkdir nom-du-tp && cd nom-du-tp`, cela crée un nou
 Pour vérifier où vous êtes :
 
 ```bash
+# Afficher le chemin du dossier courant pour vérifier sa position
 pwd
 ```
 
@@ -498,8 +506,11 @@ Vous devez :
 Ce TP crée un **nouveau dossier indépendant** nommé `mon-premier-agent`.
 
 ```bash
+# Créer le dossier du TP Chapitre 1
 mkdir -p mon-premier-agent
+# Se positionner dedans — toutes les commandes suivantes s'exécutent ici
 cd mon-premier-agent
+# Vérifier qu'on est bien dans le bon dossier
 pwd
 ```
 
@@ -508,6 +519,7 @@ pwd
 #### Étape 2 — Initialiser Git
 
 ```bash
+# Initialiser un dépôt Git pour versionner la configuration de l'agent
 git init
 ```
 
@@ -582,6 +594,8 @@ Le fichier documente le rôle de l'agent. Quand vous relirez le projet plus tard
 #### Étape 5 — Lancer opencode
 
 ```bash
+# Lancer l'interface interactive d'opencode dans le dossier du projet
+# opencode lit automatiquement opencode.json pour la configuration
 opencode
 ```
 
@@ -603,10 +617,12 @@ Qu'est-ce que le pattern ReAct ?
 Quelle est la particularite de ce cours ?
 ```
 
+> Chaque question correspond à une section du chapitre. L'agent puisera dans ses connaissances pour répondre. Observez la qualité et la précision des réponses du modèle big-pickle.
+
 #### Étape 6 — Quitter opencode
 
 ```bash
-# Tapez simplement :
+# Quitter l'interface interactive d'opencode
 exit
 ```
 
@@ -615,6 +631,8 @@ exit
 Vous pouvez aussi interagir sans entrer dans l'interface interactive :
 
 ```bash
+# Mode one-shot : opencode répond à la question puis se termine immédiatement
+# Utile pour des questions rapides sans entrer dans l'interface interactive
 opencode -t "Qu'est-ce que le test de Turing ?"
 ```
 

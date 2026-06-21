@@ -51,7 +51,7 @@ graph TD
         C[Communication inter-agents]
     end
     
-    U --> |"Prompt injection"| LLM (Large Language Model)
+    U --> |"Prompt injection"| LLM
     P --> |"Prompt leak"| LLM
     M --> |"Data poisoning"| LLM
     T --> |"Tool abuse"| LLM

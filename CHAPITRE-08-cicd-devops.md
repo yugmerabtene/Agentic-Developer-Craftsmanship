@@ -353,7 +353,7 @@ concurrency:
 
 Chaque phase est independante et peut etre executee separement. L'option `continue-on-error: true` est utilisee sur les phases non-bloquantes (securite, non-regression) pour ne pas bloquer le pipeline sur des alertes.
 
-### 3.3 Strategie de Branching Professionnelle
+### 3.3 Strategie de Branching
 
 Le pipeline suit le modele **GitFlow simplifie** (ou GitHub Flow enrichi) :
 

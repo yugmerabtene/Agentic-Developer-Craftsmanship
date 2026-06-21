@@ -274,6 +274,9 @@
 <p><strong>Exemple (projet reseau social) — visualisation des poids d&rsquo;attention :</strong></p>
 <pre class="mermaid">%%{init: {'theme': 'base', 'themeVariables': {'background': '#0f172a', 'primaryColor': '#7c3aed', 'secondaryColor': '#0ea5e9', 'tertiaryColor': '#f59e0b', 'primaryTextColor': '#f8fafc', 'lineColor': '#64748b',
   'edgeLabelBackground': '#334155'}}}%%
+%% Diagramme : visualisation du mécanisme d'auto-attention du Transformer
+%% Le token &quot;publie&quot; (Token 2) interroge chaque token de la phrase
+%% Les poids d'attention indiquent l'importance relative de chaque token
 graph LR
     subgraph Entree[&quot;Phrase d'entree (4 tokens)&quot;]
         T1[&quot;'utilisateur'&lt;br/&gt;Token 1&quot;]:::token
@@ -664,13 +667,17 @@ pwd
 <h4>Étape 1 — Creer le dossier du projet</h4>
 <p><strong>Point de départ :</strong> ouvrez un terminal dans votre dossier d&rsquo;exercices, par exemple <code>~/agentic-labs</code> ou <code>$HOME\agentic-labs</code>.</p>
 <p>Ce TP crée un <strong>nouveau dossier indépendant</strong> nommé <code>mon-premier-agent</code>.</p>
-<pre><code class="language-bash">mkdir -p mon-premier-agent
+<pre><code class="language-bash"># Créer le dossier du TP Chapitre 1
+mkdir -p mon-premier-agent
+# Se positionner dedans — toutes les commandes suivantes s'exécutent ici
 cd mon-premier-agent
+# Vérifier qu'on est bien dans le bon dossier
 pwd
 </code></pre>
 <p><strong>Résultat attendu :</strong> <code>pwd</code> doit se terminer par <code>mon-premier-agent</code>. Tous les fichiers de ce TP seront créés dans ce dossier.</p>
 <h4>Étape 2 — Initialiser Git</h4>
-<pre><code class="language-bash">git init
+<pre><code class="language-bash"># Initialiser un dépôt Git pour versionner la configuration de l'agent
+git init
 </code></pre>
 <p>Vous devriez voir :</p>
 <pre><code>Initialized empty Git repository in /chemin/vers/mon-premier-agent/.git/
@@ -718,7 +725,9 @@ Agent de decouverte installe pour le cours Agentic Developer Craftsmanship.
 <h5>Résultat attendu</h5>
 <p>Le fichier documente le rôle de l&rsquo;agent. Quand vous relirez le projet plus tard, vous saurez immédiatement pourquoi cet agent existe et comment l&rsquo;utiliser.</p>
 <h4>Étape 5 — Lancer opencode</h4>
-<pre><code class="language-bash">opencode
+<pre><code class="language-bash"># Lancer l'interface interactive d'opencode dans le dossier du projet
+# opencode lit automatiquement opencode.json pour la configuration
+opencode
 </code></pre>
 <p>Vous entrez dans l&rsquo;interface interactive d&rsquo;opencode. Essayez ces instructions :</p>
 <pre><code>Qui a invente le test de Turing et en quoi consiste-t-il ?
@@ -729,13 +738,18 @@ Agent de decouverte installe pour le cours Agentic Developer Craftsmanship.
 </code></pre>
 <pre><code>Quelle est la particularite de ce cours ?
 </code></pre>
+<blockquote>
+<p>Chaque question correspond à une section du chapitre. L&rsquo;agent puisera dans ses connaissances pour répondre. Observez la qualité et la précision des réponses du modèle big-pickle.</p>
+</blockquote>
 <h4>Étape 6 — Quitter opencode</h4>
-<pre><code class="language-bash"># Tapez simplement :
+<pre><code class="language-bash"># Quitter l'interface interactive d'opencode
 exit
 </code></pre>
 <h4>Étape 7 — Test en mode one-shot</h4>
 <p>Vous pouvez aussi interagir sans entrer dans l&rsquo;interface interactive :</p>
-<pre><code class="language-bash">opencode -t &quot;Qu'est-ce que le test de Turing ?&quot;
+<pre><code class="language-bash"># Mode one-shot : opencode répond à la question puis se termine immédiatement
+# Utile pour des questions rapides sans entrer dans l'interface interactive
+opencode -t &quot;Qu'est-ce que le test de Turing ?&quot;
 </code></pre>
 <p>L&rsquo;agent repond directement puis se termine.</p>
 <hr />
@@ -5025,7 +5039,7 @@ concurrency:
   cancel-in-progress: true
 </code></pre>
 <p>Chaque phase est independante et peut etre executee separement. L&rsquo;option <code>continue-on-error: true</code> est utilisee sur les phases non-bloquantes (securite, non-regression) pour ne pas bloquer le pipeline sur des alertes.</p>
-<h3>3.3 Strategie de Branching Professionnelle</h3>
+<h3>3.3 Strategie de Branching</h3>
 <p>Le pipeline suit le modele <strong>GitFlow simplifie</strong> (ou GitHub Flow enrichi) :</p>
 <pre><code>main (production, protegee)
   └── develop (integration, protegee avec PR obligatoire)
@@ -5684,7 +5698,7 @@ graph TD
         C[Communication inter-agents]
     end
 
-    U --&gt; |&quot;Prompt injection&quot;| LLM (Large Language Model)
+    U --&gt; |&quot;Prompt injection&quot;| LLM
     P --&gt; |&quot;Prompt leak&quot;| LLM
     M --&gt; |&quot;Data poisoning&quot;| LLM
     T --&gt; |&quot;Tool abuse&quot;| LLM
