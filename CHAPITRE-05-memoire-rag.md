@@ -60,15 +60,14 @@ py -m pip install chromadb sentence-transformers
   'lineColor': '#818cf8'
 }}}%%
 graph TD
-    subgraph "Mémoire Agent"
-        CT[🧠 Court-terme<br/>Contexte conversation]
-        ST[📝 Sémantique<br/>Faits et connaissances]
-        EP[📅 Épisodique<br/>Expériences passées]
-        PR[⚙️ Procédurale<br/>Savoir-faire et routines]
-    end
-    
+    CT[🧠 Court-terme<br/>Contexte conversation]
+    ST[📝 Sémantique<br/>Faits et connaissances]
+    EP[📅 Épisodique<br/>Expériences passées]
+    PR[⚙️ Procédurale<br/>Savoir-faire et routines]
+
     CT --> ST
-    ST --> EP
+    CT --> EP
+    ST --> PR
     EP --> PR
     
     style CT fill:#1e293b,color:#f1f5f9,stroke:#334155

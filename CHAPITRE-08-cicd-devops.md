@@ -982,6 +982,7 @@ L'agent devops :
 
 ## Liens
 
+- [Chapitre 7 — MCP (Model Context Protocol) & Standards](./CHAPITRE-07-mcp-standards.md)
 - [Chapitre 9 — Sécurité & Safety](./CHAPITRE-09-securite.md)
 - [Chapitre 10 — Opencode & Labs](./CHAPITRE-10-opencode-labs.md)
 - [GitHub Actions Documentation](https://docs.github.com/en/actions)

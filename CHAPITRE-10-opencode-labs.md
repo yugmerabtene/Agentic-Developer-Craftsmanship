@@ -1104,7 +1104,9 @@ opencode -t "Vérifie que le Dockerfile est valide"
 
 ## Liens
 
-- [Chapitre 1 — Histoire de l'Intelligence Artificielle](./CHAPITRE-01-histoire-ia.md)
+- [Chapitre 1 — Introduction](./CHAPITRE-01-histoire-ia.md)
 - [Chapitre 4 — Architecture Agentique](./CHAPITRE-04-architecture-agent.md)
 - [Chapitre 7 — MCP (Model Context Protocol) & Standards](./CHAPITRE-07-mcp-standards.md)
+- [Chapitre 8 — CI/CD & DevOps pour Agents](./CHAPITRE-08-cicd-devops.md)
+- [Chapitre 9 — Sécurité & Safety des Agents](./CHAPITRE-09-securite.md)
 - [Documentation opencode](https://opencode.ai)

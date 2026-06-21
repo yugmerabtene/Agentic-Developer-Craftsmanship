@@ -4,7 +4,6 @@ Agentic Developer Craftsmanship — Générateur de site statique
 Lit les 10 fichiers .md et génère export/site/index.html
 """
 
-import os
 import re
 from html import unescape
 import shutil
@@ -23,8 +22,8 @@ IMG_DIR = SITE_DIR / "img"
 VERSION = "1.3"
 
 CHAPTERS = [
-    ("CHAPITRE-01-histoire-ia.md",    "Chapitre 1",    "Mettre à jour les paquets"),
-    ("CHAPITRE-02-fondations-llm.md", "Chapitre 2",    "Mettre à jour les paquets"),
+    ("CHAPITRE-01-histoire-ia.md",    "Chapitre 1",    "Phase 1 — Fondamentaux"),
+    ("CHAPITRE-02-fondations-llm.md", "Chapitre 2",    "Phase 1 — Fondamentaux"),
     ("CHAPITRE-03-prompt-tool-use.md", "Chapitre 3",   "Phase 2 — Interaction avec les LLMs"),
     ("CHAPITRE-04-architecture-agent.md", "Chapitre 4","Phase 2 — Interaction avec les LLMs"),
     ("CHAPITRE-05-memoire-rag.md",    "Chapitre 5",    "Phase 3 — Mémoire & Collaboration"),
@@ -36,7 +35,7 @@ CHAPTERS = [
 ]
 
 PHASES = [
-    ("Phase 1", "Mettre à jour les paquets", "De l'histoire de l'IA aux bases des LLM", "#1e3a5f"),
+    ("Phase 1", "Fondamentaux", "De l'histoire de l'IA aux bases des LLM", "#1e3a5f"),
     ("Phase 2", "Interaction avec les LLMs", "Prompt engineering, tool use et boucle agent", "#2563eb"),
     ("Phase 3", "Mémoire & Collaboration", "RAG, mémoire persistante et systèmes multi-agents", "#059669"),
     ("Phase 4", "Production", "MCP, CI/CD et déploiement professionnel", "#7c3aed"),
@@ -60,6 +59,21 @@ def slugify(text):
 
 def md_to_html(md_text):
     return markdown.markdown(md_text, extensions=['extra', 'smarty'])
+
+
+def internal_link_map():
+    links = {
+        "README.md": "#sommaire",
+        "projet/gestion_de_projet/cdc.md": "#annexe-a-cahier-des-charges",
+    }
+
+    for fname, label, _ in CHAPTERS:
+        links[fname] = f"#{slugify(label)}"
+
+    for fname, label in APPENDICES:
+        links[fname] = f"#{slugify(label)}"
+
+    return links
 
 def extract_title(md_content):
     m = re.search(r'^#\s+(.+)$', md_content, re.MULTILINE)
@@ -91,7 +105,7 @@ def fix_mermaid_html(html):
     )
     return html
 
-def add_heading_ids(html):
+def add_heading_ids(html, prefix=None):
     used_ids = set()
     def _add_id(m):
         nonlocal used_ids
@@ -102,6 +116,8 @@ def add_heading_ids(html):
         text = text.replace('\u201c', '"').replace('\u201d', '"')
         text = re.sub(r'[\(\)]', '', text)
         hid = slugify(text)
+        if prefix:
+            hid = f"{prefix}-{hid}"
         if hid in used_ids:
             counter = 2
             while f"{hid}-{counter}" in used_ids:
@@ -113,6 +129,24 @@ def add_heading_ids(html):
             tag = tag.replace('<h3', f'<h3 id="{hid}"')
         return tag
     return re.sub(r'<h[23][^>]*>.*?</h[23]>', _add_id, html)
+
+
+def rewrite_internal_links(html):
+    links = internal_link_map()
+
+    def _rewrite(m):
+        href = m.group(1)
+        if href.startswith(("http://", "https://", "#", "mailto:")):
+            return m.group(0)
+
+        normalized = href[2:] if href.startswith("./") else href
+        target = links.get(normalized)
+        if not target:
+            return m.group(0)
+
+        return m.group(0).replace(f'href="{href}"', f'href="{target}"')
+
+    return re.sub(r'href="([^"]+)"', _rewrite, html)
 
 
 def build_prerequisites_html():
@@ -143,7 +177,8 @@ def build_prerequisites_html():
 
     html = md_to_html(prerequis_md)
     html = fix_mermaid_html(html)
-    html = add_heading_ids(html)
+    html = add_heading_ids(html, prefix="prerequis-installation")
+    html = rewrite_internal_links(html)
     return html
 
 
@@ -189,7 +224,10 @@ def build_toc_html(include_prerequis=False):
                 parts.append(
                     '<li class="toc-sub"><a href="#prerequis-installation"><span class="toc-sub-text">Mise en place des prérequis</span></a></li>'
                 )
-            sh_id = slugify(sh)
+            sh_prefix = chap_id
+            if chapter_count == 0 and sh.startswith("6."):
+                sh_prefix = "chapitre-1-tp"
+            sh_id = f"{sh_prefix}-{slugify(sh)}"
             parts.append(
                 f'<li class="toc-sub"><a href="#{sh_id}">'
                 f'<span class="toc-sub-text">{sh}</span></a></li>'
@@ -213,7 +251,7 @@ def build_content_html():
     parts = []
 
     phase_colors = {
-        "Mettre à jour les paquets": "#1e3a5f",
+        "Phase 1 — Fondamentaux": "#1e3a5f",
         "Phase 2 — Interaction avec les LLMs": "#2563eb",
         "Phase 3 — Mémoire & Collaboration": "#059669",
         "Phase 4 — Production": "#7c3aed",
@@ -242,7 +280,7 @@ def build_content_html():
             phase_desc = PHASES[phase_num - 1][2]
             color = phase_colors.get(phase, "#1e3a5f")
             parts.append(f'''
-<section class="phase-divider" style="--phase-color: {color};">
+<section class="phase-divider" id="phase-{phase_num}" style="--phase-color: {color};">
     <div class="phase-badge">Phase {phase_num}</div>
     <h2 class="phase-title">{phase_title}</h2>
     <div class="phase-line"></div>
@@ -277,11 +315,13 @@ def build_content_html():
         if ch1_theory is not None:
             theory_html = md_to_html(ch1_theory)
             theory_html = fix_mermaid_html(theory_html)
-            theory_html = add_heading_ids(theory_html)
+            theory_html = add_heading_ids(theory_html, prefix=slugify(label))
+            theory_html = rewrite_internal_links(theory_html)
         else:
             html = md_to_html(md_content)
             html = fix_mermaid_html(html)
-            html = add_heading_ids(html)
+            html = add_heading_ids(html, prefix=slugify(label))
+            html = rewrite_internal_links(html)
 
         if not title:
             title = label
@@ -321,7 +361,8 @@ def build_content_html():
             if ch1_tp:
                 tp_html = md_to_html(ch1_tp)
                 tp_html = fix_mermaid_html(tp_html)
-                tp_html = add_heading_ids(tp_html)
+                tp_html = add_heading_ids(tp_html, prefix="chapitre-1-tp")
+                tp_html = rewrite_internal_links(tp_html)
                 parts.append(f'''
 <section class="chapter" id="chapitre-1-tp">
     <div class="chapter-header" style="background: linear-gradient(135deg, #0f172a, {phase_colors.get(phase, '#1e3a5f')});">
@@ -364,6 +405,7 @@ def build_content_html():
             md_content = content
 
         html = md_to_html(md_content)
+        html = rewrite_internal_links(html)
         app_id = slugify(label)
 
         parts.append(f'''
@@ -438,7 +480,7 @@ def build_site():
         </ul>
     </nav>
     <div class="sidebar-footer">
-        <a href="#" class="sidebar-home">&#8593; Haut de page</a>
+        <a href="#sommaire" class="sidebar-home">&#8593; Haut de page</a>
     </div>
 </aside>
 

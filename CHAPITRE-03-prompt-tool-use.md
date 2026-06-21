@@ -15,7 +15,7 @@ Avant de commencer ce chapitre, assurez-vous d'avoir :
 
 - Terminé les **[Chapitres 1](CHAPITRE-01-histoire-ia.md)** et **[Chapitre 2](CHAPITRE-02-fondations-llm.md)** avec leurs TP
 - Python 3.10+ et opencode installés
-- Compris les bases de la tokenisation (P2)
+- Compris les bases de la tokenisation vues dans le **Chapitre 2**
 
 ### Vérification
 

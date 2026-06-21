@@ -692,4 +692,13 @@ mon-premier-agent/
 - GitHub, *"Copilot Coding Agent"* (2026)
 
 ---
+
+## Liens
+
+- [README du cours](README.md)
+- [Chapitre 2 — Architecture des LLMs (Large Language Models)](CHAPITRE-02-fondations-llm.md)
+- [Cahier des charges du projet](projet/gestion_de_projet/cdc.md)
+
+---
+
 **Projet reseau social** : [`projet/gestion_de_projet/cdc.md`](projet/gestion_de_projet/cdc.md)
