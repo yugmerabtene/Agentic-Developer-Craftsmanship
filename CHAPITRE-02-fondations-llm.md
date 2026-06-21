@@ -13,7 +13,7 @@
 
 Avant de commencer ce chapitre, assurez-vous d'avoir :
 
-- Terminé le **[Chapitre 1](CHAPITRE-01-histoire-ia.md)** et son TP (Travaux Pratiques) (environnement opencode fonctionnel)
+- Terminé le **[Chapitre 1](CHAPITRE-01-histoire-ia.md)** et son TP (environnement opencode fonctionnel)
 - Python 3.10+ installé
 - pip à jour
 
@@ -311,7 +311,7 @@ graph TD
 
 ## 7. Travaux Pratiques — Visualiser la tokenisation
 
-> **Projet reseau social** : dans ce TP (Travaux Pratiques), vous allez tokeniser des phrases de l'application reseau social (messages, noms d'utilisateur) pour comprendre comment un Large Language Model les "voit" et estimer le cout en tokens des futures fonctionnalites.
+> **Projet reseau social** : dans ce TP, vous allez tokeniser des phrases de l'application reseau social (messages, noms d'utilisateur) pour comprendre comment un Large Language Model les "voit" et estimer le cout en tokens des futures fonctionnalites.
 
 **Objectif :** Installer tiktoken, tokeniser du texte, comprendre la difference entre mots et tokens, estimer le cout d'un message.
 
@@ -339,7 +339,7 @@ Vous devez :
 
 #### Étape 1 — Creer le dossier
 
-**Point de départ :** ouvrez un terminal dans votre dossier d'exercices. Ce TP (Travaux Pratiques) crée un **nouveau dossier indépendant** nommé `tokenisation`.
+**Point de départ :** ouvrez un terminal dans votre dossier d'exercices. Ce TP crée un **nouveau dossier indépendant** nommé `tokenisation`.
 
 ```bash
 mkdir -p tokenisation
@@ -522,7 +522,7 @@ python3 -m pytest test_tokenisation.py -v
 
 **Point de départ :** vous êtes normalement dans le dossier `tokenisation/` après les tests.
 
-Pour lancer opencode sur le TP (Travaux Pratiques), vous pouvez rester dans `tokenisation/`. Si vous préférez revenir au dossier parent où se trouvent tous vos TPs, utilisez `cd ..`.
+Pour lancer opencode sur le TP, vous pouvez rester dans `tokenisation/`. Si vous préférez revenir au dossier parent où se trouvent tous vos TPs, utilisez `cd ..`.
 
 ```bash
 # Optionnel : revenir au dossier parent de tokenisation

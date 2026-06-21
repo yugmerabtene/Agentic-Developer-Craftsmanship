@@ -13,7 +13,7 @@
 
 Avant de commencer ce chapitre, assurez-vous d'avoir :
 
-- Terminé le **[Chapitre 7](CHAPITRE-07-mcp-standards.md)** et son TP (Travaux Pratiques) serveur MCP (Model Context Protocol)
+- Terminé le **[Chapitre 7](CHAPITRE-07-mcp-standards.md)** et son TP serveur MCP (Model Context Protocol)
 - Python 3.10+ installé
 - Git installé
 - Un compte GitHub
@@ -745,7 +745,7 @@ Vous devez créer un mini-projet agentique avec :
 
 Commencez par créer la structure du projet et un assistant CLI (Command Line Interface) minimal :
 
-**Point de départ :** ouvrez un terminal dans votre dossier d'exercices. Ce TP (Travaux Pratiques) crée un **nouveau dossier indépendant** nommé `cicd-agents`.
+**Point de départ :** ouvrez un terminal dans votre dossier d'exercices. Ce TP crée un **nouveau dossier indépendant** nommé `cicd-agents`.
 
 ```bash
 mkdir cicd-agents && cd cicd-agents
@@ -753,7 +753,7 @@ mkdir -p tests/unit tests/integration tests/regression tests/e2e .github/workflo
 pwd
 ```
 
-**Résultat attendu :** `pwd` doit se terminer par `cicd-agents`. Tous les fichiers CI/CD (Continuous Integration / Continuous Deployment) de ce TP (Travaux Pratiques) seront créés dans ce dossier.
+**Résultat attendu :** `pwd` doit se terminer par `cicd-agents`. Tous les fichiers CI/CD (Continuous Integration / Continuous Deployment) de ce TP seront créés dans ce dossier.
 
 Vous êtes toujours dans `cicd-agents/`. Créez `assistant.py` à la racine de ce dossier :
 

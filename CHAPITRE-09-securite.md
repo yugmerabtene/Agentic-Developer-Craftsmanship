@@ -13,7 +13,7 @@
 
 Avant de commencer ce chapitre, assurez-vous d'avoir :
 
-- Terminé le **[Chapitre 8](CHAPITRE-08-cicd-devops.md)** et son TP (Travaux Pratiques) CI/CD (Continuous Integration / Continuous Deployment)
+- Terminé le **[Chapitre 8](CHAPITRE-08-cicd-devops.md)** et son TP CI/CD (Continuous Integration / Continuous Deployment)
 - opencode installé et fonctionnel
 - Compris les permissions dans `opencode.json`
 - Un terminal dans un dossier de test, jamais dans un dossier contenant de vrais secrets
@@ -27,7 +27,7 @@ opencode --version
 git status
 ```
 
-> Pour ce TP (Travaux Pratiques), travaillez dans un dossier isolé. Ne mettez jamais de vrai secret dans un fichier `.env` de test.
+> Pour ce TP, travaillez dans un dossier isolé. Ne mettez jamais de vrai secret dans un fichier `.env` de test.
 
 ---
 
@@ -521,7 +521,7 @@ Toute entrée utilisateur doit être validée côté serveur (via Pydantic) pour
 
 ## 7. Travaux Pratiques — Sécuriser un agent opencode
 
-> **Projet reseau social** : ce TP (Travaux Pratiques) prépare la sécurité du projet final. Vous allez configurer un agent avec permissions minimales et vérifier qu'il ne doit pas lire ou exposer de pseudo-secrets.
+> **Projet reseau social** : ce TP prépare la sécurité du projet final. Vous allez configurer un agent avec permissions minimales et vérifier qu'il ne doit pas lire ou exposer de pseudo-secrets.
 
 **Objectif :** Mettre en place une configuration opencode prudente, documenter les règles de sécurité, puis tester une tentative d'exfiltration.
 
@@ -549,9 +549,9 @@ Vous devez créer un projet de test sécurisé avec :
 
 ### 7.2 Corrigé — Étape 1 : Créer le projet isolé
 
-**Point de départ :** ouvrez un terminal dans votre dossier d'exercices. Ce TP (Travaux Pratiques) crée un **nouveau dossier indépendant** nommé `securite-agent`.
+**Point de départ :** ouvrez un terminal dans votre dossier d'exercices. Ce TP crée un **nouveau dossier indépendant** nommé `securite-agent`.
 
-N'utilisez pas un dossier contenant de vrais secrets. Le fichier `.env` créé dans ce TP (Travaux Pratiques) est volontairement factice.
+N'utilisez pas un dossier contenant de vrais secrets. Le fichier `.env` créé dans ce TP est volontairement factice.
 
 ```bash
 mkdir -p securite-agent
@@ -560,7 +560,7 @@ git init
 pwd
 ```
 
-**Résultat attendu :** `pwd` doit se terminer par `securite-agent`. Tous les fichiers de sécurité de ce TP (Travaux Pratiques) seront créés dans ce dossier isolé.
+**Résultat attendu :** `pwd` doit se terminer par `securite-agent`. Tous les fichiers de sécurité de ce TP seront créés dans ce dossier isolé.
 
 ### 7.3 Corrigé — Étape 2 : Créer un faux secret
 
@@ -571,7 +571,7 @@ API_KEY=FAUX_SECRET_NE_PAS_UTILISER
 DATABASE_URL=sqlite:///app.db
 ```
 
-> Ne mettez jamais de vraie clé API (Application Programming Interface) dans ce TP (Travaux Pratiques).
+> Ne mettez jamais de vraie clé API (Application Programming Interface) dans ce TP.
 
 Vous êtes toujours dans `securite-agent/`. Créez `.gitignore` à la racine du projet, au même niveau que `.env` :
 

@@ -13,7 +13,7 @@
 
 Avant de commencer ce chapitre, assurez-vous d'avoir :
 
-- Terminé les **[Chapitres 1](CHAPITRE-01-histoire-ia.md)** et **[Chapitre 2](CHAPITRE-02-fondations-llm.md)** avec leurs TP (Travaux Pratiques)
+- Terminé les **[Chapitres 1](CHAPITRE-01-histoire-ia.md)** et **[Chapitre 2](CHAPITRE-02-fondations-llm.md)** avec leurs TP
 - Python 3.10+ et opencode installés
 - Compris les bases de la tokenisation (P2)
 
@@ -483,7 +483,7 @@ Si un outil échoue, explique pourquoi à l'utilisateur.
 
 ## 6. Travaux Pratiques — Assistant CLI (Command Line Interface) avec Outils
 
-> **Projet reseau social** : ce TP (Travaux Pratiques) s'appuie sur le reseau social defini dans [`projet/gestion_de_projet/cdc.md`](projet/gestion_de_projet/cdc.md). L'assistant CLI (Command Line Interface) que vous allez construire permettra de manipuler les utilisateurs et publications de cette application.
+> **Projet reseau social** : ce TP s'appuie sur le reseau social defini dans [`projet/gestion_de_projet/cdc.md`](projet/gestion_de_projet/cdc.md). L'assistant CLI (Command Line Interface) que vous allez construire permettra de manipuler les utilisateurs et publications de cette application.
 
 **Objectif :** Créer un assistant en ligne de commande qui utilise des outils (tool use) avec le pattern ReAct (Reasoning + Acting).
 
@@ -512,14 +512,14 @@ Vous devez creer un assistant interactif en ligne de commande avec :
 
 ### 6.2 Corrigé — Étape 1 : Structure du projet
 
-**Point de départ :** ouvrez un terminal dans votre dossier d'exercices. Ce TP (Travaux Pratiques) crée un **nouveau dossier indépendant** nommé `assistant-cli`.
+**Point de départ :** ouvrez un terminal dans votre dossier d'exercices. Ce TP crée un **nouveau dossier indépendant** nommé `assistant-cli`.
 
 ```bash
 mkdir assistant-cli && cd assistant-cli
 pwd
 ```
 
-**Résultat attendu :** `pwd` doit se terminer par `assistant-cli`. Tous les fichiers de ce TP (Travaux Pratiques) seront créés dans ce dossier.
+**Résultat attendu :** `pwd` doit se terminer par `assistant-cli`. Tous les fichiers de ce TP seront créés dans ce dossier.
 
 Vous êtes toujours dans `assistant-cli/`. Créez `assistant.py` à la racine de ce dossier :
 
@@ -624,7 +624,7 @@ assistant-cli/
 
 #### À quoi sert `AGENTS.md` ici ?
 
-Dans ce TP (Travaux Pratiques), `AGENTS.md` explique à opencode que le projet concerne un assistant CLI (Command Line Interface) avec outils. Le fichier donne le contexte métier : quels outils existent, quel est l'objectif du projet, et comment l'agent doit l'améliorer.
+Dans ce TP, `AGENTS.md` explique à opencode que le projet concerne un assistant CLI (Command Line Interface) avec outils. Le fichier donne le contexte métier : quels outils existent, quel est l'objectif du projet, et comment l'agent doit l'améliorer.
 
 Sans ce fichier, l'agent voit seulement une configuration technique dans `opencode.json`. Avec `AGENTS.md`, il comprend ce qu'il doit préserver : l'assistant doit rester simple, testable, et orienté tool use.
 

@@ -140,9 +140,9 @@ Dans la suite du cours, les commandes sont souvent montrées en version Linux/ma
 
 ### Convention de dossiers pour les TPs
 
-Chaque TP (Travaux Pratiques) du cours doit être fait dans un **dossier de travail séparé**.
+Chaque TP du cours doit être fait dans un **dossier de travail séparé**.
 
-Avant de commencer un TP (Travaux Pratiques), placez-vous dans le dossier où vous rangez vos exercices. Exemple :
+Avant de commencer un TP, placez-vous dans le dossier où vous rangez vos exercices. Exemple :
 
 Linux/macOS :
 
@@ -158,7 +158,7 @@ mkdir $HOME\agentic-labs
 cd $HOME\agentic-labs
 ```
 
-Ensuite, quand le cours dit `mkdir nom-du-tp && cd nom-du-tp`, cela crée un nouveau dossier de TP (Travaux Pratiques) à l'intérieur de ce dossier d'exercices. Tous les fichiers du TP (Travaux Pratiques) doivent être créés dans ce dossier courant.
+Ensuite, quand le cours dit `mkdir nom-du-tp && cd nom-du-tp`, cela crée un nouveau dossier de TP à l'intérieur de ce dossier d'exercices. Tous les fichiers du TP doivent être créés dans ce dossier courant.
 
 Pour vérifier où vous êtes :
 
@@ -424,7 +424,7 @@ Anthropic introduit le **Model Context Protocol**, un standard ouvert pour conne
 - **Opencode** : plateforme agentic open-source orchestrant des équipes d'agents spécialisés via des fichiers de configuration (`opencode.json`, `AGENTS.md`)
 - Les agents deviennent des membres à part entière de l'équipe de développement
 
-> **Projet reseau social** : tout au long de ce cours, nous utiliserons comme projet le developpement d'une application web sociale simplifiee (inspiree de Twitter/Facebook). Le Cahier des Charges complet est disponible dans [`projet/gestion_de_projet/cdc.md`](projet/gestion_de_projet/cdc.md). Chaque TP (Travaux Pratiques) montrera comment l'agentic permet de construire ce projet concret.
+> **Projet reseau social** : tout au long de ce cours, nous utiliserons comme projet le developpement d'une application web sociale simplifiee (inspiree de Twitter/Facebook). Le Cahier des Charges complet est disponible dans [`projet/gestion_de_projet/cdc.md`](projet/gestion_de_projet/cdc.md). Chaque TP montrera comment l'agentic permet de construire ce projet concret.
 
 ---
 
@@ -469,7 +469,7 @@ Ce cours vous donne les clés pour concevoir, construire et déployer ces systè
 
 ## 6. Travaux Pratiques — Premier agent opencode
 
-> **Projet reseau social** : ce premier TP (Travaux Pratiques) prepare votre environnement de travail pour l'ensemble du cours. Vous allez installer les outils necessaires (Python, opencode, big-pickle), verifier leur bon fonctionnement, puis interagir avec votre premier agent.
+> **Projet reseau social** : ce premier TP prepare votre environnement de travail pour l'ensemble du cours. Vous allez installer les outils necessaires (Python, opencode, big-pickle), verifier leur bon fonctionnement, puis interagir avec votre premier agent.
 
 **Objectif :** Installer et configurer votre environnement de development agentique, executer votre premier agent opencode.
 
@@ -499,7 +499,7 @@ Vous devez :
 
 **Point de départ :** ouvrez un terminal dans votre dossier d'exercices, par exemple `~/agentic-labs` ou `$HOME\agentic-labs`.
 
-Ce TP (Travaux Pratiques) crée un **nouveau dossier indépendant** nommé `mon-premier-agent`.
+Ce TP crée un **nouveau dossier indépendant** nommé `mon-premier-agent`.
 
 ```bash
 mkdir -p mon-premier-agent
@@ -507,7 +507,7 @@ cd mon-premier-agent
 pwd
 ```
 
-**Résultat attendu :** `pwd` doit se terminer par `mon-premier-agent`. Tous les fichiers de ce TP (Travaux Pratiques) seront créés dans ce dossier.
+**Résultat attendu :** `pwd` doit se terminer par `mon-premier-agent`. Tous les fichiers de ce TP seront créés dans ce dossier.
 
 #### Étape 2 — Initialiser Git
 
@@ -551,7 +551,7 @@ Creez un fichier `opencode.json` :
 
 ##### À quoi sert `AGENTS.md` dans ce premier projet ?
 
-`AGENTS.md` explique à l'agent le contexte du projet et la façon dont il doit être utilisé. Dans ce premier TP (Travaux Pratiques), il est volontairement simple : il sert à documenter que l'agent est un agent de découverte du cours.
+`AGENTS.md` explique à l'agent le contexte du projet et la façon dont il doit être utilisé. Dans ce premier TP, il est volontairement simple : il sert à documenter que l'agent est un agent de découverte du cours.
 
 Même si le projet ne contient qu'un seul agent, prendre l'habitude de créer `AGENTS.md` est important. Plus tard, ce fichier décrira une vraie équipe : scrum-master, développeur, testeur, devops.
 

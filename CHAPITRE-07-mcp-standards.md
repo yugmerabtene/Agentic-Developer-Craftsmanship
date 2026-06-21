@@ -13,7 +13,7 @@
 
 Avant de commencer ce chapitre, assurez-vous d'avoir :
 
-- Terminé le **[Chapitre 6](CHAPITRE-06-multi-agent.md)** et son TP (Travaux Pratiques) supervisor
+- Terminé le **[Chapitre 6](CHAPITRE-06-multi-agent.md)** et son TP supervisor
 - Python 3.10+ installé
 - opencode fonctionnel
 - Compris la notion d'outil exposé à un agent
@@ -422,7 +422,7 @@ Le serveur doit :
 
 ### 7.2 Corrigé — Étape 1 : Installer le Software Development Kit Model Context Protocol
 
-**Point de départ :** ouvrez un terminal dans votre dossier d'exercices. Ce TP (Travaux Pratiques) crée un **nouveau dossier indépendant** nommé `serveur-mcp`.
+**Point de départ :** ouvrez un terminal dans votre dossier d'exercices. Ce TP crée un **nouveau dossier indépendant** nommé `serveur-mcp`.
 
 ```bash
 mkdir serveur-mcp && cd serveur-mcp

@@ -13,7 +13,7 @@
 
 Avant de commencer ce chapitre, assurez-vous d'avoir :
 
-- Terminé le **[Chapitre 5](CHAPITRE-05-memoire-rag.md)** et son TP (Travaux Pratiques) mémoire persistante
+- Terminé le **[Chapitre 5](CHAPITRE-05-memoire-rag.md)** et son TP mémoire persistante
 - opencode installé et fonctionnel
 - Git installé
 - Compris les fichiers `opencode.json`, `AGENTS.md` et `.opencode/skills/`
@@ -27,7 +27,7 @@ opencode --version
 git --version
 ```
 
-> **Aucune dépendance Python obligatoire** : ce TP (Travaux Pratiques) configure une équipe d'agents avec opencode.
+> **Aucune dépendance Python obligatoire** : ce TP configure une équipe d'agents avec opencode.
 
 ---
 

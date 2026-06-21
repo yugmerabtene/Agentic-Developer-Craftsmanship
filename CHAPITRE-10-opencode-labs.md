@@ -371,7 +371,7 @@ Vous devez créer un premier projet opencode minimal avec :
 
 **Point de départ :** ouvrez un terminal dans votre dossier d'exercices, par exemple `~/agentic-labs` sur Linux/macOS ou `$HOME\agentic-labs` sur Windows PowerShell.
 
-Ce lab crée un **nouveau dossier indépendant** nommé `mon-premier-agent`. Il ne doit pas être créé à l'intérieur d'un autre TP (Travaux Pratiques) précédent.
+Ce lab crée un **nouveau dossier indépendant** nommé `mon-premier-agent`. Il ne doit pas être créé à l'intérieur d'un autre TP précédent.
 
 ```bash
 mkdir mon-premier-agent && cd mon-premier-agent
@@ -558,7 +558,7 @@ L'équipe doit contenir :
 
 **Point de départ :** ouvrez un terminal dans votre dossier d'exercices, par exemple `~/agentic-labs` sur Linux/macOS ou `$HOME\agentic-labs` sur Windows PowerShell.
 
-Ce lab crée un **nouveau dossier indépendant** nommé `equipe-agentic`. Ne lancez pas ces commandes depuis `mon-premier-agent` ni depuis un autre TP (Travaux Pratiques), sinon vous imbriquerez les projets.
+Ce lab crée un **nouveau dossier indépendant** nommé `equipe-agentic`. Ne lancez pas ces commandes depuis `mon-premier-agent` ni depuis un autre TP, sinon vous imbriquerez les projets.
 
 ```bash
 mkdir equipe-agentic && cd equipe-agentic
