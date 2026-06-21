@@ -67,6 +67,7 @@ Un LLM (Large Language Model) ne lit pas du texte, il lit des **tokens** (unité
 ```
 
 **Règles générales :**
+
 - 1 token ≈ 0.75 mot en français
 - 1 token ≈ 0.25 mot en anglais (plus dense)
 - Les mots rares ou techniques sont découpés en plusieurs tokens

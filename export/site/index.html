@@ -867,11 +867,13 @@ py -m pip show tiktoken pytest
 <pre><code>&quot;Les agents Intelligence Artificielle sont fascinants&quot;
 → [&quot;Les&quot;, &quot; agents&quot;, &quot; IA&quot;, &quot; sont&quot;, &quot; fascin&quot;, &quot;ants&quot;]
 </code></pre>
-<p><strong>Règles générales :</strong>
-- 1 token ≈ 0.75 mot en français
-- 1 token ≈ 0.25 mot en anglais (plus dense)
-- Les mots rares ou techniques sont découpés en plusieurs tokens
-- Les espaces et ponctuations comptent</p>
+<p><strong>Règles générales :</strong></p>
+<ul>
+<li>1 token ≈ 0.75 mot en français</li>
+<li>1 token ≈ 0.25 mot en anglais (plus dense)</li>
+<li>Les mots rares ou techniques sont découpés en plusieurs tokens</li>
+<li>Les espaces et ponctuations comptent</li>
+</ul>
 <h3 id="chapitre-2-1-2-implications-pratiques">1.2 Implications pratiques</h3>
 <table>
 <thead>
@@ -1542,11 +1544,13 @@ graph LR
 Tu réponds uniquement avec du code fonctionnel.
 Tu expliques brièvement ton raisonnement avant chaque réponse.
 </code></pre>
-<p><strong>Bonnes pratiques :</strong>
-- Clair et direct (pas d&rsquo;ambiguïté)
-- Règles précises (format, longueur, ton)
-- Contraintes de sécurité (ne pas exécuter de code dangereux)
-- Contexte utile (utilisateur, projet, version)</p>
+<p><strong>Bonnes pratiques :</strong></p>
+<ul>
+<li>Clair et direct (pas d&rsquo;ambiguïté)</li>
+<li>Règles précises (format, longueur, ton)</li>
+<li>Contraintes de sécurité (ne pas exécuter de code dangereux)</li>
+<li>Contexte utile (utilisateur, projet, version)</li>
+</ul>
 <h3 id="chapitre-3-1-3-user-prompt">1.3 User Prompt</h3>
 <p>Le prompt utilisateur contient la <strong>demande spécifique</strong> :</p>
 <pre><code>Peux-tu écrire une fonction Python qui vérifie
@@ -2895,10 +2899,12 @@ graph LR
     style V2 fill:#1e293b,color:#f1f5f9,stroke:#334155
     style V3 fill:#1e293b,color:#f1f5f9,stroke:#334155
 </pre>
-<p><strong>Propriétés :</strong>
-- Deux textes proches sémantiquement → vecteurs proches (similarité cosinus élevée)
-- Deux textes différents → vecteurs éloignés
-- La dimension typique : 384 à 3072 (selon le modèle)</p>
+<p><strong>Propriétés :</strong></p>
+<ul>
+<li>Deux textes proches sémantiquement → vecteurs proches (similarité cosinus élevée)</li>
+<li>Deux textes différents → vecteurs éloignés</li>
+<li>La dimension typique : 384 à 3072 (selon le modèle)</li>
+</ul>
 <pre class="mermaid">%%{init: {'theme': 'base', 'themeVariables': {
   'primaryColor': '#0f172a',
   'primaryTextColor': '#f8fafc',

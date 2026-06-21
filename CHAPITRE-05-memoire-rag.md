@@ -115,6 +115,7 @@ graph LR
 ```
 
 **Propriétés :**
+
 - Deux textes proches sémantiquement → vecteurs proches (similarité cosinus élevée)
 - Deux textes différents → vecteurs éloignés
 - La dimension typique : 384 à 3072 (selon le modèle)

@@ -79,6 +79,7 @@ Tu expliques brièvement ton raisonnement avant chaque réponse.
 ```
 
 **Bonnes pratiques :**
+
 - Clair et direct (pas d'ambiguïté)
 - Règles précises (format, longueur, ton)
 - Contraintes de sécurité (ne pas exécuter de code dangereux)
