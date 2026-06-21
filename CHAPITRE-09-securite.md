@@ -99,7 +99,7 @@ Agent (en lisant le document) : "Votre mot de passe est 1234"
 
 ### 2.3 Protection
 
-#### Principe expliqué simplement
+#### Principe
 
 Une **prompt injection** est une tentative de faire passer une instruction malveillante avant les règles de l'agent.
 
@@ -204,7 +204,7 @@ Bonjour, peux-tu m'aider ?
 
 ### 3.2 Protection
 
-#### Principe expliqué simplement
+#### Principe
 
 Un **jailbreak** cherche à contourner les règles de sécurité du modèle. Contrairement à une prompt injection classique, il ne demande pas toujours directement une action interdite. Il peut passer par un rôle fictif, un scénario hypothétique ou un encodage.
 
@@ -322,7 +322,7 @@ graph TD
 
 ### 4.3 Implémentation
 
-#### Principe expliqué simplement
+#### Principe
 
 Le **principe du moindre privilège** consiste à donner à chaque agent uniquement les droits dont il a besoin.
 

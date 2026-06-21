@@ -166,7 +166,7 @@ graph TD
 
 ## 3. Architecture Supervisor
 
-### Principe expliqué simplement
+### Principe
 
 Un **Supervisor** est un agent coordinateur. Il ne fait pas forcément tout lui-même. Son rôle est de comprendre la demande, découper le travail, déléguer aux bons sous-agents, puis consolider les résultats.
 
@@ -301,7 +301,7 @@ Recherche: Résultat simulé pour : réseau social
 
 Un appel agent peut prendre plusieurs secondes, voire minutes. En séquentiel, l'utilisateur attend.
 
-#### Principe expliqué simplement
+#### Principe
 
 Une **file d'attente asynchrone** permet de lancer une tâche longue sans bloquer l'utilisateur.
 

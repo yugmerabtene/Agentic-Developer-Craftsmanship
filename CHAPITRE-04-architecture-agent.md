@@ -257,7 +257,7 @@ La fenêtre de contexte d'un LLM est limitée. Plus la conversation est longue, 
 
 ### 3.3 Sliding Window
 
-#### Principe expliqué simplement
+#### Principe
 
 La **Sliding Window** signifie littéralement "fenêtre glissante".
 

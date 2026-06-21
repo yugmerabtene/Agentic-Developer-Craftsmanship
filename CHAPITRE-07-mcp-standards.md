@@ -128,7 +128,7 @@ graph TD
 
 ## 3. Créer un Serveur MCP (Model Context Protocol) avec Python
 
-### Principe expliqué simplement
+### Principe
 
 Un **serveur MCP (Model Context Protocol)** expose des capacités à un agent : outils, ressources ou prompts. L'agent n'a pas besoin de connaître votre code interne. Il voit seulement une interface standardisée.
 

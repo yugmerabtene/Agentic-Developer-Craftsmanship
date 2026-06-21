@@ -235,7 +235,7 @@ graph TD
 
 ### 4.2 Pipeline RAG (Retrieval-Augmented Generation)
 
-#### Principe expliqué simplement
+#### Principe
 
 Le **RAG (Retrieval-Augmented Generation)** — génération augmentée par recherche — permet à un agent de consulter des documents externes avant de répondre.
 
@@ -381,7 +381,7 @@ Réponse générée à partir du contexte fourni.
 
 ## 5. Stratégies de Chunking
 
-### Principe expliqué simplement
+### Principe
 
 Le **chunking** consiste à découper un document long en petits morceaux appelés `chunks`.
 

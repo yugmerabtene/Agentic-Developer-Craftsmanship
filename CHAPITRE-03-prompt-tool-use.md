@@ -167,7 +167,7 @@ Analyse ce Dockerfile et identifie les problèmes de sécurité.
 
 Le LLM (Large Language Model) peut déclarer qu'il souhaite utiliser un outil externe, sans l'exécuter lui-même.
 
-#### Principe expliqué simplement
+#### Principe
 
 Un LLM seul ne fait que produire du texte. Il ne sait pas réellement consulter une météo, lire une base de données ou exécuter un calcul fiable. Le **tool use** ajoute une couche d'orchestration autour du LLM.
 
@@ -311,7 +311,7 @@ Réponse Large Language Model : tool_call(id="call_123", name="get_weather", arg
 
 **ReAct (Reasoning + Acting)** alterne trois étapes :
 
-#### Principe expliqué simplement
+#### Principe
 
 ReAct (Reasoning + Acting) alterne raisonnement et action.
 

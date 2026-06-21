@@ -75,7 +75,7 @@ Les agents sont **non-déterministes** : deux exécutions du même prompt peuven
 
 ## 2. Tester des Agents
 
-### Principe expliqué simplement
+### Principe
 
 Tester un agent ne consiste pas seulement à vérifier une fonction Python. Il faut aussi vérifier son **comportement** : quel outil il utilise, combien d'étapes il prend, comment il réagit aux erreurs, et s'il respecte les règles de sécurité.
 
@@ -237,7 +237,7 @@ py -m pytest tests/ -v
 
 Le pipeline est concu en **9 phases** organisees en dependances paralleles. Chaque phase a un objectif precis et des permissions minimales.
 
-#### Principe expliqué simplement
+#### Principe
 
 La CI/CD (Continuous Integration / Continuous Deployment) est une chaîne automatique qui vérifie le projet à chaque modification.
 
@@ -505,7 +505,7 @@ Ce pattern est reutilisable pour n'importe quel projet : il suffit de creer un P
 
 ## 4. Monitoring & Observabilité
 
-### Principe expliqué simplement
+### Principe
 
 Le **monitoring** consiste à observer ce que fait l'agent pendant son exécution : temps de réponse, nombre d'étapes, erreurs, tokens consommés, outils appelés.
 
@@ -621,7 +621,7 @@ Réponse à : Bonjour agent
 
 ### 5.1 Calcul des coûts
 
-#### Principe expliqué simplement
+#### Principe
 
 Un LLM (Large Language Model) payant facture souvent au **nombre de tokens** : tokens envoyés dans le prompt + tokens générés dans la réponse.
 
