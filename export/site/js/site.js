@@ -6,6 +6,28 @@
   const sidebar = document.getElementById('sidebar');
   const menuBtn = document.getElementById('menu-btn');
   const sidebarToggle = document.getElementById('sidebar-toggle');
+  const sidebarCollapseBtn = document.getElementById('sidebar-collapse-btn');
+
+  function setDesktopSidebarCollapsed(collapsed) {
+    document.body.classList.toggle('sidebar-collapsed', collapsed);
+    if (sidebarCollapseBtn) {
+      sidebarCollapseBtn.setAttribute('aria-label', collapsed ? 'Déplier la barre latérale' : 'Replier la barre latérale');
+      sidebarCollapseBtn.setAttribute('title', collapsed ? 'Déplier la barre latérale' : 'Replier la barre latérale');
+    }
+    try {
+      localStorage.setItem('adc-sidebar-collapsed', collapsed ? '1' : '0');
+    } catch (err) {
+      // localStorage may be unavailable; ignore gracefully.
+    }
+  }
+
+  try {
+    if (window.innerWidth > 768 && localStorage.getItem('adc-sidebar-collapsed') === '1') {
+      setDesktopSidebarCollapsed(true);
+    }
+  } catch (err) {
+    // Ignore storage errors.
+  }
 
   if (menuBtn) {
     menuBtn.addEventListener('click', function () {
@@ -19,11 +41,34 @@
     });
   }
 
+  if (sidebarCollapseBtn) {
+    sidebarCollapseBtn.addEventListener('click', function () {
+      if (window.innerWidth <= 768) {
+        return;
+      }
+      setDesktopSidebarCollapsed(!document.body.classList.contains('sidebar-collapsed'));
+    });
+  }
+
   // Close sidebar when clicking outside (mobile)
   document.addEventListener('click', function (e) {
     if (window.innerWidth <= 768) {
       if (!sidebar.contains(e.target) && e.target !== menuBtn) {
         sidebar.classList.remove('open');
+      }
+    }
+  });
+
+  window.addEventListener('resize', function () {
+    if (window.innerWidth <= 768) {
+      document.body.classList.remove('sidebar-collapsed');
+    } else {
+      try {
+        if (localStorage.getItem('adc-sidebar-collapsed') === '1') {
+          setDesktopSidebarCollapsed(true);
+        }
+      } catch (err) {
+        // Ignore storage errors.
       }
     }
   });

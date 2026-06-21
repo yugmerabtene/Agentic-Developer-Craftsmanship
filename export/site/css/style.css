@@ -20,6 +20,7 @@
     --gray-800: #2f2c29;
     --gray-900: #1f1d1b;
     --sidebar-width: 300px;
+    --sidebar-peek: 26px;
     --header-height: 56px;
     --font-sans: Inter, Aptos, 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
     --font-serif: 'Iowan Old Style', Charter, Georgia, 'Times New Roman', serif;
@@ -65,11 +66,43 @@ body {
     transition: transform 0.3s ease;
 }
 
+body.sidebar-collapsed .sidebar {
+    transform: translateX(calc(-1 * (var(--sidebar-width) - var(--sidebar-peek))));
+}
+
 .sidebar-header {
     padding: 1.2rem 1.2rem 0.8rem;
     text-align: center;
     border-bottom: 1px solid rgba(255,255,255,0.08);
     flex-shrink: 0;
+}
+
+.sidebar-collapse-btn {
+    position: absolute;
+    top: 0.9rem;
+    right: 0.45rem;
+    width: 28px;
+    height: 28px;
+    border: 0;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.14);
+    color: #fff;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.95rem;
+    line-height: 1;
+    transition: background 0.2s ease, transform 0.3s ease;
+    z-index: 2;
+}
+
+.sidebar-collapse-btn:hover {
+    background: rgba(255,255,255,0.24);
+}
+
+body.sidebar-collapsed .sidebar-collapse-btn {
+    transform: rotate(180deg);
 }
 
 .sidebar-logo {
@@ -262,6 +295,11 @@ body {
     margin-left: var(--sidebar-width);
     flex: 1;
     min-width: 0;
+    transition: margin-left 0.3s ease;
+}
+
+body.sidebar-collapsed .content {
+    margin-left: var(--sidebar-peek);
 }
 
 /* ─── TOC Section (page d'accueil) ──────────────────────────────────── */
@@ -841,6 +879,14 @@ body {
 /* ─── Responsive ───────────────────────────────────────────────────── */
 
 @media (max-width: 768px) {
+    body.sidebar-collapsed .sidebar {
+        transform: translateX(-100%);
+    }
+
+    body.sidebar-collapsed .content {
+        margin-left: 0;
+    }
+
     .sidebar {
         transform: translateX(-100%);
     }
@@ -864,6 +910,10 @@ body {
         color: #fff;
         font-size: 1.2rem;
         cursor: pointer;
+    }
+
+    .sidebar-collapse-btn {
+        display: none;
     }
 
     .menu-btn {

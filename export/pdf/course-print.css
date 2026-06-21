@@ -1,0 +1,226 @@
+@page {
+    size: A4;
+    margin: 1.35cm 1.5cm 1.6cm 1.5cm;
+
+    @top-right {
+        content: "Agentic Developer Craftsmanship";
+        font-family: Inter, Arial, sans-serif;
+        font-size: 8pt;
+        color: #6b7280;
+    }
+
+    @bottom-left {
+        content: "Youghourta Merabtène — Sup Devinci Rennes";
+        font-family: Inter, Arial, sans-serif;
+        font-size: 8pt;
+        color: #6b7280;
+    }
+
+    @bottom-right {
+        content: "Page " counter(page) " / " counter(pages);
+        font-family: Inter, Arial, sans-serif;
+        font-size: 8pt;
+        color: #6b7280;
+    }
+}
+
+html,
+body {
+    background: #fff !important;
+}
+
+body {
+    font-size: 10pt !important;
+    line-height: 1.55 !important;
+    color: #1f2937 !important;
+}
+
+.sidebar,
+.menu-btn,
+.copy-btn,
+script {
+    display: none !important;
+}
+
+.layout,
+.content {
+    display: block !important;
+    margin: 0 !important;
+    min-width: 0 !important;
+}
+
+.toc-section,
+.chapter,
+.phase-divider {
+    max-width: none !important;
+    width: 100% !important;
+}
+
+.toc-section {
+    padding: 0 0 0.6cm !important;
+}
+
+.toc-section-list {
+    column-gap: 1.2cm !important;
+}
+
+.phase-divider {
+    page-break-before: always;
+    break-before: page;
+    padding: 1.1cm 0 0.8cm !important;
+    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%) !important;
+}
+
+.phase-divider:first-of-type {
+    page-break-before: auto;
+    break-before: auto;
+}
+
+.chapter {
+    padding: 0 0 0.8cm !important;
+    break-inside: auto;
+}
+
+.chapter-header {
+    margin: 0 0 0.45cm !important;
+    padding: 0.65cm 0.7cm !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+}
+
+.chapter-header::before {
+    opacity: 0.45;
+}
+
+.chapter-header h1 {
+    font-size: 18pt !important;
+    line-height: 1.15 !important;
+}
+
+.ch-meta {
+    font-size: 8.5pt !important;
+    letter-spacing: 0.04em !important;
+}
+
+.chapter-body {
+    padding-bottom: 0 !important;
+}
+
+.chapter-body p,
+.chapter-body ul,
+.chapter-body ol,
+.chapter-body table,
+.chapter-body blockquote {
+    max-width: none !important;
+}
+
+.chapter-body h2,
+.chapter-body h3,
+.chapter-body h4 {
+    page-break-after: avoid;
+    break-after: avoid;
+}
+
+.chapter-body h2 {
+    font-size: 14pt !important;
+    margin-top: 0.75cm !important;
+}
+
+.chapter-body h3 {
+    font-size: 11.5pt !important;
+    margin-top: 0.5cm !important;
+}
+
+.chapter-body h4 {
+    font-size: 10pt !important;
+    margin-top: 0.35cm !important;
+}
+
+/* PDF Bookmarks for navigation panel */
+.toc-section h1 {
+    bookmark-level: 1;
+    bookmark-label: "Table des matières";
+    bookmark-state: open;
+}
+
+.phase-divider .phase-title {
+    bookmark-level: 1;
+    bookmark-state: open;
+}
+
+.chapter-header h1 {
+    bookmark-level: 2;
+    bookmark-state: open;
+}
+
+.chapter-body h2 {
+    bookmark-level: 3;
+    bookmark-state: closed;
+}
+
+.chapter-body h3 {
+    bookmark-level: 4;
+    bookmark-state: closed;
+}
+
+.chapter-body h4 {
+    bookmark-level: none;
+}
+
+.chapter-body pre,
+.chapter-body table,
+.chapter-body blockquote,
+.chapter-body img,
+.pdf-mermaid,
+.pdf-mermaid-wrap {
+    page-break-inside: avoid;
+    break-inside: avoid;
+}
+
+.chapter-body pre {
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    font-size: 8.7pt !important;
+    box-shadow: none !important;
+}
+
+.chapter-body code {
+    font-size: 8.8pt !important;
+}
+
+.chapter-body table {
+    font-size: 9pt !important;
+}
+
+.chapter-body th,
+.chapter-body td {
+    padding: 0.18cm 0.22cm !important;
+}
+
+.chapter-body blockquote {
+    margin: 0.3cm 0 !important;
+}
+
+.pdf-mermaid-wrap {
+    margin: 0.35cm 0 0.45cm;
+    text-align: center;
+}
+
+.pdf-mermaid {
+    max-width: 100%;
+    width: auto;
+    max-height: 20cm;
+}
+
+.chapter-nav {
+    display: none !important;
+}
+
+a {
+    color: #5b4638 !important;
+    text-decoration-color: rgba(91, 70, 56, 0.4) !important;
+}
+
+.site-footer {
+    display: none !important;
+}
