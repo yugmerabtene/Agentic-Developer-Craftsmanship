@@ -57,7 +57,7 @@ Alan Turing pose la question : *« Les machines peuvent-elles penser ? »* Il pr
 
 En juin 2017, Vaswani et al. publient **"Attention Is All You Need"** (Google Research). L'article propose une architecture radicalement nouvelle : le **Transformer** (architecture de deep learning basée sur l'auto-attention).
 
-### 2.2 Le problème que ça résout
+### 2.2 Le problème résolu
 
 Avant le Transformer, les modèles de séquence (Recurrent Neural Network, Long Short-Term Memory) traitaient les mots un par un, séquentiellement :
 - Impossible de paralléliser → lent
@@ -68,7 +68,7 @@ Avant le Transformer, les modèles de séquence (Recurrent Neural Network, Long 
 
 Le Transformer introduit **l'auto-attention** (*self-attention*, mécanisme d'attention qui pondère l'importance relative des mots) : chaque mot regarde tous les autres mots de la phrase en même temps et décide sur lesquels porter son attention.
 
-**Exemple (projet reseau social) — visualisation des poids d'attention :**
+**Exemple (projet réseau social) — visualisation des poids d'attention :**
 
 ```mermaid
 %%{init: {'theme': 'base', 'themeVariables': {'background': '#0f172a', 'primaryColor': '#7c3aed', 'secondaryColor': '#0ea5e9', 'tertiaryColor': '#f59e0b', 'primaryTextColor': '#f8fafc', 'lineColor': '#64748b'}}}%%
@@ -132,10 +132,11 @@ OpenAI publie GPT (Generative Pre-trained Transformer)-3 (175 milliards de param
 ### 3.2 RLHF (Reinforcement Learning from Human Feedback) — Le tournant (2022)
 
 Le **RLHF (Reinforcement Learning from Human Feedback)** aligne les Large Language Models sur les préférences humaines :
-1. Un modèle pré-entraîné génère des réponses
-2. Des humains notent ces réponses
-3. On entraîne un *reward model* qui prédit la note humaine
-4. On fine-tune le LLM (Large Language Model) avec ce reward model
+
+1. Un modèle pré-entraîné génère des réponses.
+2. Des humains évaluent ces réponses.
+3. On entraîne un *reward model* capable de prédire cette évaluation humaine.
+4. On affine ensuite le LLM (Large Language Model) à l'aide de ce *reward model*.
 
 **Résultat :** Les modèles ne sont plus seulement *capables*, ils sont *utiles et alignés*. ChatGPT (novembre 2022) en est le premier exemple grand public.
 
@@ -226,7 +227,7 @@ Anthropic introduit le **MCP (Model Context Protocol)**, un standard ouvert pour
 - **Opencode** : plateforme agentic open-source orchestrant des équipes d'agents spécialisés via des fichiers de configuration (`opencode.json`, `AGENTS.md`)
 - Les agents deviennent des membres à part entière de l'équipe de développement
 
-> **Projet reseau social** : tout au long de ce cours, nous utiliserons comme projet le developpement d'une application web sociale simplifiee (inspiree de Twitter/Facebook). Le Cahier des Charges complet est disponible dans [`projet/gestion_de_projet/cdc.md`](projet/gestion_de_projet/cdc.md). Chaque TP montrera comment l'agentic permet de construire ce projet concret.
+> **Projet réseau social** : tout au long de ce cours, nous utiliserons comme projet le développement d'une application web sociale simplifiée (inspirée de Twitter/Facebook). Le cahier des charges complet est disponible dans [`projet/gestion_de_projet/cdc.md`](projet/gestion_de_projet/cdc.md). Chaque TP montrera comment l'agentic permet de construire ce projet concret.
 
 ---
 
@@ -473,7 +474,7 @@ Votre ordinateur/
 ---
 ## 6. Travaux Pratiques — Premier agent opencode
 
-> **Projet reseau social** : ce premier TP prepare votre environnement de travail pour l'ensemble du cours. Vous allez installer les outils necessaires (Python, opencode, big-pickle), verifier leur bon fonctionnement, puis interagir avec votre premier agent.
+> **Projet réseau social** : ce premier TP prépare votre environnement de travail pour l'ensemble du cours. Vous allez installer les outils nécessaires (Python, opencode, big-pickle), vérifier leur bon fonctionnement, puis interagir avec votre premier agent.
 
 **Objectif :** Installer et configurer votre environnement de development agentique, executer votre premier agent opencode.
 
@@ -487,19 +488,19 @@ Vous devez :
 
 1. Installer Python 3.10+ (si pas déjà fait)
 2. Installer opencode et le modele gratuit big-pickle
-3. Creer un premier projet opencode
+3. Créer un premier projet opencode
 4. Interagir avec l'agent via la ligne de commande
-5. Verifier que tout fonctionne correctement
+5. Vérifier que tout fonctionne correctement
 
 **Fichiers à créer :**
 - `mon-premier-agent/opencode.json` — configuration de l'agent
-- `mon-premier-agent/AGENTS.md` — description de l'equipe
+- `mon-premier-agent/AGENTS.md` — description de l'équipe
 
 ---
 
 ### Corrigé
 
-#### Étape 1 — Creer le dossier du projet
+#### Étape 1 — Créer le dossier du projet
 
 **Point de départ :** ouvrez un terminal dans votre dossier d'exercices, par exemple `~/agentic-labs` ou `$HOME\agentic-labs`.
 
@@ -539,7 +540,7 @@ mon-premier-agent/
 └── .git/
 ```
 
-Creez un fichier `opencode.json` :
+Créez un fichier `opencode.json` :
 
 ```jsonc
 {
@@ -555,7 +556,7 @@ Creez un fichier `opencode.json` :
 }
 ```
 
-#### Étape 4 — Creer le fichier d'equipe
+#### Étape 4 — Créer le fichier d'équipe
 
 ##### À quoi sert `AGENTS.md` dans ce premier projet ?
 
@@ -573,7 +574,7 @@ mon-premier-agent/
 └── AGENTS.md
 ```
 
-Creez `AGENTS.md` :
+Créez `AGENTS.md` :
 
 ```markdown
 # Mon premier agent
@@ -701,4 +702,4 @@ mon-premier-agent/
 
 ---
 
-**Projet reseau social** : [`projet/gestion_de_projet/cdc.md`](projet/gestion_de_projet/cdc.md)
+**Projet réseau social** : [`projet/gestion_de_projet/cdc.md`](projet/gestion_de_projet/cdc.md)

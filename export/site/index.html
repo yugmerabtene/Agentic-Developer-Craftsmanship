@@ -264,14 +264,14 @@
 <h2 id="chapitre-1-2-la-rupture-transformer-2017">2. La Rupture Transformer (2017)</h2>
 <h3 id="chapitre-1-2-1-le-papier-fondateur">2.1 Le papier fondateur</h3>
 <p>En juin 2017, Vaswani et al. publient <strong>&ldquo;Attention Is All You Need&rdquo;</strong> (Google Research). L&rsquo;article propose une architecture radicalement nouvelle : le <strong>Transformer</strong> (architecture de deep learning basée sur l&rsquo;auto-attention).</p>
-<h3 id="chapitre-1-2-2-le-probleme-que-ca-resout">2.2 Le problème que ça résout</h3>
+<h3 id="chapitre-1-2-2-le-probleme-resolu">2.2 Le problème résolu</h3>
 <p>Avant le Transformer, les modèles de séquence (Recurrent Neural Network, Long Short-Term Memory) traitaient les mots un par un, séquentiellement :
 - Impossible de paralléliser → lent
 - Difficulté à capturer les dépendances longues (au-delà de ~50 mots)
 - Gradient qui disparaît (<em>vanishing gradient</em>) dans les longues séquences</p>
 <h3 id="chapitre-1-2-3-le-mecanisme-d-attention">2.3 Le mécanisme d&rsquo;attention</h3>
 <p>Le Transformer introduit <strong>l&rsquo;auto-attention</strong> (<em>self-attention</em>, mécanisme d&rsquo;attention qui pondère l&rsquo;importance relative des mots) : chaque mot regarde tous les autres mots de la phrase en même temps et décide sur lesquels porter son attention.</p>
-<p><strong>Exemple (projet reseau social) — visualisation des poids d&rsquo;attention :</strong></p>
+<p><strong>Exemple (projet réseau social) — visualisation des poids d&rsquo;attention :</strong></p>
 <pre class="mermaid">%%{init: {'theme': 'base', 'themeVariables': {'background': '#0f172a', 'primaryColor': '#7c3aed', 'secondaryColor': '#0ea5e9', 'tertiaryColor': '#f59e0b', 'primaryTextColor': '#f8fafc', 'lineColor': '#64748b',
   'edgeLabelBackground': '#334155'}}}%%
 %% Diagramme : visualisation du mécanisme d'auto-attention du Transformer
@@ -342,11 +342,13 @@ graph LR
 - GPT (Generative Pre-trained Transformer)-3 (175B) sait faire des choses qui n&rsquo;étaient pas programmées explicitement : traduction jamais vue, raisonnement simple, code</p>
 <p><strong>Découverte :</strong> Quand un modèle dépasse un certain seuil de paramètres, des capacités nouvelles apparaissent spontanément (<em>emergence</em>).</p>
 <h3 id="chapitre-1-3-2-rlhf-reinforcement-learning-from-human-feedback-le-tournant-2022">3.2 RLHF (Reinforcement Learning from Human Feedback) — Le tournant (2022)</h3>
-<p>Le <strong>RLHF (Reinforcement Learning from Human Feedback)</strong> aligne les Large Language Models sur les préférences humaines :
-1. Un modèle pré-entraîné génère des réponses
-2. Des humains notent ces réponses
-3. On entraîne un <em>reward model</em> qui prédit la note humaine
-4. On fine-tune le LLM (Large Language Model) avec ce reward model</p>
+<p>Le <strong>RLHF (Reinforcement Learning from Human Feedback)</strong> aligne les Large Language Models sur les préférences humaines :</p>
+<ol>
+<li>Un modèle pré-entraîné génère des réponses.</li>
+<li>Des humains évaluent ces réponses.</li>
+<li>On entraîne un <em>reward model</em> capable de prédire cette évaluation humaine.</li>
+<li>On affine ensuite le LLM (Large Language Model) à l&rsquo;aide de ce <em>reward model</em>.</li>
+</ol>
 <p><strong>Résultat :</strong> Les modèles ne sont plus seulement <em>capables</em>, ils sont <em>utiles et alignés</em>. ChatGPT (novembre 2022) en est le premier exemple grand public.</p>
 <h3 id="chapitre-1-3-3-instruction-tuning-chain-of-thought">3.3 Instruction Tuning &amp; Chain-of-Thought</h3>
 <ul>
@@ -413,7 +415,7 @@ Réponse: Il fait 15°C à Paris avec un ciel nuageux.
 <li>Les agents deviennent des membres à part entière de l&rsquo;équipe de développement</li>
 </ul>
 <blockquote>
-<p><strong>Projet reseau social</strong> : tout au long de ce cours, nous utiliserons comme projet le developpement d&rsquo;une application web sociale simplifiee (inspiree de Twitter/Facebook). Le Cahier des Charges complet est disponible dans <a href="#annexe-a-cahier-des-charges"><code>projet/gestion_de_projet/cdc.md</code></a>. Chaque TP montrera comment l&rsquo;agentic permet de construire ce projet concret.</p>
+<p><strong>Projet réseau social</strong> : tout au long de ce cours, nous utiliserons comme projet le développement d&rsquo;une application web sociale simplifiée (inspirée de Twitter/Facebook). Le cahier des charges complet est disponible dans <a href="#annexe-a-cahier-des-charges"><code>projet/gestion_de_projet/cdc.md</code></a>. Chaque TP montrera comment l&rsquo;agentic permet de construire ce projet concret.</p>
 </blockquote>
 <hr />
 <h2 id="chapitre-1-5-panorama-2026">5. Panorama 2026</h2>
@@ -647,7 +649,7 @@ pwd
     <div class="chapter-body">
         <h2 id="chapitre-1-tp-6-travaux-pratiques-premier-agent-opencode">6. Travaux Pratiques — Premier agent opencode</h2>
 <blockquote>
-<p><strong>Projet reseau social</strong> : ce premier TP prepare votre environnement de travail pour l&rsquo;ensemble du cours. Vous allez installer les outils necessaires (Python, opencode, big-pickle), verifier leur bon fonctionnement, puis interagir avec votre premier agent.</p>
+<p><strong>Projet réseau social</strong> : ce premier TP prépare votre environnement de travail pour l&rsquo;ensemble du cours. Vous allez installer les outils nécessaires (Python, opencode, big-pickle), vérifier leur bon fonctionnement, puis interagir avec votre premier agent.</p>
 </blockquote>
 <p><strong>Objectif :</strong> Installer et configurer votre environnement de development agentique, executer votre premier agent opencode.</p>
 <p><strong>Durée :</strong> 30 min</p>
@@ -657,16 +659,16 @@ pwd
 <ol>
 <li>Installer Python 3.10+ (si pas déjà fait)</li>
 <li>Installer opencode et le modele gratuit big-pickle</li>
-<li>Creer un premier projet opencode</li>
+<li>Créer un premier projet opencode</li>
 <li>Interagir avec l&rsquo;agent via la ligne de commande</li>
-<li>Verifier que tout fonctionne correctement</li>
+<li>Vérifier que tout fonctionne correctement</li>
 </ol>
 <p><strong>Fichiers à créer :</strong>
 - <code>mon-premier-agent/opencode.json</code> — configuration de l&rsquo;agent
-- <code>mon-premier-agent/AGENTS.md</code> — description de l&rsquo;equipe</p>
+- <code>mon-premier-agent/AGENTS.md</code> — description de l&rsquo;équipe</p>
 <hr />
 <h3 id="chapitre-1-tp-corrige">Corrigé</h3>
-<h4>Étape 1 — Creer le dossier du projet</h4>
+<h4>Étape 1 — Créer le dossier du projet</h4>
 <p><strong>Point de départ :</strong> ouvrez un terminal dans votre dossier d&rsquo;exercices, par exemple <code>~/agentic-labs</code> ou <code>$HOME\agentic-labs</code>.</p>
 <p>Ce TP crée un <strong>nouveau dossier indépendant</strong> nommé <code>mon-premier-agent</code>.</p>
 <pre><code class="language-bash"># Créer le dossier du TP Chapitre 1
@@ -690,7 +692,7 @@ git init
 ├── opencode.json          ← à créer maintenant
 └── .git/
 </code></pre>
-<p>Creez un fichier <code>opencode.json</code> :</p>
+<p>Créez un fichier <code>opencode.json</code> :</p>
 <pre><code class="language-jsonc">{
   &quot;$schema&quot;: &quot;https://opencode.ai/config.json&quot;,  // Validation du format
   &quot;model&quot;: &quot;opencode/big-pickle&quot;,                 // Modele gratuit
@@ -703,7 +705,7 @@ git init
   }
 }
 </code></pre>
-<h4>Étape 4 — Creer le fichier d&rsquo;equipe</h4>
+<h4>Étape 4 — Créer le fichier d&rsquo;équipe</h4>
 <h5>À quoi sert <code>AGENTS.md</code> dans ce premier projet ?</h5>
 <p><code>AGENTS.md</code> explique à l&rsquo;agent le contexte du projet et la façon dont il doit être utilisé. Dans ce premier TP, il est volontairement simple : il sert à documenter que l&rsquo;agent est un agent de découverte du cours.</p>
 <p>Même si le projet ne contient qu&rsquo;un seul agent, prendre l&rsquo;habitude de créer <code>AGENTS.md</code> est important. Plus tard, ce fichier décrira une vraie équipe : scrum-master, développeur, testeur, devops.</p>
@@ -713,7 +715,7 @@ git init
 ├── opencode.json
 └── AGENTS.md
 </code></pre>
-<p>Creez <code>AGENTS.md</code> :</p>
+<p>Créez <code>AGENTS.md</code> :</p>
 <pre><code class="language-markdown"># Mon premier agent
 
 Agent de decouverte installe pour le cours Agentic Developer Craftsmanship.
@@ -808,7 +810,7 @@ opencode -t &quot;Qu'est-ce que le test de Turing ?&quot;
 <li><a href="#annexe-a-cahier-des-charges">Cahier des charges du projet</a></li>
 </ul>
 <hr />
-<p><strong>Projet reseau social</strong> : <a href="#annexe-a-cahier-des-charges"><code>projet/gestion_de_projet/cdc.md</code></a></p>
+<p><strong>Projet réseau social</strong> : <a href="#annexe-a-cahier-des-charges"><code>projet/gestion_de_projet/cdc.md</code></a></p>
         <nav class="chapter-nav" aria-label="Navigation entre sections"><a class="chapter-nav-link chapter-nav-prev" href="#prerequis-installation"><span class="chapter-nav-kicker">Précédent</span><span class="chapter-nav-title">&larr; Mise en place des prérequis</span></a><a class="chapter-nav-link chapter-nav-next" href="#chapitre-2"><span class="chapter-nav-kicker">Suivant</span><span class="chapter-nav-title">Chapitre 2 — Architecture des LLMs (Large Language Models) &rarr;</span></a></nav>
     </div>
 </section>
@@ -1215,31 +1217,31 @@ graph TD
 </pre>
 <hr />
 <blockquote>
-<p><strong>Projet reseau social</strong> : le projet social defini dans <a href="#annexe-a-cahier-des-charges"><code>projet/gestion_de_projet/cdc.md</code></a> utilisera les LLMs (Large Language Models) via opencode pour automatiser le developpement de ses fonctionnalites (authentification, mur public, gestion utilisateurs).</p>
+<p><strong>Projet réseau social</strong> : le projet social défini dans <a href="#annexe-a-cahier-des-charges"><code>projet/gestion_de_projet/cdc.md</code></a> utilisera les LLMs (Large Language Models) via opencode pour automatiser le développement de ses fonctionnalités (authentification, mur public, gestion des utilisateurs).</p>
 </blockquote>
 <hr />
 <h2 id="chapitre-2-7-travaux-pratiques-visualiser-la-tokenisation">7. Travaux Pratiques — Visualiser la tokenisation</h2>
 <blockquote>
-<p><strong>Projet reseau social</strong> : dans ce TP, vous allez tokeniser des phrases de l&rsquo;application reseau social (messages, noms d&rsquo;utilisateur) pour comprendre comment un LLM (Large Language Model) les &ldquo;voit&rdquo; et estimer le cout en tokens des futures fonctionnalites.</p>
+<p><strong>Projet réseau social</strong> : dans ce TP, vous allez tokeniser des phrases de l&rsquo;application réseau social (messages, noms d&rsquo;utilisateur) pour comprendre comment un LLM (Large Language Model) les &ldquo;voit&rdquo; et estimer le coût en tokens des futures fonctionnalités.</p>
 </blockquote>
-<p><strong>Objectif :</strong> Installer tiktoken, tokeniser du texte, comprendre la difference entre mots et tokens, estimer le cout d&rsquo;un message.</p>
+<p><strong>Objectif :</strong> Installer tiktoken, tokeniser du texte, comprendre la différence entre mots et tokens, et estimer le coût d&rsquo;un message.</p>
 <p><strong>Durée :</strong> 45 min</p>
 <hr />
 <h3 id="chapitre-2-enonce">Énoncé</h3>
 <p>Vous devez :</p>
 <ol>
 <li>Installer tiktoken (tokeniseur OpenAI compatible avec big-pickle)</li>
-<li>Ecrire un script Python qui tokenise une phrase</li>
+<li>Écrire un script Python qui tokenise une phrase</li>
 <li>Afficher chaque token, son ID, et le nombre total de tokens</li>
-<li>Comparer des phrases en francais et en anglais</li>
-<li>Estimer le nombre de tokens dans un message du reseau social</li>
+<li>Comparer des phrases en français et en anglais</li>
+<li>Estimer le nombre de tokens dans un message du réseau social</li>
 </ol>
 <p><strong>Fichiers à créer :</strong>
-- <code>tokenisation/demo_tokenisation.py</code> — script de demonstration
-- <code>tokenisation/test_tokenisation.py</code> — tests de verification</p>
+- <code>tokenisation/demo_tokenisation.py</code> — script de démonstration
+- <code>tokenisation/test_tokenisation.py</code> — tests de vérification</p>
 <hr />
 <h3 id="chapitre-2-corrige">Corrigé</h3>
-<h4>Étape 1 — Creer le dossier</h4>
+<h4>Étape 1 — Créer le dossier</h4>
 <p><strong>Point de départ :</strong> ouvrez un terminal dans votre dossier d&rsquo;exercices. Ce TP crée un <strong>nouveau dossier indépendant</strong> nommé <code>tokenisation</code>.</p>
 <pre><code class="language-bash">mkdir -p tokenisation
 cd tokenisation
@@ -1247,7 +1249,7 @@ pwd
 </code></pre>
 <p><strong>Résultat attendu :</strong> <code>pwd</code> doit se terminer par <code>tokenisation</code>. Les fichiers <code>demo_tokenisation.py</code> et <code>test_tokenisation.py</code> seront créés dans ce dossier.</p>
 <h4>Étape 2 — Script de tokenisation</h4>
-<p>Vous êtes toujours dans <code>tokenisation/</code>. Creez <code>demo_tokenisation.py</code> à la racine de ce dossier :</p>
+<p>Vous êtes toujours dans <code>tokenisation/</code>. Créez <code>demo_tokenisation.py</code> à la racine de ce dossier :</p>
 <pre><code class="language-python">import tiktoken
 
 # Charge l'encodeur compatible avec big-pickle (cl100k_base)
@@ -1315,10 +1317,10 @@ print(f&quot;  Tokens : {nb_tokens}&quot;)
 print(f&quot;  Cout estime (modele payant) : ${cout_estime:.6f}&quot;)
 print(f&quot;  Avec big-pickle : GRATUIT&quot;)
 </code></pre>
-<h4>Étape 3 — Executer le script</h4>
+<h4>Étape 3 — Exécuter le script</h4>
 <pre><code class="language-bash">python3 demo_tokenisation.py
 </code></pre>
-<p><strong>Resultat attendu :</strong></p>
+<p><strong>Résultat attendu :</strong></p>
 <pre><code>============================================================
 DEMONSTRATION DE TOKENISATION
 ============================================================
@@ -1332,9 +1334,9 @@ ID       Token                Repr. texte
 ------------------------------------------------------------
 ...
 </code></pre>
-<p>Les IDs de tokens seront differents selon l&rsquo;encodeur, mais vous verrez chaque token individuel.</p>
+<p>Les IDs de tokens seront différents selon l&rsquo;encodeur, mais vous verrez chaque token individuel.</p>
 <h4>Étape 4 — Tests unitaires</h4>
-<p>Vous êtes toujours dans <code>tokenisation/</code>. Creez <code>test_tokenisation.py</code> à côté de <code>demo_tokenisation.py</code> :</p>
+<p>Vous êtes toujours dans <code>tokenisation/</code>. Créez <code>test_tokenisation.py</code> à côté de <code>demo_tokenisation.py</code> :</p>
 <pre><code class="language-python">import tiktoken
 
 enc = tiktoken.get_encoding(&quot;cl100k_base&quot;)
@@ -1459,7 +1461,7 @@ opencode
 <li><a href="https://arxiv.org/abs/1706.03762">Documentation technique — Architecture Transformer (Vaswani et al., 2017)</a></li>
 </ul>
 <hr />
-<p><strong>Projet reseau social</strong> : <a href="#annexe-a-cahier-des-charges"><code>projet/gestion_de_projet/cdc.md</code></a></p>
+<p><strong>Projet réseau social</strong> : <a href="#annexe-a-cahier-des-charges"><code>projet/gestion_de_projet/cdc.md</code></a></p>
         <nav class="chapter-nav" aria-label="Navigation entre sections"><a class="chapter-nav-link chapter-nav-prev" href="#chapitre-1-tp"><span class="chapter-nav-kicker">Précédent</span><span class="chapter-nav-title">&larr; Chapitre 1 — Introduction — TP</span></a><a class="chapter-nav-link chapter-nav-next" href="#chapitre-3"><span class="chapter-nav-kicker">Suivant</span><span class="chapter-nav-title">Chapitre 3 — Prompt Engineering & Tool Use &rarr;</span></a></nav>
     </div>
 </section>
@@ -1872,7 +1874,7 @@ Si un outil échoue, explique pourquoi à l'utilisateur.
 <hr />
 <h2 id="chapitre-3-6-travaux-pratiques-assistant-cli-command-line-interface-avec-outils">6. Travaux Pratiques — Assistant CLI (Command Line Interface) avec Outils</h2>
 <blockquote>
-<p><strong>Projet reseau social</strong> : ce TP s&rsquo;appuie sur le reseau social defini dans <a href="#annexe-a-cahier-des-charges"><code>projet/gestion_de_projet/cdc.md</code></a>. L&rsquo;assistant CLI (Command Line Interface) que vous allez construire permettra de manipuler les utilisateurs et publications de cette application.</p>
+<p><strong>Projet réseau social</strong> : ce TP s&rsquo;appuie sur le réseau social défini dans <a href="#annexe-a-cahier-des-charges"><code>projet/gestion_de_projet/cdc.md</code></a>. L&rsquo;assistant CLI (Command Line Interface) que vous allez construire permettra de manipuler les utilisateurs et les publications de cette application.</p>
 </blockquote>
 <p><strong>Objectif :</strong> Créer un assistant en ligne de commande qui utilise des outils (tool use) avec le pattern ReAct (Reasoning + Acting).</p>
 <p><strong>Durée :</strong> 2h</p>
@@ -1889,7 +1891,7 @@ Si un outil échoue, explique pourquoi à l'utilisateur.
 <p><strong>Fichiers à créer :</strong>
 - <code>assistant-cli/assistant.py</code> — l&rsquo;assistant avec ses outils
 - <code>assistant-cli/opencode.json</code> — configuration pour l&rsquo;amelioration par agent
-- <code>assistant-cli/AGENTS.md</code> — description de l&rsquo;equipe
+- <code>assistant-cli/AGENTS.md</code> — description de l&rsquo;équipe
 - <code>assistant-cli/.opencode/skills/common.md</code> — règles communes de l&rsquo;agent
 - <code>assistant-cli/test_assistant.py</code> — tests automatisés sans dépendance externe</p>
 <hr />
@@ -2300,7 +2302,7 @@ graph TD
 </table>
 <h3 id="chapitre-4-2-3-implementation-minimale">2.3 Implémentation minimale</h3>
 <blockquote>
-<p><strong>Projet reseau social</strong> : l&rsquo;architecture agentique developpee ici sera utilisee pour coordonner le developpement du reseau social defini dans <a href="#annexe-a-cahier-des-charges"><code>projet/gestion_de_projet/cdc.md</code></a>.</p>
+<p><strong>Projet réseau social</strong> : l&rsquo;architecture agentique développée ici sera utilisée pour coordonner le développement du réseau social défini dans <a href="#annexe-a-cahier-des-charges"><code>projet/gestion_de_projet/cdc.md</code></a>.</p>
 </blockquote>
 <h4>Où créer le fichier ?</h4>
 <p><strong>Point de départ :</strong> ouvrez un terminal dans votre dossier d&rsquo;exercices <code>~/agentic-labs</code> (Linux/macOS) ou <code>$HOME\agentic-labs</code> (Windows PowerShell).</p>
@@ -2582,7 +2584,7 @@ graph TD
 <hr />
 <h2 id="chapitre-4-6-travaux-pratiques-boucle-agent-minimale">6. Travaux Pratiques — Boucle agent minimale</h2>
 <blockquote>
-<p><strong>Projet reseau social</strong> : ce TP introduit la boucle agent qui servira ensuite à automatiser les actions du réseau social : lire une demande utilisateur, choisir une action, exécuter un outil, puis répondre.</p>
+<p><strong>Projet réseau social</strong> : ce TP introduit la boucle agent qui servira ensuite à automatiser les actions du réseau social : lire une demande utilisateur, choisir une action, exécuter un outil, puis répondre.</p>
 </blockquote>
 <p><strong>Objectif :</strong> Implémenter un agent simple avec une boucle perception → raisonnement → action.</p>
 <p><strong>Durée :</strong> 1h30</p>
@@ -3327,7 +3329,7 @@ if __name__ == &quot;__main__&quot;:
 </code></pre>
 <hr />
 <blockquote>
-<p><strong>Projet reseau social</strong> : la memoire agentique permet de suivre l&rsquo;avancement du developpement du reseau social (cf. <a href="#annexe-a-cahier-des-charges"><code>projet/gestion_de_projet/cdc.md</code></a>) en conservant le contexte entre les sessions.</p>
+<p><strong>Projet réseau social</strong> : la mémoire agentique permet de suivre l&rsquo;avancement du développement du réseau social (cf. <a href="#annexe-a-cahier-des-charges"><code>projet/gestion_de_projet/cdc.md</code></a>) en conservant le contexte entre les sessions.</p>
 </blockquote>
 <h2 id="chapitre-5-7-travaux-pratiques-agent-avec-memoire-persistante">7. Travaux Pratiques — Agent avec Mémoire Persistante</h2>
 <p><strong>Objectif :</strong> Ajouter de la mémoire long-terme à un agent en utilisant SQLite.</p>
@@ -4036,7 +4038,7 @@ if __name__ == &quot;__main__&quot;:
 <hr />
 <h2 id="chapitre-6-6-travaux-pratiques-supervisor-multi-agent-avec-opencode">6. Travaux Pratiques — Supervisor Multi-Agent avec Opencode</h2>
 <blockquote>
-<p><strong>Projet reseau social</strong> : l&rsquo;equipe multi-agent que vous allez configurer a pour objectif d&rsquo;implementer les fonctionnalites du reseau social defini dans <a href="#annexe-a-cahier-des-charges"><code>projet/gestion_de_projet/cdc.md</code></a>.</p>
+<p><strong>Projet réseau social</strong> : l&rsquo;équipe multi-agent que vous allez configurer a pour objectif d&rsquo;implémenter les fonctionnalités du réseau social défini dans <a href="#annexe-a-cahier-des-charges"><code>projet/gestion_de_projet/cdc.md</code></a>.</p>
 </blockquote>
 <p><strong>Objectif :</strong> Configurer une équipe d&rsquo;agents opencode avec un Supervisor qui délègue à des spécialistes.</p>
 <p><strong>Durée :</strong> 3h</p>
@@ -4566,7 +4568,7 @@ graph LR
 <hr />
 <h2 id="chapitre-7-7-travaux-pratiques-serveur-mcp-model-context-protocol">7. Travaux Pratiques — Serveur MCP (Model Context Protocol)</h2>
 <blockquote>
-<p><strong>Projet reseau social</strong> : les serveurs MCP (Model Context Protocol) exposes ici permettent aux agents d&rsquo;interagir avec la base de donnees et les services du projet social defini dans <a href="#annexe-a-cahier-des-charges"><code>projet/gestion_de_projet/cdc.md</code></a>.</p>
+<p><strong>Projet réseau social</strong> : les serveurs MCP (Model Context Protocol) exposés ici permettent aux agents d&rsquo;interagir avec la base de données et les services du projet social défini dans <a href="#annexe-a-cahier-des-charges"><code>projet/gestion_de_projet/cdc.md</code></a>.</p>
 </blockquote>
 <p><strong>Objectif :</strong> Créer un serveur MCP (Model Context Protocol) et le connecter à opencode.</p>
 <p><strong>Durée :</strong> 2h</p>
@@ -5078,14 +5080,14 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 </code></pre>
-<p>Chaque phase est independante et peut etre executee separement. L&rsquo;option <code>continue-on-error: true</code> est utilisee sur les phases non-bloquantes (securite, non-regression) pour ne pas bloquer le pipeline sur des alertes.</p>
+<p>Chaque phase est indépendante et peut être exécutée séparément. L&rsquo;option <code>continue-on-error: true</code> est utilisée sur les phases non bloquantes (sécurité, non-régression) afin de ne pas interrompre le pipeline pour de simples alertes.</p>
 <h3 id="chapitre-8-3-3-strategie-de-branching">3.3 Strategie de Branching</h3>
-<p>Le pipeline suit le modele <strong>GitFlow simplifie</strong> (ou GitHub Flow enrichi) :</p>
-<pre><code>main (production, protegee)
-  └── develop (integration, protegee avec PR obligatoire)
-       ├── feature/ajout-moderation   ← nouvelles fonctionnalites
+<p>Le pipeline suit le modèle <strong>GitFlow simplifié</strong> (ou GitHub Flow enrichi) :</p>
+<pre><code>main (production, protégée)
+  └── develop (intégration, protégée avec PR obligatoire)
+       ├── feature/ajout-moderation   ← nouvelles fonctionnalités
        ├── fix/correction-auth        ← corrections de bugs
-       └── release/v1.2.0             ← preparation de mise en production
+       └── release/v1.2.0             ← préparation de mise en production
 </code></pre>
 <p>Regles :</p>
 <table>
@@ -5179,13 +5181,13 @@ graph LR
     style P fill:#d97706,color:#fff,stroke:#b45309
     style B fill:#1e293b,color:#f1f5f9,stroke:#334155
 </pre>
-<h4>Workflow de suivi (zero token LLM (Large Language Model))</h4>
+<h4>Workflow de suivi (zéro token LLM (Large Language Model))</h4>
 <p>Le fichier <code>.github/workflows/track-progress.yml</code> doit être créé et utilise uniquement la CLI (Command Line Interface) <code>gh</code> (pas de LLM (Large Language Model)) pour detecter les fichiers CHAPITRE-*.md modifies et deplacer automatiquement les cartes dans le Scrum board.</p>
 <p>Caracteristiques :
-- <strong>Cout : zero token</strong> — bash + gh CLI (Command Line Interface), pas d&rsquo;appel LLM (Large Language Model)
-- <strong>Temps reel</strong> — execute a chaque push sur main
-- <strong>Automatique</strong> — plus besoin de deplacer les cartes a la main
-- <strong>Filtre par fichier</strong> — seul le chapitre modifie est mis a jour</p>
+- <strong>Coût : zéro token</strong> — bash + gh CLI (Command Line Interface), sans appel à un LLM (Large Language Model)
+- <strong>Temps réel</strong> — exécuté à chaque push sur <code>main</code>
+- <strong>Automatique</strong> — plus besoin de déplacer les cartes à la main
+- <strong>Filtre par fichier</strong> — seul le chapitre modifié est mis à jour</p>
 <pre><code class="language-yaml">name: Suivi de progression du cours
 
 on:
@@ -5457,7 +5459,7 @@ Budget token dépassé: 120
 <hr />
 <h2 id="chapitre-8-6-travaux-pratiques-ci-cd-continuous-integration-continuous-deployment-pour-agents">6. Travaux Pratiques — CI/CD (Continuous Integration / Continuous Deployment) pour Agents</h2>
 <blockquote>
-<p><strong>Projet reseau social</strong> : la chaine CI/CD (Continuous Integration / Continuous Deployment) mise en place ici build, teste et deploie automatiquement le reseau social defini dans <a href="#annexe-a-cahier-des-charges"><code>projet/gestion_de_projet/cdc.md</code></a>.</p>
+<p><strong>Projet réseau social</strong> : la chaîne CI/CD (Continuous Integration / Continuous Deployment) mise en place ici build, teste et déploie automatiquement le réseau social défini dans <a href="#annexe-a-cahier-des-charges"><code>projet/gestion_de_projet/cdc.md</code></a>.</p>
 </blockquote>
 <p><strong>Objectif :</strong> Mettre en place un pipeline CI/CD (Continuous Integration / Continuous Deployment) complet qui teste et valide des agents automatiquement.</p>
 <p><strong>Durée :</strong> 2h</p>
@@ -5759,7 +5761,7 @@ graph TD
 </pre>
 <hr />
 <blockquote>
-<p><strong>Projet reseau social</strong> : les securites appliquees ici protegent le reseau social defini dans <a href="#annexe-a-cahier-des-charges"><code>projet/gestion_de_projet/cdc.md</code></a>.</p>
+<p><strong>Projet réseau social</strong> : les sécurités appliquées ici protègent le réseau social défini dans <a href="#annexe-a-cahier-des-charges"><code>projet/gestion_de_projet/cdc.md</code></a>.</p>
 </blockquote>
 <h2 id="chapitre-9-2-prompt-injection">2. Prompt Injection</h2>
 <h3 id="chapitre-9-2-1-injection-directe">2.1 Injection directe</h3>
@@ -6220,7 +6222,7 @@ Fichiers sensibles :
 <hr />
 <h2 id="chapitre-9-7-travaux-pratiques-securiser-un-agent-opencode">7. Travaux Pratiques — Sécuriser un agent opencode</h2>
 <blockquote>
-<p><strong>Projet reseau social</strong> : ce TP prépare la sécurité du projet final. Vous allez configurer un agent avec permissions minimales et vérifier qu&rsquo;il ne doit pas lire ou exposer de pseudo-secrets.</p>
+<p><strong>Projet réseau social</strong> : ce TP prépare la sécurité du projet final. Vous allez configurer un agent avec des permissions minimales et vérifier qu&rsquo;il ne doit ni lire ni exposer de pseudo-secrets.</p>
 </blockquote>
 <p><strong>Objectif :</strong> Mettre en place une configuration opencode prudente, documenter les règles de sécurité, puis tester une tentative d&rsquo;exfiltration.</p>
 <p><strong>Durée :</strong> 1h</p>
@@ -6700,7 +6702,7 @@ opencode --config
 <h2 id="chapitre-10-4-labs-pratiques">4. Labs Pratiques</h2>
 <h3 id="chapitre-10-4-1-lab-1-premier-projet-opencode">4.1 Lab 1 — Premier Projet Opencode</h3>
 <blockquote>
-<p><strong>Projet reseau social</strong> : ce lab final configure opencode pour developper l&rsquo;ensemble du reseau social defini dans <a href="#annexe-a-cahier-des-charges"><code>projet/gestion_de_projet/cdc.md</code></a> avec une equipe d&rsquo;agents Scrum.</p>
+<p><strong>Projet réseau social</strong> : ce lab final configure opencode pour développer l&rsquo;ensemble du réseau social défini dans <a href="#annexe-a-cahier-des-charges"><code>projet/gestion_de_projet/cdc.md</code></a> avec une équipe d&rsquo;agents Scrum.</p>
 </blockquote>
 <p><strong>Objectif :</strong> Configurer votre premier projet opencode avec une équipe d&rsquo;agents et interagir avec eux.</p>
 <p><strong>Durée :</strong> 1h</p>
@@ -6838,9 +6840,9 @@ Demandez au scrum-master de réaliser des tâches simples.
 <hr />
 <h3 id="chapitre-10-4-2-lab-2-equipe-d-agents-avec-ci-cd-continuous-integration-continuous-deployment-et-project-board">4.2 Lab 2 — Equipe d&rsquo;Agents avec CI/CD (Continuous Integration / Continuous Deployment) et Project Board</h3>
 <blockquote>
-<p><strong>Projet reseau social</strong> : ce lab integre la chaine CI/CD (Continuous Integration / Continuous Deployment) (Chapitre 8) a l&rsquo;equipe d&rsquo;agents opencode. Les agents produisent du code, le pipeline le valide, et le Project board suit la progression automatiquement.</p>
+<p><strong>Projet réseau social</strong> : ce lab intègre la chaîne CI/CD (Continuous Integration / Continuous Deployment) (Chapitre 8) à l&rsquo;équipe d&rsquo;agents opencode. Les agents produisent du code, le pipeline le valide, et le Project board suit la progression automatiquement.</p>
 </blockquote>
-<p><strong>Objectif :</strong> Configurer une equipe d&rsquo;agents opencode avec pipeline CI/CD (Continuous Integration / Continuous Deployment) et tableau de bord GitHub Projects.</p>
+<p><strong>Objectif :</strong> Configurer une équipe d&rsquo;agents opencode avec un pipeline CI/CD (Continuous Integration / Continuous Deployment) et un tableau de bord GitHub Projects.</p>
 <p><strong>Durée :</strong> 2h</p>
 <hr />
 <h4>Énoncé</h4>
@@ -7103,14 +7105,14 @@ jobs:
       - run: pytest tests/ -v --tb=short
 </code></pre>
 <h4>Corrigé — Étape 5 : Créer le Scrum Board</h4>
-<pre><code class="language-bash"># Creer un Project V2 (via l'interface GitHub ou l'Application Programming Interface)
+<pre><code class="language-bash"># Créer un Project V2 (via l'interface GitHub ou l'Application Programming Interface)
 gh project create --owner &lt;compte&gt; --title &quot;Mon Projet Agentic&quot;
 
-# Creer une issue pour le sprint en cours
+# Créer une issue pour le sprint en cours
 gh issue create --title &quot;Sprint 1 — Initialisation&quot; \
-  --label &quot;sprint&quot; --body &quot;Configuration de l'equipe agentic&quot;
+  --label &quot;sprint&quot; --body &quot;Configuration de l'équipe agentic&quot;
 
-# Definir les colonnes Scrum : Backlog, To Do, In Progress, Review, Done
+# Définir les colonnes Scrum : Backlog, To Do, In Progress, Review, Done
 # (via l'interface GitHub &gt; champ &quot;Sprint Status&quot;)
 </code></pre>
 <h4>Corrigé — Étape 6 : Orchestrer via agents opencode</h4>
@@ -7129,7 +7131,7 @@ gh issue create --title &quot;Sprint 1 — Initialisation&quot; \
 <hr />
 <h3 id="chapitre-10-4-3-lab-3-projet-final-reseau-social-mvp-minimum-viable-product">4.3 Lab 3 — Projet Final : Réseau Social MVP (Minimum Viable Product)</h3>
 <blockquote>
-<p><strong>Projet reseau social</strong> : ce lab lance la réalisation complète du MVP (Minimum Viable Product) décrit dans <a href="#annexe-a-cahier-des-charges"><code>projet/gestion_de_projet/cdc.md</code></a>.</p>
+<p><strong>Projet réseau social</strong> : ce lab lance la réalisation complète du MVP (Minimum Viable Product) décrit dans <a href="#annexe-a-cahier-des-charges"><code>projet/gestion_de_projet/cdc.md</code></a>.</p>
 </blockquote>
 <p><strong>Objectif :</strong> Utiliser l&rsquo;équipe d&rsquo;agents pour générer progressivement l&rsquo;application réseau social : authentification, publications, administration, tests, Docker et CI/CD (Continuous Integration / Continuous Deployment).</p>
 <p><strong>Durée :</strong> 4h+</p>

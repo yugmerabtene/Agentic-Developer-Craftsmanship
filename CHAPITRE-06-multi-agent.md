@@ -450,7 +450,7 @@ Traitement terminé pour : générer les tests
 
 ## 6. Travaux Pratiques — Supervisor Multi-Agent avec Opencode
 
-> **Projet reseau social** : l'equipe multi-agent que vous allez configurer a pour objectif d'implementer les fonctionnalites du reseau social defini dans [`projet/gestion_de_projet/cdc.md`](projet/gestion_de_projet/cdc.md).
+> **Projet réseau social** : l'équipe multi-agent que vous allez configurer a pour objectif d'implémenter les fonctionnalités du réseau social défini dans [`projet/gestion_de_projet/cdc.md`](projet/gestion_de_projet/cdc.md).
 
 **Objectif :** Configurer une équipe d'agents opencode avec un Supervisor qui délègue à des spécialistes.
 

@@ -338,7 +338,7 @@ Dans le fichier de configuration, les agents peuvent déléguer des tâches :
 
 ### 4.1 Lab 1 — Premier Projet Opencode
 
-> **Projet reseau social** : ce lab final configure opencode pour developper l'ensemble du reseau social defini dans [`projet/gestion_de_projet/cdc.md`](projet/gestion_de_projet/cdc.md) avec une equipe d'agents Scrum.
+> **Projet réseau social** : ce lab final configure opencode pour développer l'ensemble du réseau social défini dans [`projet/gestion_de_projet/cdc.md`](projet/gestion_de_projet/cdc.md) avec une équipe d'agents Scrum.
 
 **Objectif :** Configurer votre premier projet opencode avec une équipe d'agents et interagir avec eux.
 
@@ -525,9 +525,9 @@ Essayez ces instructions :
 
 ### 4.2 Lab 2 — Equipe d'Agents avec CI/CD (Continuous Integration / Continuous Deployment) et Project Board
 
-> **Projet reseau social** : ce lab integre la chaine CI/CD (Continuous Integration / Continuous Deployment) (Chapitre 8) a l'equipe d'agents opencode. Les agents produisent du code, le pipeline le valide, et le Project board suit la progression automatiquement.
+> **Projet réseau social** : ce lab intègre la chaîne CI/CD (Continuous Integration / Continuous Deployment) (Chapitre 8) à l'équipe d'agents opencode. Les agents produisent du code, le pipeline le valide, et le Project board suit la progression automatiquement.
 
-**Objectif :** Configurer une equipe d'agents opencode avec pipeline CI/CD (Continuous Integration / Continuous Deployment) et tableau de bord GitHub Projects.
+**Objectif :** Configurer une équipe d'agents opencode avec un pipeline CI/CD (Continuous Integration / Continuous Deployment) et un tableau de bord GitHub Projects.
 
 **Durée :** 2h
 
@@ -826,14 +826,14 @@ jobs:
 #### Corrigé — Étape 5 : Créer le Scrum Board
 
 ```bash
-# Creer un Project V2 (via l'interface GitHub ou l'Application Programming Interface)
+# Créer un Project V2 (via l'interface GitHub ou l'Application Programming Interface)
 gh project create --owner <compte> --title "Mon Projet Agentic"
 
-# Creer une issue pour le sprint en cours
+# Créer une issue pour le sprint en cours
 gh issue create --title "Sprint 1 — Initialisation" \
-  --label "sprint" --body "Configuration de l'equipe agentic"
+  --label "sprint" --body "Configuration de l'équipe agentic"
 
-# Definir les colonnes Scrum : Backlog, To Do, In Progress, Review, Done
+# Définir les colonnes Scrum : Backlog, To Do, In Progress, Review, Done
 # (via l'interface GitHub > champ "Sprint Status")
 ```
 
@@ -859,7 +859,7 @@ Les agents opencode :
 
 ### 4.3 Lab 3 — Projet Final : Réseau Social MVP (Minimum Viable Product)
 
-> **Projet reseau social** : ce lab lance la réalisation complète du MVP (Minimum Viable Product) décrit dans [`projet/gestion_de_projet/cdc.md`](projet/gestion_de_projet/cdc.md).
+> **Projet réseau social** : ce lab lance la réalisation complète du MVP (Minimum Viable Product) décrit dans [`projet/gestion_de_projet/cdc.md`](projet/gestion_de_projet/cdc.md).
 
 **Objectif :** Utiliser l'équipe d'agents pour générer progressivement l'application réseau social : authentification, publications, administration, tests, Docker et CI/CD (Continuous Integration / Continuous Deployment).
 

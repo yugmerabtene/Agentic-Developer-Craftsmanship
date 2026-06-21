@@ -71,7 +71,7 @@ graph TD
 
 ---
 
-> **Projet reseau social** : les securites appliquees ici protegent le reseau social defini dans [`projet/gestion_de_projet/cdc.md`](projet/gestion_de_projet/cdc.md).
+> **Projet réseau social** : les sécurités appliquées ici protègent le réseau social défini dans [`projet/gestion_de_projet/cdc.md`](projet/gestion_de_projet/cdc.md).
 
 ## 2. Prompt Injection
 
@@ -521,7 +521,7 @@ Toute entrée utilisateur doit être validée côté serveur (via Pydantic) pour
 
 ## 7. Travaux Pratiques — Sécuriser un agent opencode
 
-> **Projet reseau social** : ce TP prépare la sécurité du projet final. Vous allez configurer un agent avec permissions minimales et vérifier qu'il ne doit pas lire ou exposer de pseudo-secrets.
+> **Projet réseau social** : ce TP prépare la sécurité du projet final. Vous allez configurer un agent avec des permissions minimales et vérifier qu'il ne doit ni lire ni exposer de pseudo-secrets.
 
 **Objectif :** Mettre en place une configuration opencode prudente, documenter les règles de sécurité, puis tester une tentative d'exfiltration.
 

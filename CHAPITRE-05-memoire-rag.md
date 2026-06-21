@@ -525,7 +525,7 @@ python3 agent_memoire_vectorielle.py
 
 ---
 
-> **Projet reseau social** : la memoire agentique permet de suivre l'avancement du developpement du reseau social (cf. [`projet/gestion_de_projet/cdc.md`](projet/gestion_de_projet/cdc.md)) en conservant le contexte entre les sessions.
+> **Projet réseau social** : la mémoire agentique permet de suivre l'avancement du développement du réseau social (cf. [`projet/gestion_de_projet/cdc.md`](projet/gestion_de_projet/cdc.md)) en conservant le contexte entre les sessions.
 
 ## 7. Travaux Pratiques — Agent avec Mémoire Persistante
 

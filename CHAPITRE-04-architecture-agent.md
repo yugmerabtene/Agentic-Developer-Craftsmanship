@@ -147,7 +147,7 @@ Un agent peut être dans plusieurs états :
 
 ### 2.3 Implémentation minimale
 
-> **Projet reseau social** : l'architecture agentique developpee ici sera utilisee pour coordonner le developpement du reseau social defini dans [`projet/gestion_de_projet/cdc.md`](projet/gestion_de_projet/cdc.md).
+> **Projet réseau social** : l'architecture agentique développée ici sera utilisée pour coordonner le développement du réseau social défini dans [`projet/gestion_de_projet/cdc.md`](projet/gestion_de_projet/cdc.md).
 
 #### Où créer le fichier ?
 
@@ -447,7 +447,7 @@ graph TD
 
 ## 6. Travaux Pratiques — Boucle agent minimale
 
-> **Projet reseau social** : ce TP introduit la boucle agent qui servira ensuite à automatiser les actions du réseau social : lire une demande utilisateur, choisir une action, exécuter un outil, puis répondre.
+> **Projet réseau social** : ce TP introduit la boucle agent qui servira ensuite à automatiser les actions du réseau social : lire une demande utilisateur, choisir une action, exécuter un outil, puis répondre.
 
 **Objectif :** Implémenter un agent simple avec une boucle perception → raisonnement → action.
 

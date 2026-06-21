@@ -305,15 +305,15 @@ graph TD
 
 ---
 
-> **Projet reseau social** : le projet social defini dans [`projet/gestion_de_projet/cdc.md`](projet/gestion_de_projet/cdc.md) utilisera les LLMs (Large Language Models) via opencode pour automatiser le developpement de ses fonctionnalites (authentification, mur public, gestion utilisateurs).
+> **Projet réseau social** : le projet social défini dans [`projet/gestion_de_projet/cdc.md`](projet/gestion_de_projet/cdc.md) utilisera les LLMs (Large Language Models) via opencode pour automatiser le développement de ses fonctionnalités (authentification, mur public, gestion des utilisateurs).
 
 ---
 
 ## 7. Travaux Pratiques — Visualiser la tokenisation
 
-> **Projet reseau social** : dans ce TP, vous allez tokeniser des phrases de l'application reseau social (messages, noms d'utilisateur) pour comprendre comment un LLM (Large Language Model) les "voit" et estimer le cout en tokens des futures fonctionnalites.
+> **Projet réseau social** : dans ce TP, vous allez tokeniser des phrases de l'application réseau social (messages, noms d'utilisateur) pour comprendre comment un LLM (Large Language Model) les "voit" et estimer le coût en tokens des futures fonctionnalités.
 
-**Objectif :** Installer tiktoken, tokeniser du texte, comprendre la difference entre mots et tokens, estimer le cout d'un message.
+**Objectif :** Installer tiktoken, tokeniser du texte, comprendre la différence entre mots et tokens, et estimer le coût d'un message.
 
 **Durée :** 45 min
 
@@ -324,20 +324,20 @@ graph TD
 Vous devez :
 
 1. Installer tiktoken (tokeniseur OpenAI compatible avec big-pickle)
-2. Ecrire un script Python qui tokenise une phrase
+2. Écrire un script Python qui tokenise une phrase
 3. Afficher chaque token, son ID, et le nombre total de tokens
-4. Comparer des phrases en francais et en anglais
-5. Estimer le nombre de tokens dans un message du reseau social
+4. Comparer des phrases en français et en anglais
+5. Estimer le nombre de tokens dans un message du réseau social
 
 **Fichiers à créer :**
-- `tokenisation/demo_tokenisation.py` — script de demonstration
-- `tokenisation/test_tokenisation.py` — tests de verification
+- `tokenisation/demo_tokenisation.py` — script de démonstration
+- `tokenisation/test_tokenisation.py` — tests de vérification
 
 ---
 
 ### Corrigé
 
-#### Étape 1 — Creer le dossier
+#### Étape 1 — Créer le dossier
 
 **Point de départ :** ouvrez un terminal dans votre dossier d'exercices. Ce TP crée un **nouveau dossier indépendant** nommé `tokenisation`.
 
@@ -351,7 +351,7 @@ pwd
 
 #### Étape 2 — Script de tokenisation
 
-Vous êtes toujours dans `tokenisation/`. Creez `demo_tokenisation.py` à la racine de ce dossier :
+Vous êtes toujours dans `tokenisation/`. Créez `demo_tokenisation.py` à la racine de ce dossier :
 
 ```python
 import tiktoken
@@ -422,13 +422,13 @@ print(f"  Cout estime (modele payant) : ${cout_estime:.6f}")
 print(f"  Avec big-pickle : GRATUIT")
 ```
 
-#### Étape 3 — Executer le script
+#### Étape 3 — Exécuter le script
 
 ```bash
 python3 demo_tokenisation.py
 ```
 
-**Resultat attendu :**
+**Résultat attendu :**
 
 ```
 ============================================================
@@ -445,11 +445,11 @@ ID       Token                Repr. texte
 ...
 ```
 
-Les IDs de tokens seront differents selon l'encodeur, mais vous verrez chaque token individuel.
+Les IDs de tokens seront différents selon l'encodeur, mais vous verrez chaque token individuel.
 
 #### Étape 4 — Tests unitaires
 
-Vous êtes toujours dans `tokenisation/`. Creez `test_tokenisation.py` à côté de `demo_tokenisation.py` :
+Vous êtes toujours dans `tokenisation/`. Créez `test_tokenisation.py` à côté de `demo_tokenisation.py` :
 
 ```python
 import tiktoken
@@ -597,4 +597,4 @@ tokenisation/
 - [Documentation technique — Architecture Transformer (Vaswani et al., 2017)](https://arxiv.org/abs/1706.03762)
 
 ---
-**Projet reseau social** : [`projet/gestion_de_projet/cdc.md`](projet/gestion_de_projet/cdc.md)
+**Projet réseau social** : [`projet/gestion_de_projet/cdc.md`](projet/gestion_de_projet/cdc.md)

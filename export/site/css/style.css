@@ -1,28 +1,28 @@
 /* ─── Agentic Developer Craftsmanship — Screen Stylesheet ──────────── */
 
 :root {
-    --primary: #4d5d63;
-    --primary-light: #8c5c45;
-    --primary-dark: #2f3a3f;
-    --accent: #c37a4a;
-    --accent-light: #dfb38f;
-    --success: #6b7c5f;
-    --warning: #b07a2a;
-    --purple: #7a5d72;
-    --gray-50: #faf8f4;
-    --gray-100: #f2ece3;
-    --gray-200: #e2d7ca;
-    --gray-300: #ccbeaf;
-    --gray-400: #96897c;
-    --gray-500: #6d6259;
-    --gray-600: #554d47;
-    --gray-700: #433d39;
-    --gray-800: #312d2a;
-    --gray-900: #211d1b;
+    --primary: #495b67;
+    --primary-light: #7a513e;
+    --primary-dark: #2c3940;
+    --accent: #b96f46;
+    --accent-light: #d7ac90;
+    --success: #68785f;
+    --warning: #b18436;
+    --purple: #705e74;
+    --gray-50: #fbfaf7;
+    --gray-100: #f3efe8;
+    --gray-200: #e3dacf;
+    --gray-300: #d0c2b3;
+    --gray-400: #97897b;
+    --gray-500: #6f645b;
+    --gray-600: #564f49;
+    --gray-700: #413d39;
+    --gray-800: #2f2c29;
+    --gray-900: #1f1d1b;
     --sidebar-width: 300px;
     --header-height: 56px;
-    --font-sans: 'DejaVu Sans', 'Segoe UI', system-ui, -apple-system, sans-serif;
-    --font-serif: Georgia, 'Times New Roman', 'DejaVu Serif', serif;
+    --font-sans: Inter, Aptos, 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+    --font-serif: 'Iowan Old Style', Charter, Georgia, 'Times New Roman', serif;
     --font-mono: 'DejaVu Sans Mono', 'Cascadia Code', 'Fira Code', monospace;
 }
 
@@ -35,8 +35,8 @@ html {
 
 body {
     margin: 0;
-    font-family: var(--font-serif);
-    line-height: 1.75;
+    font-family: var(--font-sans);
+    line-height: 1.7;
     color: var(--gray-800);
     background: var(--gray-50);
 }
@@ -82,8 +82,8 @@ body {
 }
 
 .sidebar-title {
-    font-family: var(--font-serif);
-    font-size: 1rem;
+    font-family: var(--font-sans);
+    font-size: 0.98rem;
     font-weight: 700;
     line-height: 1.3;
     color: #fff;
@@ -163,8 +163,8 @@ body {
     color: rgba(255,255,255,0.7);
     text-decoration: none;
     font-family: var(--font-sans);
-    font-size: 0.82rem;
-    line-height: 1.4;
+    font-size: 0.84rem;
+    line-height: 1.45;
     border-left: 3px solid transparent;
     transition: all 0.2s;
     overflow-wrap: break-word;
@@ -197,8 +197,8 @@ body {
     color: rgba(255,255,255,0.5);
     text-decoration: none;
     font-family: var(--font-sans);
-    font-size: 0.72rem;
-    line-height: 1.3;
+    font-size: 0.74rem;
+    line-height: 1.35;
     border-left: 2px solid transparent;
     transition: all 0.2s;
 }
@@ -279,9 +279,9 @@ body {
 
 .toc-section-header h1 {
     font-family: var(--font-serif);
-    font-size: 1.65rem;
+    font-size: 1.72rem;
     font-weight: 700;
-    color: var(--primary);
+    color: #2f3f48;
     margin: 0;
 }
 
@@ -294,7 +294,7 @@ body {
 
 .toc-section-header .toc-subtitle {
     font-size: 0.85rem;
-    color: var(--gray-500);
+    color: var(--gray-600);
 }
 
 .toc-section-header .toc-author {
@@ -403,9 +403,9 @@ body {
 
 .hero-title {
     font-family: var(--font-serif);
-    font-size: 2.2rem;
+    font-size: 2.05rem;
     font-weight: 700;
-    line-height: 1.2;
+    line-height: 1.15;
     margin: 0 0 0.8rem;
     text-shadow: 0 2px 20px rgba(0,0,0,0.3);
     position: relative;
@@ -413,9 +413,9 @@ body {
 
 .hero-subtitle {
     font-family: var(--font-sans);
-    font-size: 1.05rem;
-    font-weight: 300;
-    color: #edd1b8;
+    font-size: 1rem;
+    font-weight: 400;
+    color: rgba(255,255,255,0.82);
     margin: 0 0 1.2rem;
     line-height: 1.5;
     position: relative;
@@ -475,10 +475,10 @@ body {
 }
 
 .phase-title {
-    font-family: var(--font-serif);
-    font-size: 1.6rem;
+    font-family: var(--font-sans);
+    font-size: 1.45rem;
     font-weight: 700;
-    color: var(--gray-800);
+    color: #2f3f48;
     margin: 0 0 0.4rem;
 }
 
@@ -492,7 +492,7 @@ body {
 .phase-desc {
     font-family: var(--font-sans);
     font-size: 0.95rem;
-    color: var(--gray-500);
+    color: var(--gray-600);
     margin: 0;
     max-width: 500px;
     margin: 0 auto;
@@ -524,7 +524,7 @@ body {
 
 .chapter-header h1 {
     font-family: var(--font-serif);
-    font-size: 1.62rem;
+    font-size: 1.58rem;
     font-weight: 700;
     margin: 0;
     color: #fff;
@@ -534,7 +534,7 @@ body {
 .ch-meta {
     font-family: var(--font-sans);
     font-size: 0.75rem;
-    color: #edd1b8;
+    color: rgba(255,255,255,0.76);
     margin-bottom: 0.3rem;
     letter-spacing: 0.5px;
     position: relative;
@@ -560,22 +560,22 @@ body {
 .chapter-body h2,
 .chapter-body h3,
 .chapter-body h4 {
-    font-family: var(--font-serif);
-    color: var(--primary);
-    margin: 1.95rem 0 0.85rem;
-    line-height: 1.25;
+    font-family: var(--font-sans);
+    color: #2f3f48;
+    margin: 1.85rem 0 0.8rem;
+    line-height: 1.28;
 }
 
 .chapter-body h2 {
-    font-size: 1.38rem;
+    font-size: 1.3rem;
     border-bottom: 1px solid var(--gray-300);
     padding-bottom: 0.38rem;
-    color: var(--primary);
+    color: #2f3f48;
 }
 
 .chapter-body h3 {
-    font-size: 1.14rem;
-    color: #7b523d;
+    font-size: 1.08rem;
+    color: #55656d;
 }
 
 .chapter-body h4 { font-size: 1rem; }
@@ -584,12 +584,21 @@ body {
     margin: 0 0 0.8rem;
     text-align: left;
     max-width: 72ch;
+    font-size: 0.98rem;
+}
+
+.chapter-body ul,
+.chapter-body ol,
+.chapter-body table,
+.chapter-body blockquote {
+    max-width: 72ch;
 }
 
 .chapter-body a {
     color: #8c5c45;
     text-decoration: underline;
-    text-decoration-color: rgba(140,92,69,0.35);
+    text-decoration-thickness: 1px;
+    text-decoration-color: rgba(140,92,69,0.32);
     text-underline-offset: 2px;
 }
 
@@ -604,13 +613,13 @@ body {
 /* ─── Code Blocks ──────────────────────────────────────────────────── */
 
 .chapter-body pre {
-    background: #f4eee6;
+    background: #f6f1ea;
     border: 1px solid var(--gray-200);
     border-left: 4px solid #a86a4b;
     border-radius: 6px;
     padding: 1rem 1.2rem;
     font-family: var(--font-mono);
-    font-size: 0.82rem;
+    font-size: 0.84rem;
     line-height: 1.5;
     overflow-x: auto;
     margin: 0.8rem 0;
@@ -619,8 +628,8 @@ body {
 
 .chapter-body code {
     font-family: var(--font-mono);
-    font-size: 0.85rem;
-    background: #f0e7dc;
+    font-size: 0.84rem;
+    background: #efe6db;
     padding: 0.1rem 0.3rem;
     border-radius: 4px;
     color: #7b523d;
@@ -701,7 +710,7 @@ body {
     padding: 0.5rem 0.8rem;
     text-align: left;
     font-weight: 600;
-    font-size: 0.8rem;
+    font-size: 0.79rem;
     letter-spacing: 0.3px;
 }
 
@@ -774,8 +783,9 @@ body {
 
 .chapter-nav-title {
     display: block;
-    font-family: var(--font-serif);
-    font-size: 1rem;
+    font-family: var(--font-sans);
+    font-size: 0.98rem;
+    font-weight: 600;
     color: var(--primary);
     line-height: 1.35;
 }

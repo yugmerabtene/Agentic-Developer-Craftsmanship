@@ -393,7 +393,7 @@ Inversement, vous pouvez exposer les capacités de votre projet opencode via MCP
 
 ## 7. Travaux Pratiques — Serveur MCP (Model Context Protocol)
 
-> **Projet reseau social** : les serveurs MCP (Model Context Protocol) exposes ici permettent aux agents d'interagir avec la base de donnees et les services du projet social defini dans [`projet/gestion_de_projet/cdc.md`](projet/gestion_de_projet/cdc.md).
+> **Projet réseau social** : les serveurs MCP (Model Context Protocol) exposés ici permettent aux agents d'interagir avec la base de données et les services du projet social défini dans [`projet/gestion_de_projet/cdc.md`](projet/gestion_de_projet/cdc.md).
 
 **Objectif :** Créer un serveur MCP (Model Context Protocol) et le connecter à opencode.
 

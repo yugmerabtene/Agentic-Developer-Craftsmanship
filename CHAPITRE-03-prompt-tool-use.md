@@ -483,7 +483,7 @@ Si un outil échoue, explique pourquoi à l'utilisateur.
 
 ## 6. Travaux Pratiques — Assistant CLI (Command Line Interface) avec Outils
 
-> **Projet reseau social** : ce TP s'appuie sur le reseau social defini dans [`projet/gestion_de_projet/cdc.md`](projet/gestion_de_projet/cdc.md). L'assistant CLI (Command Line Interface) que vous allez construire permettra de manipuler les utilisateurs et publications de cette application.
+> **Projet réseau social** : ce TP s'appuie sur le réseau social défini dans [`projet/gestion_de_projet/cdc.md`](projet/gestion_de_projet/cdc.md). L'assistant CLI (Command Line Interface) que vous allez construire permettra de manipuler les utilisateurs et les publications de cette application.
 
 **Objectif :** Créer un assistant en ligne de commande qui utilise des outils (tool use) avec le pattern ReAct (Reasoning + Acting).
 
@@ -504,7 +504,7 @@ Vous devez creer un assistant interactif en ligne de commande avec :
 **Fichiers à créer :**
 - `assistant-cli/assistant.py` — l'assistant avec ses outils
 - `assistant-cli/opencode.json` — configuration pour l'amelioration par agent
-- `assistant-cli/AGENTS.md` — description de l'equipe
+- `assistant-cli/AGENTS.md` — description de l'équipe
 - `assistant-cli/.opencode/skills/common.md` — règles communes de l'agent
 - `assistant-cli/test_assistant.py` — tests automatisés sans dépendance externe
 

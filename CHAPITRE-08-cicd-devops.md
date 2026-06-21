@@ -351,18 +351,18 @@ concurrency:
   cancel-in-progress: true
 ```
 
-Chaque phase est independante et peut etre executee separement. L'option `continue-on-error: true` est utilisee sur les phases non-bloquantes (securite, non-regression) pour ne pas bloquer le pipeline sur des alertes.
+Chaque phase est indépendante et peut être exécutée séparément. L'option `continue-on-error: true` est utilisée sur les phases non bloquantes (sécurité, non-régression) afin de ne pas interrompre le pipeline pour de simples alertes.
 
 ### 3.3 Strategie de Branching
 
-Le pipeline suit le modele **GitFlow simplifie** (ou GitHub Flow enrichi) :
+Le pipeline suit le modèle **GitFlow simplifié** (ou GitHub Flow enrichi) :
 
 ```
-main (production, protegee)
-  └── develop (integration, protegee avec PR obligatoire)
-       ├── feature/ajout-moderation   ← nouvelles fonctionnalites
+main (production, protégée)
+  └── develop (intégration, protégée avec PR obligatoire)
+       ├── feature/ajout-moderation   ← nouvelles fonctionnalités
        ├── fix/correction-auth        ← corrections de bugs
-       └── release/v1.2.0             ← preparation de mise en production
+       └── release/v1.2.0             ← préparation de mise en production
 ```
 
 Regles :
@@ -430,15 +430,15 @@ graph LR
     style B fill:#1e293b,color:#f1f5f9,stroke:#334155
 ```
 
-#### Workflow de suivi (zero token LLM (Large Language Model))
+#### Workflow de suivi (zéro token LLM (Large Language Model))
 
 Le fichier `.github/workflows/track-progress.yml` doit être créé et utilise uniquement la CLI (Command Line Interface) `gh` (pas de LLM (Large Language Model)) pour detecter les fichiers CHAPITRE-*.md modifies et deplacer automatiquement les cartes dans le Scrum board.
 
 Caracteristiques :
-- **Cout : zero token** — bash + gh CLI (Command Line Interface), pas d'appel LLM (Large Language Model)
-- **Temps reel** — execute a chaque push sur main
-- **Automatique** — plus besoin de deplacer les cartes a la main
-- **Filtre par fichier** — seul le chapitre modifie est mis a jour
+- **Coût : zéro token** — bash + gh CLI (Command Line Interface), sans appel à un LLM (Large Language Model)
+- **Temps réel** — exécuté à chaque push sur `main`
+- **Automatique** — plus besoin de déplacer les cartes à la main
+- **Filtre par fichier** — seul le chapitre modifié est mis à jour
 
 ```yaml
 name: Suivi de progression du cours
@@ -714,7 +714,7 @@ Avec opencode + big-pickle (modèle gratuit), le coût est **zéro**. Cette sect
 
 ## 6. Travaux Pratiques — CI/CD (Continuous Integration / Continuous Deployment) pour Agents
 
-> **Projet reseau social** : la chaine CI/CD (Continuous Integration / Continuous Deployment) mise en place ici build, teste et deploie automatiquement le reseau social defini dans [`projet/gestion_de_projet/cdc.md`](projet/gestion_de_projet/cdc.md).
+> **Projet réseau social** : la chaîne CI/CD (Continuous Integration / Continuous Deployment) mise en place ici build, teste et déploie automatiquement le réseau social défini dans [`projet/gestion_de_projet/cdc.md`](projet/gestion_de_projet/cdc.md).
 
 **Objectif :** Mettre en place un pipeline CI/CD (Continuous Integration / Continuous Deployment) complet qui teste et valide des agents automatiquement.
 
