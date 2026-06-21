@@ -169,7 +169,7 @@ Le résultat de `pwd` doit afficher le dossier du TP courant. C'est dans ce doss
 
 ### Phase 1 — Fondamentaux
 
-#### [Chapitre 1 — Histoire & Genèse de l'IA](CHAPITRE-01-histoire-ia.md)
+#### [Chapitre 1 — Introduction](CHAPITRE-01-histoire-ia.md)
 
 | | |
 |---|---|

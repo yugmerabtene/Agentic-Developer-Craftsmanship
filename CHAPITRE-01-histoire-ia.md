@@ -1,4 +1,4 @@
-# Chapitre 1 — Histoire & Genèse de l'Intelligence Artificielle
+# Chapitre 1 — Introduction
 ## Objectifs pédagogiques
 
 - Comprendre les grandes étapes qui ont mené à l'Intelligence Artificielle moderne
